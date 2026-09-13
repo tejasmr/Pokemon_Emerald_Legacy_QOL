@@ -5,6 +5,9 @@ on:
     branches: [ master ]
   pull_request:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -44,6 +47,7 @@ jobs:
           zip -r ${relname}.zip ${relname}/
 
       - name: Publish
+        if: github.event_name == 'push'
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
