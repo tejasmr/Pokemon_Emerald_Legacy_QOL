@@ -12,11 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v7
 
       - name: Install deps
         run: |
-          sudo apt-get install gcc-arm-none-eabi binutils-arm-none-eabi libcapstone-dev libpng-dev
+          sudo apt-get install gcc-arm-none-eabi binutils-arm-none-eabi libcapstone-dev libpng-dev xdelta3
           git clone https://github.com/PikalaxALT/universal-pokemon-randomizer UPR -b fr-support
           cd UPR
           curl -fsSL https://downloads.sourceforge.net/project/launch4j/launch4j-3/3.14/launch4j-3.14-linux-x64.tgz | tar -xzv
@@ -24,7 +24,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v5
         with:
-          distribution: adopt
+          distribution: temurin
           java-version: 8
 
       - name: Install agbcc
@@ -38,16 +38,45 @@ jobs:
         run: |
           make -j${nproc}
 
+      - name: Generate patch
+        env:
+          POKEMON_EMERALD_BASE_ROM_REPOSITORY: ${{ secrets.POKEMON_EMERALD_BASE_ROM_REPOSITORY }}
+          POKEMON_EMERALD_BASE_ROM_PAT: ${{ secrets.POKEMON_EMERALD_BASE_ROM_PAT }}
+          GH_TOKEN: ${{ secrets.POKEMON_EMERALD_BASE_ROM_PAT }}
+        run: |
+          if [ -z "${POKEMON_EMERALD_BASE_ROM_REPOSITORY}" ] || [ -z "${POKEMON_EMERALD_BASE_ROM_PAT}" ]; then
+            echo "POKEMON_EMERALD_BASE_ROM_REPOSITORY and POKEMON_EMERALD_BASE_ROM_PAT must be configured in repository Actions secrets." >&2
+            exit 1
+          fi
+          gh auth setup-git
+          git clone --depth 1 "https://github.com/${POKEMON_EMERALD_BASE_ROM_REPOSITORY}.git" base-rom
+          base_rom=$(find base-rom -type f -iname '*.gba' -print -quit)
+          if [ -z "${base_rom}" ]; then
+            echo "No .gba file was found in ${POKEMON_EMERALD_BASE_ROM_REPOSITORY}." >&2
+            exit 1
+          fi
+          cp "${base_rom}" pokeemerald-base.gba
+          xdelta3 -e -s pokeemerald-base.gba pokeemerald.gba pokemon-emerald-legacy-${GITHUB_REF_NAME}.xdelta
+
       - name: Package Release
         run: |
           export relname=pokemon-emerald-legacy-${GITHUB_REF_NAME}
           mkdir ${relname}
-          cp pokeemerald.gba ${relname}/
+          cp ${relname}.xdelta ${relname}/
           zip -r ${relname}.zip ${relname}/
 
       - name: Publish
-        uses: marvinpinto/action-automatic-releases@latest
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          prerelease: false
-          files: pokemon-emerald-legacy-*.zip
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          if gh release view "${RELEASE_TAG}" > /dev/null 2>&1; then
+            gh release edit "${RELEASE_TAG}" \
+              --title "${RELEASE_TAG}" \
+              --generate-notes
+            gh release upload "${RELEASE_TAG}" pokemon-emerald-legacy-*.zip --clobber
+          else
+            gh release create "${RELEASE_TAG}" pokemon-emerald-legacy-*.zip \
+              --title "${RELEASE_TAG}" \
+              --generate-notes
+          fi
