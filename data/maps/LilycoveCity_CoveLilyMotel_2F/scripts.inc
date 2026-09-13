@@ -17,7 +17,6 @@ LilycoveCity_CoveLilyMotel_2F_EventScript_ShowMeCompletedDex::
 
 LilycoveCity_CoveLilyMotel_2F_EventScript_AllHoennMonsFanfare::
 	setflag FLAG_TEMP_2
-	playfanfare MUS_OBTAIN_ITEM
 	waitfanfare
 	goto LilycoveCity_CoveLilyMotel_2F_EventScript_ShowDiploma
 	end

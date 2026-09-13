@@ -55,7 +55,6 @@ FallarborTown_BattleTentLobby_EventScript_GivePrize::
 	frontier_set FRONTIER_DATA_CHALLENGE_STATUS, 0
 	message FallarborTown_BattleTentLobby_Text_ReceivedPrize
 	waitmessage
-	playfanfare MUS_OBTAIN_ITEM
 	waitfanfare
 	msgbox FallarborTown_BattleTentLobby_Text_AwaitAnotherChallenge2, MSGBOX_DEFAULT
 	closemessage

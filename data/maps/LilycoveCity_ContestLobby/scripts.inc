@@ -103,7 +103,6 @@ LilycoveCity_ContestLobby_EventScript_ReceiveCoolPC::
 	end
 
 LilycoveCity_ContestLobby_EventScript_ReceivedCoolFanfare::
-	playfanfare MUS_OBTAIN_ITEM
 	message LilycoveCity_ContestLobby_Text_PlayerReceivedCoolReward
 	waitmessage
 	waitfanfare
@@ -137,7 +136,6 @@ LilycoveCity_ContestLobby_EventScript_ReceiveBeautyPC::
 	end	
 
 LilycoveCity_ContestLobby_EventScript_ReceivedBeautyFanfare::
-	playfanfare MUS_OBTAIN_ITEM
 	message LilycoveCity_ContestLobby_Text_PlayerReceivedBeautyReward
 	waitmessage
 	waitfanfare
@@ -172,7 +170,6 @@ LilycoveCity_ContestLobby_EventScript_ReceiveCutePC::
 	end
 
 LilycoveCity_ContestLobby_EventScript_ReceivedCuteFanfare::
-	playfanfare MUS_OBTAIN_ITEM
 	message LilycoveCity_ContestLobby_Text_PlayerReceivedCuteReward
 	waitmessage
 	waitfanfare
@@ -206,7 +203,6 @@ LilycoveCity_ContestLobby_EventScript_ReceiveSmartPC::
 	end
 
 LilycoveCity_ContestLobby_EventScript_ReceivedSmartFanfare::
-	playfanfare MUS_OBTAIN_ITEM
 	message LilycoveCity_ContestLobby_Text_PlayerReceivedSmartReward
 	waitmessage
 	waitfanfare
@@ -240,7 +236,6 @@ LilycoveCity_ContestLobby_EventScript_ReceiveToughPC::
 	end
 
 LilycoveCity_ContestLobby_EventScript_ReceivedToughFanfare::
-	playfanfare MUS_OBTAIN_ITEM
 	message LilycoveCity_ContestLobby_Text_PlayerReceivedToughReward
 	waitmessage
 	waitfanfare
@@ -315,7 +310,6 @@ LilycoveCity_ContestLobby_EventScript_ReceivedArtistRibbon::
 	applymovement LOCALID_ARTIST, LilycoveCity_ContestLobby_Movement_ArtistReturnToPlayer
 	waitmovement 0
 	msgbox LilycoveCity_ContestLobby_Text_TakeMementoOfPainting, MSGBOX_DEFAULT
-	playfanfare MUS_OBTAIN_ITEM
 	msgbox LilycoveCity_ContestLobby_Text_ReceivedARibbon, MSGBOX_DEFAULT
 	waitfanfare
 	msgbox LilycoveCity_ContestLobby_Text_PutTheRibbonOnMon, MSGBOX_DEFAULT
@@ -484,7 +478,6 @@ LilycoveCity_ContestLobby_EventScript_ReceivedLinkArtistRibbon::
 	applymovement LOCALID_ARTIST_LINK, LilycoveCity_ContestLobby_Movement_LinkArtistReturnToPlayer
 	waitmovement 0
 	msgbox LilycoveCity_ContestLobby_Text_TakeMementoOfPainting, MSGBOX_DEFAULT
-	playfanfare MUS_OBTAIN_ITEM
 	msgbox LilycoveCity_ContestLobby_Text_ReceivedARibbon, MSGBOX_DEFAULT
 	waitfanfare
 	msgbox LilycoveCity_ContestLobby_Text_PutTheRibbonOnMon, MSGBOX_DEFAULT

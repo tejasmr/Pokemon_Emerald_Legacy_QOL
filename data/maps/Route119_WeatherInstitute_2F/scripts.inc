@@ -118,7 +118,6 @@ Route119_WeatherInstitute_2F_EventScript_SendCastformToPC::
 	end
 
 Route119_WeatherInstitute_2F_EventScript_ReceivedCastformFanfare::
-	playfanfare MUS_OBTAIN_ITEM
 	message Route119_WeatherInstitute_2F_Text_PlayerReceivedCastform
 	waitmessage
 	waitfanfare

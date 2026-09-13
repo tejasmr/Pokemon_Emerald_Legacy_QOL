@@ -65,7 +65,6 @@ Route121_SafariZoneEntrance_EventScript_TryEnterSafariZone::
 	removemoney 500
 	updatemoneybox
 	msgbox Route121_SafariZoneEntrance_Text_HereAreYourSafariBalls, MSGBOX_DEFAULT
-	playfanfare MUS_OBTAIN_ITEM
 	message Route121_SafariZoneEntrance_Text_Received30SafariBalls
 	waitfanfare
 	msgbox Route121_SafariZoneEntrance_Text_PleaseEnjoyYourself, MSGBOX_DEFAULT

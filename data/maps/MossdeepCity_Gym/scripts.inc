@@ -133,7 +133,6 @@ MossdeepCity_Gym_EventScript_TateAndLizaRematchContinue::
 	end
 MossdeepCity_Gym_EventScript_GiveRematchReward::
 	msgbox MossdeepCity_Gym_Text_TateAndLizaGiveRematchReward, MSGBOX_DEFAULT
-	playfanfare MUS_OBTAIN_ITEM
 	giveitem ITEM_KINGS_ROCK, 1
 	waitfanfare
 	goto_if_eq VAR_RESULT, FALSE, MossdeepCity_Gym_EventScript_NoRoom

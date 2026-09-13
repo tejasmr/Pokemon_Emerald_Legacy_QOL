@@ -161,7 +161,6 @@ MauvilleCity_Gym_EventScript_WattsonRematchContinue::
 	end
 MauvilleCity_Gym_EventScript_GiveRematchReward::
 	msgbox MauvilleCity_Gym_Text_WattsonGiveRematchReward, MSGBOX_DEFAULT
-	playfanfare MUS_OBTAIN_ITEM
 	giveitem ITEM_UP_GRADE, 1
 	waitfanfare
 	goto_if_eq VAR_RESULT, FALSE, MauvilleCity_Gym_EventScript_NoRoom

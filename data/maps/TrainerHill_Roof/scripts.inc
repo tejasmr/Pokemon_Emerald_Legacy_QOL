@@ -96,7 +96,6 @@ TrainerHill_Roof_EventScript_SendSnorlaxToPC::
 	end
 
 TrainerHill_Roof_EventScript_ReceivedSnorlaxFanfare::
-	playfanfare MUS_OBTAIN_ITEM
 	message TrainerHill_Roof_Text_PlayerReceivedSnorlax
 	waitmessage
 	waitfanfare

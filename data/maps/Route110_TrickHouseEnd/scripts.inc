@@ -212,7 +212,6 @@ Route110_TrickHouseEnd_EventScript_SendEeveeToPC::
 	end
 
 Route110_TrickHouseEnd_EventScript_ReceivedEeveeFanfare::
-	playfanfare MUS_OBTAIN_ITEM
 	message Route110_TrickHouseEnd_Text_PlayerReceivedEevee
 	waitmessage
 	waitfanfare

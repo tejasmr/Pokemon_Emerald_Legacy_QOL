@@ -33,7 +33,6 @@ BattleFrontier_ReceptionGate_EventScript_FirstTimeEntering::
 BattleFrontier_ReceptionGate_EventScript_ScottScene::
 	msgbox BattleFrontier_ReceptionGate_Text_WelcomeToBattleFrontier, MSGBOX_DEFAULT
 	msgbox BattleFrontier_ReceptionGate_Text_IssueFrontierPass, MSGBOX_DEFAULT
-	playfanfare MUS_OBTAIN_ITEM
 	message BattleFrontier_ReceptionGate_Text_ObtainedFrontierPass
 	waitfanfare
 	waitmessage
