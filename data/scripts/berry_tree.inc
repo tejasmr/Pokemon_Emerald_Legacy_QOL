@@ -120,7 +120,6 @@ BerryTree_EventScript_PickBerry::
 	special IncrementDailyPickedBerries
 	special ObjectEventInteractionRemoveBerryTree
 	message BerryTree_Text_PickedTheBerry
-	playfanfare MUS_OBTAIN_BERRY
 	waitmessage
 	waitfanfare
 	release
