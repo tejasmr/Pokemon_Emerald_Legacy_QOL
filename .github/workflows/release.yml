@@ -16,8 +16,7 @@ jobs:
           sudo apt-get install gcc-arm-none-eabi binutils-arm-none-eabi libcapstone-dev
           git clone https://github.com/PikalaxALT/universal-pokemon-randomizer UPR -b fr-support
           cd UPR
-          curl https://versaweb.dl.sourceforge.net/project/launch4j/launch4j-3/3.14/launch4j-3.14-linux-x64.tgz | tar -xzv
-
+          curl -fsSL https://downloads.sourceforge.net/project/launch4j/launch4j-3/3.14/launch4j-3.14-linux-x64.tgz | tar -xzv
       - name: Setup Java
         uses: actions/setup-java@v2
         with:
