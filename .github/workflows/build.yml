@@ -40,7 +40,6 @@ jobs:
           make -j${nproc}
 
       - name: Generate patch
-        if: github.event_name == 'push'
         env:
           POKEMON_EMERALD_BASE_ROM_REPOSITORY: ${{ secrets.POKEMON_EMERALD_BASE_ROM_REPOSITORY }}
           POKEMON_EMERALD_BASE_ROM_PAT: ${{ secrets.POKEMON_EMERALD_BASE_ROM_PAT }}
