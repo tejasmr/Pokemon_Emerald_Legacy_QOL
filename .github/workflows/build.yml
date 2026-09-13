@@ -57,12 +57,12 @@ jobs:
             exit 1
           fi
           cp "${base_rom}" pokeemerald-base.gba
-          xdelta3 -e -s pokeemerald-base.gba pokeemerald.gba pokemon-emerald-legacy-${GITHUB_SHA}.xdelta
+          xdelta3 -e -s pokeemerald-base.gba pokeemerald.gba pokemon-emerald-legacy-qol-${GITHUB_SHA}.xdelta
 
       - name: Package Release
         if: github.event_name == 'push'
         run: |
-          export relname=pokemon-emerald-legacy-${GITHUB_SHA}
+          export relname=pokemon-emerald-legacy-qol-${GITHUB_SHA}
           mkdir ${relname}
           cp ${relname}.xdelta ${relname}/
           zip -r ${relname}.zip ${relname}/
@@ -77,9 +77,9 @@ jobs:
             gh release edit "${RELEASE_TAG}" \
               --title "${RELEASE_TAG}" \
               --generate-notes
-            gh release upload "${RELEASE_TAG}" pokemon-emerald-legacy-*.zip --clobber
+            gh release upload "${RELEASE_TAG}" pokemon-emerald-legacy-qol-*.zip --clobber
           else
-            gh release create "${RELEASE_TAG}" pokemon-emerald-legacy-*.zip \
+            gh release create "${RELEASE_TAG}" pokemon-emerald-legacy-qol-*.zip \
               --title "${RELEASE_TAG}" \
               --generate-notes
           fi
