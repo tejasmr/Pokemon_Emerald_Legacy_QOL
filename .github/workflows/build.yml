@@ -69,10 +69,18 @@ jobs:
 
       - name: Publish
         if: github.event_name == 'push'
-        uses: marvinpinto/action-automatic-releases@latest
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          automatic_release_tag: "latest"
-          prerelease: true
-          title: "Development Build"
-          files: pokemon-emerald-legacy-*.zip
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          if gh release view "${RELEASE_TAG}" > /dev/null 2>&1; then
+            gh release edit "${RELEASE_TAG}" \
+              --title "${RELEASE_TAG}" \
+              --generate-notes
+            gh release upload "${RELEASE_TAG}" pokemon-emerald-legacy-*.zip --clobber
+          else
+            gh release create "${RELEASE_TAG}" pokemon-emerald-legacy-*.zip \
+              --title "${RELEASE_TAG}" \
+              --generate-notes
+          fi
+
