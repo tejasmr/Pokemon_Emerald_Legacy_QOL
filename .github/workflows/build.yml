@@ -17,7 +17,7 @@ jobs:
 
       - name: Install deps
         run: |
-          sudo apt-get install gcc-arm-none-eabi binutils-arm-none-eabi libcapstone-dev libpng-dev
+          sudo apt-get install gcc-arm-none-eabi binutils-arm-none-eabi libcapstone-dev libpng-dev xdelta3
           git clone https://github.com/PikalaxALT/universal-pokemon-randomizer UPR -b fr-support
           cd UPR
           curl -fsSL https://downloads.sourceforge.net/project/launch4j/launch4j-3/3.14/launch4j-3.14-linux-x64.tgz | tar -xzv
@@ -39,11 +39,21 @@ jobs:
         run: |
           make -j${nproc}
 
+      - name: Generate patch
+        if: github.event_name == 'push'
+        env:
+          POKEMON_EMERALD_BASE_ROM_URL: ${{ secrets.POKEMON_EMERALD_BASE_ROM_URL }}
+        run: |
+          test -n "${POKEMON_EMERALD_BASE_ROM_URL}"
+          curl -fsSL "${POKEMON_EMERALD_BASE_ROM_URL}" -o pokeemerald-base.gba
+          xdelta3 -e -s pokeemerald-base.gba pokeemerald.gba pokemon-emerald-legacy-${GITHUB_SHA}.xdelta
+
       - name: Package Release
+        if: github.event_name == 'push'
         run: |
           export relname=pokemon-emerald-legacy-${GITHUB_SHA}
           mkdir ${relname}
-          cp pokeemerald.gba ${relname}/
+          cp ${relname}.xdelta ${relname}/
           zip -r ${relname}.zip ${relname}/
 
       - name: Publish
