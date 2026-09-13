@@ -428,7 +428,7 @@ static void TextSpeed_DrawChoices(u8 selection)
     styles[1] = 0;
     styles[2] = 0;
     styles[3] = 0;
-    styles[selection] = 1;
+    styles[selection] = 3;
 
     DrawOptionMenuChoice(gText_TextSpeedSlow, 92, YPOS_TEXTSPEED, styles[0]);
 
@@ -460,7 +460,7 @@ static void BattleScene_DrawChoices(u8 selection)
 
     styles[0] = 0;
     styles[1] = 0;
-    styles[selection] = 1;
+    styles[selection] = 0;
 
     DrawOptionMenuChoice(gText_BattleSceneOn, 104, YPOS_BATTLESCENE, styles[0]);
     DrawOptionMenuChoice(gText_BattleSceneOff, GetStringRightAlignXOffset(FONT_NORMAL, gText_BattleSceneOff, 198), YPOS_BATTLESCENE, styles[1]);
