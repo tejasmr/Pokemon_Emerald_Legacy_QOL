@@ -44,13 +44,14 @@ jobs:
         env:
           POKEMON_EMERALD_BASE_ROM_REPOSITORY: ${{ secrets.POKEMON_EMERALD_BASE_ROM_REPOSITORY }}
           POKEMON_EMERALD_BASE_ROM_PAT: ${{ secrets.POKEMON_EMERALD_BASE_ROM_PAT }}
+          GH_TOKEN: ${{ secrets.POKEMON_EMERALD_BASE_ROM_PAT }}
         run: |
           if [ -z "${POKEMON_EMERALD_BASE_ROM_REPOSITORY}" ] || [ -z "${POKEMON_EMERALD_BASE_ROM_PAT}" ]; then
             echo "POKEMON_EMERALD_BASE_ROM_REPOSITORY and POKEMON_EMERALD_BASE_ROM_PAT must be configured in repository Actions secrets." >&2
             exit 1
           fi
-          git -c http.extraheader="AUTHORIZATION: bearer ${POKEMON_EMERALD_BASE_ROM_PAT}" \
-            clone --depth 1 "https://github.com/${POKEMON_EMERALD_BASE_ROM_REPOSITORY}.git" base-rom
+          gh auth setup-git
+          git clone --depth 1 "https://github.com/${POKEMON_EMERALD_BASE_ROM_REPOSITORY}.git" base-rom
           base_rom=$(find base-rom -type f -iname '*.gba' -print -quit)
           if [ -z "${base_rom}" ]; then
             echo "No .gba file was found in ${POKEMON_EMERALD_BASE_ROM_REPOSITORY}." >&2
