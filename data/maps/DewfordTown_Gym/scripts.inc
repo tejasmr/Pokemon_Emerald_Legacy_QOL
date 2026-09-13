@@ -226,7 +226,6 @@ DewfordTown_Gym_EventScript_BrawlyRematchContinue::
 	end
 DewfordTown_Gym_EventScript_GiveRematchReward::
 	msgbox DewfordTown_Gym_Text_BrawlyGiveRematchReward, MSGBOX_DEFAULT
-	playfanfare MUS_OBTAIN_ITEM
 	giveitem ITEM_BRICK_PIECE, 1
 	waitfanfare
 	goto_if_eq VAR_RESULT, FALSE, DewfordTown_Gym_EventScript_NoRoom

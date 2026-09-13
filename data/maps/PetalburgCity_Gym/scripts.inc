@@ -368,7 +368,6 @@ PetalburgCity_Gym_EventScript_NormanRematchContinue::
 	end
 PetalburgCity_Gym_EventScript_GiveRematchReward::
 	msgbox PetalburgCity_Gym_Text_NormanGiveRematchReward, MSGBOX_DEFAULT
-	playfanfare MUS_OBTAIN_ITEM
 	giveitem ITEM_LUCKY_EGG, 1
 	waitfanfare
 	goto_if_eq VAR_RESULT, FALSE, PetalburgCity_Gym_EventScript_NoRoom

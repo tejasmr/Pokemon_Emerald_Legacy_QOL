@@ -131,7 +131,6 @@ BattleFrontier_ScottsHouseEventScript_BeldumTransferredToPC::
 BattleFrontier_ScottsHouseEventScript_ReceivedBeldumFanfare::
 	bufferspeciesname STR_VAR_2, SPECIES_BELDUM
 	removeobject LOCALID_BELDUM_BALL
-	playfanfare MUS_OBTAIN_ITEM
 	message BattleFrontier_ScottsHouse_Text_ObtainedBeldum
 	waitmessage
 	waitfanfare

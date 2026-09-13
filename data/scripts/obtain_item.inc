@@ -73,7 +73,6 @@ EventScript_NoRoomForItem::
 	return
 
 EventScript_PlayFanfareObtainedItem::
-	playfanfare MUS_OBTAIN_ITEM
 	return
 
 EventScript_PlayFanfareObtainedTMHM::
@@ -93,7 +92,6 @@ EventScript_ObtainDecorationMessage::
 	return
 
 EventScript_ObtainedDecor::
-	playfanfare MUS_OBTAIN_ITEM
 	message gText_ObtainedTheDecor
 	waitfanfare
 	msgbox gText_TheDecorWasTransferredToThePC, MSGBOX_DEFAULT

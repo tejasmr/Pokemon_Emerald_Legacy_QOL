@@ -128,7 +128,6 @@ LavaridgeTown_Gym_1F_EventScript_FlanneryRematchContinue::
 	end
 LavaridgeTown_Gym_1F_EventScript_GiveRematchReward::
 	msgbox LavaridgeTown_Gym_1F_Text_FlanneryGiveRematchReward, MSGBOX_DEFAULT
-	playfanfare MUS_OBTAIN_ITEM
 	giveitem ITEM_SACRED_ASH, 5
 	waitfanfare
 	goto_if_eq VAR_RESULT, FALSE, LavaridgeTown_Gym_1F_EventScript_NoRoom

@@ -285,7 +285,6 @@ LavaridgeTown_EventScript_EggWoman::
 	goto_if_eq VAR_RESULT, PARTY_SIZE, LavaridgeTown_EventScript_NoRoomForEgg
 	msgbox LavaridgeTown_Text_HopeYoullWalkPlentyWithEgg, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_LAVARIDGE_EGG
-	playfanfare MUS_OBTAIN_ITEM
 	message LavaridgeTown_Text_ReceivedTheEgg
 	waitfanfare
 	giveegg SPECIES_WYNAUT

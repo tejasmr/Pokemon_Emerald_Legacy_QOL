@@ -94,7 +94,6 @@ FortreeCity_Gym_EventScript_GiveRematchReward::
 	msgbox FortreeCity_Gym_Text_WinonaGiveRematchReward, MSGBOX_DEFAULT
 	getpartysize
 	goto_if_eq VAR_RESULT, PARTY_SIZE, FortreeCity_Gym_EventScript_NoRoom
-	playfanfare MUS_OBTAIN_ITEM
 	message LavaridgeTown_Text_ReceivedTheEgg
 	waitfanfare
 	giveegg SPECIES_TOGEPI

@@ -459,7 +459,6 @@ Route110_TrickHouseEntrance_EventScript_SendEeveeToPC::
 	end
 
 Route110_TrickHouseEntrance_EventScript_ReceivedEeveeFanfare::
-	playfanfare MUS_OBTAIN_ITEM
 	message Route110_TrickHouseEntrance_Text_PlayerReceivedEevee
 	waitmessage
 	waitfanfare
@@ -698,7 +697,6 @@ Route110_TrickHousePuzzle_EventScript_ReadScrollAgain::
 	end
 
 Route110_TrickHousePuzzle_EventScript_FoundScroll::
-	playfanfare MUS_OBTAIN_ITEM
 	message Route110_TrickHousePuzzle_Text_FoundAScroll
 	waitfanfare
 	msgbox Route110_TrickHousePuzzle_Text_MemorizedSecretCode, MSGBOX_DEFAULT

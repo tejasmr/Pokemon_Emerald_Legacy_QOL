@@ -281,7 +281,6 @@ MauvilleCity_GameCorner_EventScript_SendPorygonToPC::
 	goto MauvilleCity_GameCorner_EventScript_Return
 	end
 MauvilleCity_GameCorner_EventScript_ReceivedPorygonFanfare::
-	playfanfare MUS_OBTAIN_ITEM
 	message MauvilleCity_GameCorner_Text_PlayerReceivedPorygon
 	waitmessage
 	waitfanfare
@@ -304,7 +303,6 @@ MauvilleCity_Gym_EventScript_PorygonUpgradePrize::
 	closemessage
 	end
 MauvilleCity_GameCorner_EventScript_GiveUpgrade::
-	playfanfare MUS_OBTAIN_ITEM
 	giveitem ITEM_UP_GRADE, 1
 	waitfanfare
 	goto_if_eq VAR_RESULT, FALSE, MauvilleCity_GameCorner_EventScript_NoRoom

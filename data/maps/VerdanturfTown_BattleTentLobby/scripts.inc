@@ -55,7 +55,6 @@ VerdanturfTown_BattleTentLobby_EventScript_GivePrize::
 	frontier_set FRONTIER_DATA_CHALLENGE_STATUS, 0
 	message BattleFrontier_BattleDomeLobby_Text_ReceivedPrize  @ Odd that it used Dome's copy instead of Palace's
 	waitmessage
-	playfanfare MUS_OBTAIN_ITEM
 	waitfanfare
 	msgbox VerdanturfTown_BattleTentLobby_Text_ReturnFortified, MSGBOX_DEFAULT
 	closemessage

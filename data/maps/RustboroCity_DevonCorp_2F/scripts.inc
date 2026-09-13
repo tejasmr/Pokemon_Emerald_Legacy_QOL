@@ -250,7 +250,6 @@ RustboroCity_DevonCorp_2F_EventScript_TransferLileepToPC::
 
 RustboroCity_DevonCorp_2F_EventScript_ReceivedLileepFanfare::
 	bufferspeciesname STR_VAR_2, SPECIES_LILEEP
-	playfanfare MUS_OBTAIN_ITEM
 	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
 	waitmessage
 	waitfanfare
@@ -295,7 +294,6 @@ RustboroCity_DevonCorp_2F_EventScript_TransferAnorithToPC::
 
 RustboroCity_DevonCorp_2F_EventScript_ReceivedAnorithFanfare::
 	bufferspeciesname STR_VAR_2, SPECIES_ANORITH
-	playfanfare MUS_OBTAIN_ITEM
 	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
 	waitmessage
 	waitfanfare
@@ -340,7 +338,6 @@ RustboroCity_DevonCorp_2F_EventScript_TransferOmanyteToPC::
 
 RustboroCity_DevonCorp_2F_EventScript_ReceivedOmanyteFanfare::
 	bufferspeciesname STR_VAR_2, SPECIES_OMANYTE
-	playfanfare MUS_OBTAIN_ITEM
 	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
 	waitmessage
 	waitfanfare
@@ -385,7 +382,6 @@ RustboroCity_DevonCorp_2F_EventScript_TransferKabutoToPC::
 
 RustboroCity_DevonCorp_2F_EventScript_ReceivedKabutoFanfare::
 	bufferspeciesname STR_VAR_2, SPECIES_KABUTO
-	playfanfare MUS_OBTAIN_ITEM
 	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
 	waitmessage
 	waitfanfare
@@ -430,7 +426,6 @@ RustboroCity_DevonCorp_2F_EventScript_TransferAerodactylToPC::
 
 RustboroCity_DevonCorp_2F_EventScript_ReceivedAerodactylFanfare::
 	bufferspeciesname STR_VAR_2, SPECIES_AERODACTYL
-	playfanfare MUS_OBTAIN_ITEM
 	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
 	waitmessage
 	waitfanfare
