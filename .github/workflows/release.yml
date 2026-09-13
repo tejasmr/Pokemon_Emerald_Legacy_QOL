@@ -60,13 +60,6 @@ jobs:
           cp "${base_rom}" pokeemerald-base.gba
           xdelta3 -e -s pokeemerald-base.gba pokeemerald.gba pokemon-emerald-legacy-qol-${GITHUB_REF_NAME}.xdelta
 
-      - name: Package Release
-        run: |
-          export relname=pokemon-emerald-legacy-qol-${GITHUB_REF_NAME}
-          mkdir ${relname}
-          cp ${relname}.xdelta ${relname}/
-          zip -r ${relname}.zip ${relname}/
-
       - name: Publish
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -88,9 +81,9 @@ jobs:
             gh release edit "${RELEASE_TAG}" \
               --title "${release_title}" \
               --notes "${release_notes}"
-            gh release upload "${RELEASE_TAG}" pokemon-emerald-legacy-qol-*.zip --clobber
+            gh release upload "${RELEASE_TAG}" pokemon-emerald-legacy-qol-*.xdelta --clobber
           else
-            gh release create "${RELEASE_TAG}" pokemon-emerald-legacy-qol-*.zip \
+            gh release create "${RELEASE_TAG}" pokemon-emerald-legacy-qol-*.xdelta \
               --title "${release_title}" \
               --notes "${release_notes}"
           fi
