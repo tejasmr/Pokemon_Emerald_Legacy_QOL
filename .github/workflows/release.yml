@@ -1,0 +1,53 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install deps
+        run: |
+          sudo apt-get install gcc-arm-none-eabi binutils-arm-none-eabi libcapstone-dev libpng-dev
+          git clone https://github.com/PikalaxALT/universal-pokemon-randomizer UPR -b fr-support
+          cd UPR
+          curl -fsSL https://downloads.sourceforge.net/project/launch4j/launch4j-3/3.14/launch4j-3.14-linux-x64.tgz | tar -xzv
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: adopt
+          java-version: 8
+
+      - name: Install agbcc
+        run: |
+          git clone https://github.com/pret/agbcc.git
+          cd agbcc
+          ./build.sh
+          ./install.sh ../
+
+      - name: Build
+        run: |
+          make -j${nproc}
+
+      - name: Package Release
+        run: |
+          export relname=pokemon-emerald-legacy-${GITHUB_REF_NAME}
+          mkdir ${relname}
+          cp pokeemerald.gba ${relname}/
+          zip -r ${relname}.zip ${relname}/
+
+      - name: Publish
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          prerelease: false
+          files: pokemon-emerald-legacy-*.zip
