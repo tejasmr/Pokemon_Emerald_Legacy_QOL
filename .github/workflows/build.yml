@@ -38,9 +38,9 @@ jobs:
 
       - name: Package Release
         run: |
-          export relname=pokemon-firered-speedchoice-${GITHUB_SHA}-plus-randomizer
+          export relname=pokemon-emerald-legacy-${GITHUB_SHA}
           mkdir ${relname}
-          cp -r pokefirered-speedchoice.gba UPR/build/$(date '+%Y%m%d')/* ${relname}/
+          cp pokeemerald.gba ${relname}/
           zip -r ${relname}.zip ${relname}/
 
       - name: Publish
@@ -50,4 +50,4 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: true
           title: "Development Build"
-          files: pokemon-firered-speedchoice-*-plus-randomizer.zip
+          files: pokemon-emerald-legacy-*.zip

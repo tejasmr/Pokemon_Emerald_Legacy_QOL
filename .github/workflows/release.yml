@@ -37,9 +37,9 @@ jobs:
 
       - name: Package Release
         run: |
-          export relname=pokemon-emerald-speedchoice-${GITHUB_REF}-plus-randomizer
+          export relname=pokemon-emerald-legacy-${GITHUB_REF_NAME}
           mkdir ${relname}
-          cp -r pokeemerald-speedchoice.xdelta UPR/build/$(date '+%Y%m%d')/* ${relname}/
+          cp pokeemerald.gba ${relname}/
           zip -r ${relname}.zip ${relname}/
 
       - name: Publish
@@ -47,4 +47,4 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           prerelease: false
-          files: pokemon-emerald-speedchoice-*-plus-randomizer.zip
+          files: pokemon-emerald-legacy-*.zip
