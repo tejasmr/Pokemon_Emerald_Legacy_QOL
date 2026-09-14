@@ -210,6 +210,7 @@ void NewGameInitData(void)
     hardPrev ? FlagSet(FLAG_HARD) : FlagClear(FLAG_HARD);
 
     AddBagItem(ITEM_AUTO_HEALER, 1);
+    FlagSet(FLAG_RECEIVED_RUNNING_SHOES);
 }
 
 static void ResetMiniGamesRecords(void)
