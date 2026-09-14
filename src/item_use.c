@@ -71,7 +71,6 @@ static void Task_UseRepel(u8);
 static void Task_CloseCantUseKeyItemMessage(u8);
 static void SetDistanceOfClosestHiddenItem(u8, s16, s16);
 static void CB2_OpenPokeblockFromBag(void);
-static void DoNothingOnField(u8);
 
 // EWRAM variables
 EWRAM_DATA static void(*sItemUseOnFieldCB)(u8 taskId) = NULL;
@@ -222,12 +221,7 @@ void ItemUseOutOfBattle_AutoHealer(u8 taskId)
 {
     HealPlayerParty();
     StringExpandPlaceholders(gStringVar4, gText_PartyWasRestored);
-    DisplayItemMessageOnField(taskId, gStringVar4, DoNothingOnField);
-}
-
-static void DoNothingOnField(u8 taskId)
-{
-    // do nothing
+    DisplayItemMessage(taskId, FONT_NORMAL, gStringVar4, Task_CloseBagMenu);
 }
 
 static void ItemUseOnFieldCB_Bike(u8 taskId)
