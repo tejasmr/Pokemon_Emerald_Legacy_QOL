@@ -234,8 +234,13 @@ static void ItemUseOnFieldCB_AutoHealer(u8 taskId)
     }
     else
     {
-        DisplayItemMessageOnField(taskId, gStringVar4, Task_CloseCantUseKeyItemMessage);
+        DisplayItemMessageOnField(taskId, gStringVar4, DoNothingOnField);
     }
+}
+
+static void DoNothingOnField(u8 taskId)
+{
+    // do nothing
 }
 
 static void ItemUseOnFieldCB_Bike(u8 taskId)
