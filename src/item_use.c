@@ -221,7 +221,7 @@ void ItemUseOutOfBattle_AutoHealer(u8 taskId)
 {
     HealPlayerParty();
     StringExpandPlaceholders(gStringVar4, gText_PartyWasRestored);
-    DisplayItemMessage(taskId, FONT_NORMAL, gStringVar4, CloseItemMessage);
+    DisplayItemMessage(taskId, FONT_NORMAL, gStringVar4, DoNothingAfterItemCompletion);
 }
 
 static void ItemUseOnFieldCB_Bike(u8 taskId)

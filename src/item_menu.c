@@ -1210,6 +1210,11 @@ void CloseItemMessage(u8 taskId)
     ReturnToItemList(taskId);
 }
 
+void DoNothingAfterItemCompletion(u8 taskId)
+{
+    // This function is intentionally empty
+}
+
 static void AddItemQuantityWindow(u8 windowType)
 {
     PrintItemQuantity(BagMenu_AddWindow(windowType), 1);
