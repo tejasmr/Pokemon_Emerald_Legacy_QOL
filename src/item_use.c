@@ -56,7 +56,6 @@ static void PlayerFaceHiddenItem(u8);
 static void CheckForHiddenItemsInMapConnection(u8);
 static void Task_OpenRegisteredPokeblockCase(u8);
 static void ItemUseOnFieldCB_Bike(u8);
-static void ItemUseOnFieldCB_AutoHealer(u8);
 static void ItemUseOnFieldCB_Rod(u8);
 static void ItemUseOnFieldCB_Itemfinder(u8);
 static void ItemUseOnFieldCB_Berry(u8);
@@ -222,21 +221,8 @@ void ItemUseOutOfBattle_Bike(u8 taskId)
 void ItemUseOutOfBattle_AutoHealer(u8 taskId)
 {
     HealPlayerParty();
-    sItemUseOnFieldCB = ItemUseOnFieldCB_AutoHealer;
-    SetUpItemUseOnFieldCallback(taskId);
-}
-
-static void ItemUseOnFieldCB_AutoHealer(u8 taskId)
-{
     StringExpandPlaceholders(gStringVar4, gText_PartyWasRestored);
-    if (UseRegisteredKeyItemOnField() != TRUE)
-    {
-        DisplayItemMessage(taskId, FONT_NORMAL, gStringVar4, CloseItemMessage);
-    }
-    else
-    {
-        DisplayItemMessageOnField(taskId, gStringVar4, DoNothingOnField);
-    }
+    DisplayItemMessageOnField(taskId, gStringVar4, DoNothingOnField);
 }
 
 static void DoNothingOnField(u8 taskId)
