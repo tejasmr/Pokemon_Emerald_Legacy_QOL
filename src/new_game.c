@@ -208,6 +208,8 @@ void NewGameInitData(void)
     ResetContestLinkResults();
     nuzlockePrev ? FlagSet(FLAG_NUZLOCKE) : FlagClear(FLAG_NUZLOCKE);
     hardPrev ? FlagSet(FLAG_HARD) : FlagClear(FLAG_HARD);
+
+    AddBagItem(ITEM_AUTO_HEALER, 1);
 }
 
 static void ResetMiniGamesRecords(void)
