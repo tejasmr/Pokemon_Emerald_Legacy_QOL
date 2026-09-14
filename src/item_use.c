@@ -228,7 +228,7 @@ void ItemUseOutOfBattle_AutoHealer(u8 taskId)
 static void ItemUseOnFieldCB_AutoHealer(u8 taskId)
 {
     StringExpandPlaceholders(gStringVar4, gText_PartyWasRestored);
-    if (!isUsingRegisteredKeyItemOnField)
+    if (gTasks[taskId].tUsingRegisteredKeyItem != TRUE)
     {
         DisplayItemMessage(taskId, FONT_NORMAL, gStringVar4, CloseItemMessage);
     }
