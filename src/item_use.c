@@ -226,7 +226,7 @@ void ItemUseOutOfBattle_AutoHealer(u8 taskId)
 {
     HealPlayerParty();
     StringExpandPlaceholders(gStringVar4, gText_PartyWasRestored);
-    if (!tUsingRegisteredKeyItem)
+    if (!gTasks[taskId].tUsingRegisteredKeyItem)
     {
         if (!InBattlePyramid())
             DisplayItemMessage(taskId, FONT_NORMAL, gStringVar4, Task_CloseBagMenu);
@@ -235,7 +235,7 @@ void ItemUseOutOfBattle_AutoHealer(u8 taskId)
     }
     else
     {
-        DisplayPartyWasRestoredMessage(taskId, tUsingRegisteredKeyItem);
+        DisplayPartyWasRestoredMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem);
     }
 }
 
