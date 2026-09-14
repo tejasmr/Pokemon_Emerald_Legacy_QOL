@@ -4538,4 +4538,17 @@ const struct Item gItems[] =
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
+
+    [ITEM_AUTO_HEALER] =
+    {
+        .name = _("AUTO HEALER"),
+        .itemId = ITEM_AUTO_HEALER,
+        .price = 0,
+        .description = sAutoHealerDesc,
+        .importance = 1,
+        .registrability = TRUE,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_AutoHealer,
+    },
 };

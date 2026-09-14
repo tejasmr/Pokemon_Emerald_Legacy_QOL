@@ -31,6 +31,7 @@
 #include "pokeblock.h"
 #include "pokemon.h"
 #include "script.h"
+#include "script_pokemon_util.h"
 #include "sound.h"
 #include "strings.h"
 #include "string_util.h"
@@ -213,6 +214,12 @@ void ItemUseOutOfBattle_Bike(u8 taskId)
         else
             DisplayDadsAdviceCannotUseItemMessage(taskId, tUsingRegisteredKeyItem);
     }
+}
+
+
+void ItemUseOutOfBattle_AutoHealer(u8 taskId)
+{
+    HealPlayerParty();
 }
 
 static void ItemUseOnFieldCB_Bike(u8 taskId)
