@@ -901,7 +901,6 @@ LittlerootTown_EventScript_GiveRunningShoes::
 	msgbox LittlerootTown_Text_WearTheseRunningShoes, MSGBOX_DEFAULT
 	message LittlerootTown_Text_SwitchShoesWithRunningShoes
 	waitfanfare
-	setflag FLAG_RECEIVED_RUNNING_SHOES
 	msgbox LittlerootTown_Text_ExplainRunningShoes, MSGBOX_DEFAULT
 	msgbox LittlerootTown_Text_ComeHomeIfAnythingHappens, MSGBOX_DEFAULT
 	closemessage

@@ -10,7 +10,7 @@ LittlerootTown_BrendansHouse_1F_MapScripts::
 
 LittlerootTown_BrendansHouse_1F_OnLoad:
 	call_if_lt VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_BrendansHouse_1F_EventScript_SetMovingBoxes
-	call_if_set FLAG_RECEIVED_RUNNING_SHOES, LittlerootTown_BrendansHouse_1F_EventScript_CheckShowShoesManual
+	call LittlerootTown_BrendansHouse_1F_EventScript_CheckShowShoesManual
 	end
 
 LittlerootTown_BrendansHouse_1F_EventScript_SetMovingBoxes::
