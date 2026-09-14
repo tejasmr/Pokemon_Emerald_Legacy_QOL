@@ -162,6 +162,11 @@ static void DisplayCannotDismountBikeMessage(u8 taskId, bool8 isUsingRegisteredK
     DisplayCannotUseItemMessage(taskId, isUsingRegisteredKeyItemOnField, gText_CantDismountBike);
 }
 
+static void DisplayPartyWasRestoredMessage(u8 taskId, bool8 isUsingRegisteredKeyItemOnField)
+{
+    DisplayCannotUseItemMessage(taskId, isUsingRegisteredKeyItemOnField, gText_PartyWasRestored);
+}
+
 static void Task_CloseCantUseKeyItemMessage(u8 taskId)
 {
     ClearDialogWindowAndFrame(0, TRUE);
@@ -221,7 +226,17 @@ void ItemUseOutOfBattle_AutoHealer(u8 taskId)
 {
     HealPlayerParty();
     StringExpandPlaceholders(gStringVar4, gText_PartyWasRestored);
-    DisplayItemMessage(taskId, FONT_NORMAL, gStringVar4, Task_CloseBagMenu);
+    if (!gTasks[taskId].tUsingRegisteredKeyItem)
+    {
+        if (!InBattlePyramid())
+            DisplayItemMessage(taskId, FONT_NORMAL, gStringVar4, Task_CloseBagMenu);
+        else
+            DisplayItemMessageInBattlePyramid(taskId, gText_DadsAdvice, Task_CloseBattlePyramidBagMessage);
+    }
+    else
+    {
+        DisplayPartyWasRestoredMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem);
+    }
 }
 
 static void ItemUseOnFieldCB_Bike(u8 taskId)
