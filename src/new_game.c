@@ -45,7 +45,6 @@
 #include "mystery_gift.h"
 #include "union_room_chat.h"
 #include "constants/items.h"
-#include "constants/flags.h"
 
 extern const u8 EventScript_ResetAllMapFlags[];
 
@@ -212,6 +211,7 @@ void NewGameInitData(void)
 
     AddBagItem(ITEM_AUTO_HEALER, 1);
     FlagSet(FLAG_RECEIVED_RUNNING_SHOES);
+    FlagSet(FLAG_SYS_B_DASH);
 }
 
 static void ResetMiniGamesRecords(void)
