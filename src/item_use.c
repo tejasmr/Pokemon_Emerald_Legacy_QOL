@@ -225,7 +225,7 @@ void ItemUseOutOfBattle_AutoHealer(u8 taskId)
     SetUpItemUseOnFieldCallback(taskId);
 }
 
-void ItemUseOnFieldCB_AutoHealer(u8 taskId)
+static void ItemUseOnFieldCB_AutoHealer(u8 taskId)
 {
     StringExpandPlaceholders(gStringVar4, gText_PartyWasRestored);
     if (!isUsingRegisteredKeyItemOnField)
