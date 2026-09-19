@@ -2101,6 +2101,55 @@ static const u8 sStatsToRaise[] =
     STAT_ATK, STAT_ATK, STAT_SPEED, STAT_DEF, STAT_SPATK, STAT_ACC
 };
 
+static u16 GetFinalEvolutionSpecies(u16 species)
+{
+    u8 i;
+
+    for (i = 0; i < EVOS_PER_MON; i++)
+    {
+        if (gEvolutionTable[species][i].targetSpecies != SPECIES_NONE)
+            return GetFinalEvolutionSpecies(gEvolutionTable[species][i].targetSpecies);
+    }
+
+    return species;
+}
+
+u8 GetSpeciesPreferredNature(u16 species)
+{
+    u16 finalSpecies = GetFinalEvolutionSpecies(species);
+    u8 type1 = gSpeciesInfo[finalSpecies].types[0];
+    u8 type2 = gSpeciesInfo[finalSpecies].types[1];
+    u8 attack = gSpeciesInfo[finalSpecies].baseAttack;
+    u8 spAttack = gSpeciesInfo[finalSpecies].baseSpAttack;
+    u8 defense = gSpeciesInfo[finalSpecies].baseDefense;
+    u8 spDefense = gSpeciesInfo[finalSpecies].baseSpDefense;
+
+    if (gSpeciesInfo[finalSpecies].baseSpeed < 70)
+        return attack > spAttack ? NATURE_JOLLY : NATURE_TIMID;
+
+    if ((IS_TYPE_PHYSICAL(type1) && IS_TYPE_SPECIAL(type2))
+     || (IS_TYPE_SPECIAL(type1) && IS_TYPE_PHYSICAL(type2)))
+    {
+        u8 lower = attack < spAttack ? attack : spAttack;
+        u8 higher = attack > spAttack ? attack : spAttack;
+
+        if (lower * 100 >= higher * 60)
+        {
+            if (attack > spAttack)
+                return defense >= spDefense ? NATURE_LONELY : NATURE_NAUGHTY;
+            else
+                return defense >= spDefense ? NATURE_MILD : NATURE_RASH;
+        }
+    }
+
+    if (attack > spAttack)
+        return NATURE_ADAMANT;
+    if (attack < spAttack)
+        return NATURE_MODEST;
+
+    return Random() % NUM_NATURES;
+}
+
 // 3 modifiers each for how much to change friendship for different ranges
 // 0-99, 100-199, 200+
 static const s8 sFriendshipEventModifiers[][3] =
@@ -2222,13 +2271,19 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     u32 personality;
     u32 value;
     u16 checksum;
+    u8 preferredNature;
 
     ZeroBoxMonData(boxMon);
 
     if (hasFixedPersonality)
         personality = fixedPersonality;
     else
+    {
+        preferredNature = GetSpeciesPreferredNature(species);
         personality = Random32();
+        while (GetNatureFromPersonality(personality) != preferredNature)
+            personality = Random32();
+    }
 
 SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
 
@@ -2284,7 +2339,9 @@ SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
                     personality = Random32();
                     shinyValue = HIHALF(value) ^ LOHALF(value) ^ HIHALF(personality) ^ LOHALF(personality);
                     rolls++;
-                } while (shinyValue >= SHINY_ODDS && rolls < I_SHINY_CHARM_REROLLS);
+                      } while ((shinyValue >= SHINY_ODDS
+                          || (!hasFixedPersonality && GetNatureFromPersonality(personality) != preferredNature))
+                        && rolls < I_SHINY_CHARM_REROLLS);
             }
 #endif
         }
