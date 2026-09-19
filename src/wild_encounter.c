@@ -578,12 +578,7 @@ static u8 PickWildMonNature(u16 species)
         return GetMonData(&gPlayerParty[0], MON_DATA_PERSONALITY) % NUM_NATURES;
     }
 
-    if (gSpeciesInfo[species].baseAttack > gSpeciesInfo[species].baseSpAttack)
-        return NATURE_ADAMANT;
-    if (gSpeciesInfo[species].baseAttack < gSpeciesInfo[species].baseSpAttack)
-        return NATURE_MODEST;
-
-    return Random() % NUM_NATURES;
+    return GetSpeciesPreferredNature(species);
 }
 
 static void CreateWildMon(u16 species, u8 level)

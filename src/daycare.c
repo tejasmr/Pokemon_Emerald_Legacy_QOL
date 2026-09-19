@@ -953,12 +953,7 @@ static void SetInitialEggData(struct Pokemon *mon, u16 species, struct DayCare *
     }
 
     if (!hasEverstone)
-    {
-        if (gSpeciesInfo[species].baseAttack > gSpeciesInfo[species].baseSpAttack)
-            personality = (personality / NUM_NATURES) * NUM_NATURES + NATURE_ADAMANT;
-        else if (gSpeciesInfo[species].baseAttack < gSpeciesInfo[species].baseSpAttack)
-            personality = (personality / NUM_NATURES) * NUM_NATURES + NATURE_MODEST;
-    }
+        personality = (personality / NUM_NATURES) * NUM_NATURES + GetSpeciesPreferredNature(species);
 
     CreateMon(mon, species, EGG_HATCH_LEVEL, USE_RANDOM_IVS, TRUE, personality, OT_ID_PLAYER_ID, 0);
     metLevel = 0;
