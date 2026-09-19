@@ -3445,6 +3445,9 @@ static void Cmd_getexp(void)
                     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
 
+                    if (FlagGet(FLAG_HARD) || FlagGet(FLAG_NUZLOCKE))
+                        gBattleMoveDamage *= 3;
+
                     if (IsTradedMon(&gPlayerParty[gBattleStruct->expGetterMonId]))
                     {
                         // check if the Pokémon doesn't belong to the player
