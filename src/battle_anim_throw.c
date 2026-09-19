@@ -2215,6 +2215,9 @@ void AnimTask_SetTargetToEffectBattler(u8 taskId)
 
 void TryShinyAnimation(u8 battler, struct Pokemon *mon)
 {
+    if (1) {
+        return;
+    }
     bool8 isShiny;
     u32 otId, personality;
     u32 shinyValue;
