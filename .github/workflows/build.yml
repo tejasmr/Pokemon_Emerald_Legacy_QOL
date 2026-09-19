@@ -65,4 +65,5 @@ jobs:
           name: pokemon-emerald-legacy-qol-${{ github.sha }}
           path: pokemon-emerald-legacy-qol-${{ github.sha }}.xdelta
           if-no-files-found: error
+          archive: false
 
