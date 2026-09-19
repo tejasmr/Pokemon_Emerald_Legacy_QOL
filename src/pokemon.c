@@ -2222,13 +2222,27 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
     u32 personality;
     u32 value;
     u16 checksum;
+    u8 preferredNature = NUM_NATURES;
 
     ZeroBoxMonData(boxMon);
 
     if (hasFixedPersonality)
         personality = fixedPersonality;
     else
+    {
         personality = Random32();
+
+        if (gSpeciesInfo[species].baseAttack >= gSpeciesInfo[species].baseSpAttack)
+            preferredNature = NATURE_ADAMANT;
+        else if (gSpeciesInfo[species].baseAttack < gSpeciesInfo[species].baseSpAttack)
+            preferredNature = NATURE_MODEST;
+
+        if (preferredNature != NUM_NATURES)
+        {
+            while (GetNatureFromPersonality(personality) != preferredNature)
+                personality = Random32();
+        }
+    }
 
 SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
 
@@ -2284,7 +2298,9 @@ SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
                     personality = Random32();
                     shinyValue = HIHALF(value) ^ LOHALF(value) ^ HIHALF(personality) ^ LOHALF(personality);
                     rolls++;
-                } while (shinyValue >= SHINY_ODDS && rolls < I_SHINY_CHARM_REROLLS);
+                } while ((shinyValue >= SHINY_ODDS
+                       || (preferredNature != NUM_NATURES && GetNatureFromPersonality(personality) != preferredNature))
+                      && rolls < I_SHINY_CHARM_REROLLS);
             }
 #endif
         }
