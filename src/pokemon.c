@@ -2328,18 +2328,18 @@ SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
 
         iv = value & MAX_IV_MASK;
         SetBoxMonData(boxMon, MON_DATA_HP_IV, &iv);
-        iv = (value & (MAX_IV_MASK << 5)) >> 5;
+        iv = (value & (MAX_IV_MASK));
         SetBoxMonData(boxMon, MON_DATA_ATK_IV, &iv);
-        iv = (value & (MAX_IV_MASK << 10)) >> 10;
+        iv = (value & (MAX_IV_MASK));
         SetBoxMonData(boxMon, MON_DATA_DEF_IV, &iv);
 
         value = MAX_IV_MASK;
 
         iv = value & MAX_IV_MASK;
         SetBoxMonData(boxMon, MON_DATA_SPEED_IV, &iv);
-        iv = (value & (MAX_IV_MASK << 5)) >> 5;
+        iv = (value & (MAX_IV_MASK));
         SetBoxMonData(boxMon, MON_DATA_SPATK_IV, &iv);
-        iv = (value & (MAX_IV_MASK << 10)) >> 10;
+        iv = (value & (MAX_IV_MASK));
         SetBoxMonData(boxMon, MON_DATA_SPDEF_IV, &iv);
     }
 
