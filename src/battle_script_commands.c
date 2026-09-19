@@ -4046,8 +4046,12 @@ static void Cmd_playanimation(void)
     gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
     argumentPtr = T2_READ_PTR(gBattlescriptCurrInstr + 3);
 
-    if (gBattlescriptCurrInstr[2] == B_ANIM_STATS_CHANGE
-     || gBattlescriptCurrInstr[2] == B_ANIM_SNATCH_MOVE
+    if (gBattlescriptCurrInstr[2] == B_ANIM_STATS_CHANGE)
+    {
+        MarkBattlerForControllerExec(gActiveBattler);
+        gBattlescriptCurrInstr += 7;
+    }
+    else if (gBattlescriptCurrInstr[2] == B_ANIM_SNATCH_MOVE
      || gBattlescriptCurrInstr[2] == B_ANIM_SUBSTITUTE_FADE)
     {
         BtlController_EmitBattleAnimation(BUFFER_A, gBattlescriptCurrInstr[2], *argumentPtr);
@@ -4090,8 +4094,12 @@ static void Cmd_playanimation_var(void)
     animationIdPtr = T2_READ_PTR(gBattlescriptCurrInstr + 2);
     argumentPtr = T2_READ_PTR(gBattlescriptCurrInstr + 6);
 
-    if (*animationIdPtr == B_ANIM_STATS_CHANGE
-     || *animationIdPtr == B_ANIM_SNATCH_MOVE
+    if (*animationIdPtr == B_ANIM_STATS_CHANGE)
+    {
+        MarkBattlerForControllerExec(gActiveBattler);
+        gBattlescriptCurrInstr += 10;
+    }
+    else if (*animationIdPtr == B_ANIM_SNATCH_MOVE
      || *animationIdPtr == B_ANIM_SUBSTITUTE_FADE)
     {
         BtlController_EmitBattleAnimation(BUFFER_A, *animationIdPtr, *argumentPtr);
@@ -4234,7 +4242,6 @@ static void Cmd_playstatchangeanimation(void)
     }
     else if (changeableStatsCount != 0 && !gBattleScripting.statAnimPlayed)
     {
-        BtlController_EmitBattleAnimation(BUFFER_A, B_ANIM_STATS_CHANGE, statAnimId);
         MarkBattlerForControllerExec(gActiveBattler);
         if (gBattlescriptCurrInstr[3] & STAT_CHANGE_MULTIPLE_STATS && changeableStatsCount > 1)
             gBattleScripting.statAnimPlayed = TRUE;
