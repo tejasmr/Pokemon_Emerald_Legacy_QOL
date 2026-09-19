@@ -586,6 +586,7 @@ static void CreateWildMon(u16 species, u8 level)
     bool32 checkCuteCharm;
 
     ZeroEnemyPartyMons();
+    FlagSet(FLAG_SHINY_CREATION);
     checkCuteCharm = TRUE;
 
     switch (gSpeciesInfo[species].genderRatio)
@@ -612,11 +613,11 @@ static void CreateWildMon(u16 species, u8 level)
         else
             gender = MON_FEMALE;
 
-        CreateMonWithGenderNatureLetter(&gEnemyParty[0], species, level, USE_RANDOM_IVS, gender, PickWildMonNature(species), 0, OT_ID_SHINY);
+        CreateMonWithGenderNatureLetter(&gEnemyParty[0], species, level, USE_RANDOM_IVS, gender, PickWildMonNature(species), 0, OT_ID_PLAYER_ID);
         return;
     }
 
-    CreateMonWithNatureAndOTID(&gEnemyParty[0], species, level, USE_RANDOM_IVS, PickWildMonNature(species), OT_ID_SHINY);
+    CreateMonWithNature(&gEnemyParty[0], species, level, USE_RANDOM_IVS, PickWildMonNature(species));
 }
 #define TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildPokemon, type, ability, ptr, count) TryGetAbilityInfluencedWildMonIndex(wildPokemon, type, ability, ptr, count)
 
