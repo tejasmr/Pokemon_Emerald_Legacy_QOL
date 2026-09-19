@@ -2324,7 +2324,7 @@ SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
     else
     {
         u32 iv;
-        value = Random();
+        value = MAX_IV_MASK;
 
         iv = value & MAX_IV_MASK;
         SetBoxMonData(boxMon, MON_DATA_HP_IV, &iv);
@@ -2333,7 +2333,7 @@ SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
         iv = (value & (MAX_IV_MASK << 10)) >> 10;
         SetBoxMonData(boxMon, MON_DATA_DEF_IV, &iv);
 
-        value = Random();
+        value = MAX_IV_MASK;
 
         iv = value & MAX_IV_MASK;
         SetBoxMonData(boxMon, MON_DATA_SPEED_IV, &iv);
