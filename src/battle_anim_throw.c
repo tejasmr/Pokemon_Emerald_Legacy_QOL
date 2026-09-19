@@ -2229,7 +2229,7 @@ void TryShinyAnimation(u8 battler, struct Pokemon *mon)
     {
         shinyValue = GET_SHINY_VALUE(otId, personality);
         if (shinyValue < SHINY_ODDS)
-            isShiny = TRUE;
+            isShiny = FALSE;
 
         if (isShiny)
         {

@@ -76,7 +76,6 @@ EventScript_PlayFanfareObtainedItem::
 	return
 
 EventScript_PlayFanfareObtainedTMHM::
-	playfanfare MUS_OBTAIN_TMHM
 	return
 
 Std_ObtainDecoration::
