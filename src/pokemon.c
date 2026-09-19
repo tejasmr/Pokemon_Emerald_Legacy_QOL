@@ -2124,6 +2124,9 @@ u8 GetSpeciesPreferredNature(u16 species)
     u8 defense = gSpeciesInfo[finalSpecies].baseDefense;
     u8 spDefense = gSpeciesInfo[finalSpecies].baseSpDefense;
 
+    if (gSpeciesInfo[finalSpecies].baseSpeed < 70)
+        return attack > spAttack ? NATURE_JOLLY : NATURE_TIMID;
+
     if ((IS_TYPE_PHYSICAL(type1) && IS_TYPE_SPECIAL(type2))
      || (IS_TYPE_SPECIAL(type1) && IS_TYPE_PHYSICAL(type2)))
     {
