@@ -538,7 +538,7 @@ static u16 GetCurrentMapWildMonHeaderId(void)
     return HEADER_NONE;
 }
 
-static u8 PickWildMonNature(void)
+static u8 PickWildMonNature(u16 species)
 {
     u8 i;
     u8 j;
@@ -578,7 +578,11 @@ static u8 PickWildMonNature(void)
         return GetMonData(&gPlayerParty[0], MON_DATA_PERSONALITY) % NUM_NATURES;
     }
 
-    // random nature
+    if (gSpeciesInfo[species].baseAttack > gSpeciesInfo[species].baseSpAttack)
+        return NATURE_ADAMANT;
+    if (gSpeciesInfo[species].baseAttack < gSpeciesInfo[species].baseSpAttack)
+        return NATURE_MODEST;
+
     return Random() % NUM_NATURES;
 }
 
@@ -613,11 +617,11 @@ static void CreateWildMon(u16 species, u8 level)
         else
             gender = MON_FEMALE;
 
-        CreateMonWithGenderNatureLetter(&gEnemyParty[0], species, level, USE_RANDOM_IVS, gender, PickWildMonNature(), 0, OT_ID_PLAYER_ID);
+        CreateMonWithGenderNatureLetter(&gEnemyParty[0], species, level, USE_RANDOM_IVS, gender, PickWildMonNature(species), 0, OT_ID_PLAYER_ID);
         return;
     }
 
-    CreateMonWithNature(&gEnemyParty[0], species, level, USE_RANDOM_IVS, PickWildMonNature());
+    CreateMonWithNature(&gEnemyParty[0], species, level, USE_RANDOM_IVS, PickWildMonNature(species));
 }
 #define TRY_GET_ABILITY_INFLUENCED_WILD_MON_INDEX(wildPokemon, type, ability, ptr, count) TryGetAbilityInfluencedWildMonIndex(wildPokemon, type, ability, ptr, count)
 
