@@ -2133,7 +2133,7 @@ u8 GetSpeciesPreferredNature(u16 species)
         u8 lower = attack < spAttack ? attack : spAttack;
         u8 higher = attack > spAttack ? attack : spAttack;
 
-        if (lower * 100 <= higher * 60)
+        if (lower * 100 >= higher * 60)
         {
             if (attack > spAttack)
                 return defense >= spDefense ? NATURE_LONELY : NATURE_NAUGHTY;
