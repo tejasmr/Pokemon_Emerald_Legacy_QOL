@@ -29,8 +29,6 @@ jobs:
             echo "No semantic version tag was found." >&2
             exit 1
           fi
-          base_version=${base_version#v}
-          base_version=${base_version#V}
           echo "patch_version=${base_version}+dev${GITHUB_RUN_NUMBER}" >> "${GITHUB_OUTPUT}"
 
       - name: Install deps
