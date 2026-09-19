@@ -939,8 +939,27 @@ static void SetInitialEggData(struct Pokemon *mon, u16 species, struct DayCare *
     u16 ball;
     u8 metLevel;
     u8 language;
+    s32 i;
+    bool8 hasEverstone = FALSE;
 
     personality = daycare->offspringPersonality;
+    for (i = 0; i < DAYCARE_MON_COUNT; i++)
+    {
+        if (GetBoxMonData(&daycare->mons[i].mon, MON_DATA_HELD_ITEM) == ITEM_EVERSTONE)
+        {
+            hasEverstone = TRUE;
+            break;
+        }
+    }
+
+    if (!hasEverstone)
+    {
+        if (gSpeciesInfo[species].baseAttack > gSpeciesInfo[species].baseSpAttack)
+            personality = (personality / NUM_NATURES) * NUM_NATURES + NATURE_ADAMANT;
+        else if (gSpeciesInfo[species].baseAttack < gSpeciesInfo[species].baseSpAttack)
+            personality = (personality / NUM_NATURES) * NUM_NATURES + NATURE_MODEST;
+    }
+
     CreateMon(mon, species, EGG_HATCH_LEVEL, USE_RANDOM_IVS, TRUE, personality, OT_ID_PLAYER_ID, 0);
     metLevel = 0;
     ball = ITEM_POKE_BALL;
