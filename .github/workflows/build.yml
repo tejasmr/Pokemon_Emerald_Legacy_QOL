@@ -14,6 +14,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Generate patch version
+        id: version
+        run: |
+          base_version=$(git tag --list '[vV][0-9]*' --sort=-version:refname | head -n 1)
+          if [ -z "${base_version}" ]; then
+            echo "No semantic version tag was found." >&2
+            exit 1
+          fi
+          base_version=${base_version#v}
+          base_version=${base_version#V}
+          echo "patch_version=${base_version}+dev${GITHUB_RUN_NUMBER}" >> "${GITHUB_OUTPUT}"
 
       - name: Install deps
         run: |
@@ -57,13 +71,13 @@ jobs:
             exit 1
           fi
           cp "${base_rom}" pokeemerald-base.gba
-          xdelta3 -e -s pokeemerald-base.gba pokeemerald.gba pokemon-emerald-legacy-qol-${GITHUB_SHA}.xdelta
+          xdelta3 -e -s pokeemerald-base.gba pokeemerald.gba pokemon-emerald-legacy-qol-${{ steps.version.outputs.patch_version }}.xdelta
 
       - name: Upload xdelta artifact
         uses: actions/upload-artifact@v7
         with:
-          name: pokemon-emerald-legacy-qol-${{ github.sha }}
-          path: pokemon-emerald-legacy-qol-${{ github.sha }}.xdelta
+          name: pokemon-emerald-legacy-qol-${{ steps.version.outputs.patch_version }}
+          path: pokemon-emerald-legacy-qol-${{ steps.version.outputs.patch_version }}.xdelta
           if-no-files-found: error
           archive: false
 
