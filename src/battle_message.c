@@ -3049,6 +3049,9 @@ void BattlePutTextOnWindow(const u8 *text, u8 windowId)
         gTextFlags.canABSpeedUpPrint = 0;
     }
 
+    if (windowId == B_WIN_MSG || windowId == ARENA_WIN_JUDGMENT_TEXT)
+        speed /= 2;
+
     AddTextPrinter(&printerTemplate, speed, NULL);
 
     if (copyToVram)
