@@ -249,7 +249,7 @@ static void Intro_WaitForShinyAnimAndHealthbox(void)
             FreeSpritePaletteByTag(ANIM_TAG_GOLD_STARS);
         }
 
-        gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].introEndDelay = 3;
+        gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].introEndDelay = 1;
         gBattlerControllerFuncs[gActiveBattler] = Intro_DelayAndEnd;
     }
 }

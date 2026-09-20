@@ -237,7 +237,7 @@ static void Intro_WaitForShinyAnimAndHealthbox(void)
             if (IsDoubleBattle())
                 HandleLowHpMusicChange(&gPlayerParty[gBattlerPartyIndexes[BATTLE_PARTNER(gActiveBattler)]], BATTLE_PARTNER(gActiveBattler));
 
-            gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].introEndDelay = 3;
+            gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].introEndDelay = 1;
             gBattlerControllerFuncs[gActiveBattler] = Intro_DelayAndEnd;
         }
     }
@@ -262,7 +262,7 @@ static void Intro_WaitForShinyAnimAndHealthbox(void)
 
         if (healthboxAnimDone)
         {
-            gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].introEndDelay = 3;
+            gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].introEndDelay = 1;
             gBattlerControllerFuncs[gActiveBattler] = Intro_DelayAndEnd;
         }
     }

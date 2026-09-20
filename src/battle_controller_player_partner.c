@@ -240,7 +240,7 @@ static void Intro_WaitForHealthbox(void)
 
     if (finished)
     {
-        gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].introEndDelay = 3;
+        gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].introEndDelay = 1;
         gBattlerControllerFuncs[gActiveBattler] = Intro_DelayAndEnd;
     }
 }
