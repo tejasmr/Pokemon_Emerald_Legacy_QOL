@@ -1782,7 +1782,7 @@ static void PlayerPartnerHandleIntroTrainerBallThrow(void)
 
     SetSpritePrimaryCoordsFromSecondaryCoords(&gSprites[gBattlerSpriteIds[gActiveBattler]]);
 
-    gSprites[gBattlerSpriteIds[gActiveBattler]].data[0] = 50;
+    gSprites[gBattlerSpriteIds[gActiveBattler]].data[0] = 25;
     gSprites[gBattlerSpriteIds[gActiveBattler]].data[2] = -40;
     gSprites[gBattlerSpriteIds[gActiveBattler]].data[4] = gSprites[gBattlerSpriteIds[gActiveBattler]].y;
     gSprites[gBattlerSpriteIds[gActiveBattler]].callback = StartAnimLinearTranslation;
@@ -1818,7 +1818,7 @@ static void PlayerPartnerHandleIntroTrainerBallThrow(void)
 
 static void Task_StartSendOutAnim(u8 taskId)
 {
-    if (gTasks[taskId].data[1] < 24)
+    if (gTasks[taskId].data[1] < 1)
     {
         gTasks[taskId].data[1]++;
     }

@@ -991,7 +991,7 @@ static void SpriteCB_ReleaseMon2FromBall(struct Sprite *sprite)
 static void SpriteCB_OpponentMonSendOut(struct Sprite *sprite)
 {
     sprite->data[0]++;
-    if (sprite->data[0] > 15)
+    if (sprite->data[0] > 3)
     {
         sprite->data[0] = 0;
         if (IsDoubleBattle() && gBattleSpritesDataPtr->animationData->introAnimActive

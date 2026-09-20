@@ -1862,7 +1862,7 @@ static void OpponentHandleIntroTrainerBallThrow(void)
 
     SetSpritePrimaryCoordsFromSecondaryCoords(&gSprites[gBattlerSpriteIds[gActiveBattler]]);
 
-    gSprites[gBattlerSpriteIds[gActiveBattler]].data[0] = 35;
+    gSprites[gBattlerSpriteIds[gActiveBattler]].data[0] = 18;
     gSprites[gBattlerSpriteIds[gActiveBattler]].data[2] = 280;
     gSprites[gBattlerSpriteIds[gActiveBattler]].data[4] = gSprites[gBattlerSpriteIds[gActiveBattler]].y;
     gSprites[gBattlerSpriteIds[gActiveBattler]].callback = StartAnimLinearTranslation;
