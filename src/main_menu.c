@@ -485,8 +485,8 @@ static const struct MenuAction sMenuActions_Gender[] = {
 };
 
 static const struct MenuAction sMenuActions_Nuzlocke[] = {
-    {gText_Normal, NULL},
     {gText_Hard, NULL},
+    {gText_Normal, NULL},
     {gText_Hardcore, NULL}
 };
 
@@ -1625,7 +1625,7 @@ static void Task_NewGameBirchSpeech_ChooseNuzlocke(u8 taskId)
     int nuzlocke = NewGameBirchSpeech_ProcessNuzlockeMenuInput();
     switch (nuzlocke)
     {
-        case 0:
+        case 1:
             NewGameBirchSpeech_ClearNuzlockeWindow(3, 1);
             PlaySE(SE_SELECT);
             FlagClear(FLAG_HARD);
@@ -1633,7 +1633,7 @@ static void Task_NewGameBirchSpeech_ChooseNuzlocke(u8 taskId)
             gTasks[taskId].func = Task_NewGameBirchSpeech_NormalText;
             break;
     
-        case 1:
+        case 0:
             NewGameBirchSpeech_ClearNuzlockeWindow(3, 1);
             PlaySE(SE_SELECT);
             FlagSet(FLAG_HARD);
