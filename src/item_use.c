@@ -834,7 +834,6 @@ void ItemUseOutOfBattle_TMHM(u8 taskId)
 
 static void BootUpSoundTMHM(u8 taskId)
 {
-    PlaySE(SE_PC_LOGIN);
     gTasks[taskId].func = Task_ShowTMHMContainedMessage;
 }
 
