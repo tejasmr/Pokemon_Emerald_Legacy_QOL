@@ -107,13 +107,13 @@ EverGrandeCity_PokemonLeague_1F_EventScript_DoorGuard::
 	call_if_le VAR_TEMP_0, 8, EverGrandeCity_PokemonLeague_1F_EventScript_PlayerMoveToFrontFromLeft
 	message EverGrandeCity_PokemonLeague_1F_Text_MustHaveAllGymBadges
 	waitmessage
-	delay 120
+	delay 5
 	goto_if_unset FLAG_BADGE06_GET, EverGrandeCity_PokemonLeague_1F_EventScript_NotAllBadges
 	closemessage
 	applymovement LOCALID_GUARD_1, EverGrandeCity_PokemonLeague_1F_Movement_LeftGuardOutOfWay
 	applymovement LOCALID_GUARD_2, EverGrandeCity_PokemonLeague_1F_Movement_RightGuardOutOfWay
 	waitmovement 0
-	delay 10
+	delay 5
 	playfanfare MUS_OBTAIN_BADGE
 	message EverGrandeCity_PokemonLeague_1F_Text_GoForth
 	waitmessage

@@ -56,7 +56,7 @@ LittlerootTown_BrendansHouse_2F_EventScript_RivalsPokeBall::
 	end
 
 LittlerootTown_BrendansHouse_2F_EventScript_MeetBrendan::
-	delay 10
+	delay 5
 	addobject LOCALID_RIVAL
 	applymovement LOCALID_RIVAL, LittlerootTown_BrendansHouse_2F_Movement_BrendanEnters
 	waitmovement 0
@@ -65,7 +65,7 @@ LittlerootTown_BrendansHouse_2F_EventScript_MeetBrendan::
 	waitmovement 0
 	applymovement LOCALID_RIVAL, Common_Movement_Delay48
 	waitmovement 0
-	delay 10
+	delay 5
 	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
 	call_if_eq VAR_FACING, DIR_NORTH, LittlerootTown_BrendansHouse_2F_EventScript_MeetBrendanNorth
 	call_if_eq VAR_FACING, DIR_SOUTH, LittlerootTown_BrendansHouse_2F_EventScript_MeetBrendanSouth

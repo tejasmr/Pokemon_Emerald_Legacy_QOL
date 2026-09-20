@@ -118,7 +118,7 @@ MossdeepCity_EventScript_TeamMagmaEnterSpaceCenter::
 	removeobject LOCALID_GRUNT_2
 	removeobject LOCALID_GRUNT_3
 	removeobject LOCALID_GRUNT_4
-	delay 30
+	delay 5
 	setvar VAR_MOSSDEEP_CITY_STATE, 2
 	setflag FLAG_HIDE_MOSSDEEP_CITY_TEAM_MAGMA
 	releaseall
@@ -352,7 +352,7 @@ MossdeepCity_SceneWithBirch_Text_JirachiAppears::
 	waitmovement 0
 	applymovement LOCALID_BIRCH, Common_Movement_FaceUp
 	playmoncry SPECIES_JIRACHI, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	msgbox MossdeepCity_Text_Jirachi, MSGBOX_DEFAULT
 	closemessage
@@ -366,19 +366,19 @@ MossdeepCity_SceneWithBirch_Text_JirachiAppears::
 	setvar VAR_0x8006, 20  @ num shakes
 	setvar VAR_0x8007, 5   @ shake delay
 	special ShakeCamera
-	delay 20
+	delay 5
 	applymovement LOCALID_BIRCH, MossdeepCity_Movement_Spinning1
 	applymovement LOCALID_GIRL, MossdeepCity_Movement_Spinning2
-	delay 80
+	delay 5
 	fadescreen FADE_TO_WHITE
-	delay 120
+	delay 5
 	applymovement LOCALID_JIRACHI, MossdeepCity_Movement_JirachiJump
 	waitmovement 0
 	fadescreen FADE_FROM_WHITE
 	applymovement LOCALID_JIRACHI, MossdeepCity_Movement_JirachiJump
 	waitmovement 0
 	playmoncry SPECIES_JIRACHI, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	special Overworld_PlaySpecialMapMusic
 	msgbox MossdeepCity_Text_Jirachi, MSGBOX_DEFAULT
@@ -412,7 +412,7 @@ MossdeepCity_SceneWithBirch_Text_JirachiAppears::
 	applymovement LOCALID_BIRCH, Common_Movement_FaceLeft
 	msgbox MossdeepCity_Text_BirchAreYouReady, MSGBOX_DEFAULT
 	playmoncry SPECIES_JIRACHI, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	setvar VAR_LAST_TALKED, LOCALID_JIRACHI
 	seteventmon SPECIES_JIRACHI, 30

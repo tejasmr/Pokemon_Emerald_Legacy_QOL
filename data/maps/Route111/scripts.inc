@@ -116,16 +116,16 @@ Route111_EventScript_MirageTowerDisappear::
 	lockall
 	special StartMirageTowerShake
 	waitstate
-	delay 24
+	delay 5
 	playse SE_FALL
 	addobject LOCALID_ROUTE111_PLAYER_FALLING
 	special StartPlayerDescendMirageTower
 	waitstate
 	showobjectat OBJ_EVENT_ID_PLAYER, MAP_LITTLEROOT_TOWN
 	removeobject LOCALID_ROUTE111_PLAYER_FALLING
-	delay 16
+	delay 5
 	turnobject OBJ_EVENT_ID_PLAYER, DIR_NORTH
-	delay 16
+	delay 5
 	special StartMirageTowerDisintegration
 	waitstate
 	special StartMirageTowerFossilFallAndSink

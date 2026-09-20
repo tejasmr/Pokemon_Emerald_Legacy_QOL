@@ -35,7 +35,7 @@ EverGrandeCity_HallOfFame_EventScript_EnterHallOfFameWallace::
 	applymovement LOCALID_WALLACE, EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame2
 	applymovement OBJ_EVENT_ID_PLAYER, EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame2
 	waitmovement 0
-	delay 20
+	delay 5
 	applymovement LOCALID_WALLACE, Common_Movement_WalkInPlaceFasterRight
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
@@ -58,7 +58,7 @@ EverGrandeCity_HallOfFame_EventScript_EnterHallOfFameSteven::
 	applymovement LOCALID_STEVEN, EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame2
 	applymovement OBJ_EVENT_ID_PLAYER, EverGrandeCity_HallOfFame_Movement_WalkIntoHallOfFame2
 	waitmovement 0
-	delay 20
+	delay 5
 	applymovement LOCALID_STEVEN, Common_Movement_WalkInPlaceFasterRight
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
@@ -71,10 +71,10 @@ EverGrandeCity_HallOfFame_EventScript_EnterHallOfFameSteven::
 EverGrandeCity_HallOfFame_EventScript_FinishEnterHallOfFame::
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
-	delay 20
+	delay 5
 	dofieldeffect FLDEFF_HALL_OF_FAME_RECORD
 	waitfieldeffect FLDEFF_HALL_OF_FAME_RECORD
-	delay 40
+	delay 5
 	setvar VAR_TEMP_1, 1
 	call EverGrandeCity_HallOfFame_EventScript_SetGameClearFlags @ sets event flag
 	checkplayergender

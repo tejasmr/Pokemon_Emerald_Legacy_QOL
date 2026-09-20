@@ -176,7 +176,7 @@ Route120_EventScript_StevenBattleKecleon::
 	call_if_eq VAR_FACING, DIR_WEST, Route120_EventScript_PlayerApproachKecleonWest
 	applymovement LOCALID_STEVEN, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
-	delay 20
+	delay 5
 	msgbox Route120_Text_StevenUsedDevonScope, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_BRIDGE_KECLEON, Common_Movement_WalkInPlaceFasterRight
@@ -185,7 +185,7 @@ Route120_EventScript_StevenBattleKecleon::
 	waitmovement 0
 	waitse
 	playmoncry SPECIES_KECLEON, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	setwildbattle SPECIES_KECLEON, 30
 	setvar VAR_0x8009, 0
@@ -218,10 +218,10 @@ Route120_EventScript_StevenGiveDeconScope::
 	closemessage
 	applymovement LOCALID_STEVEN, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
-	delay 50
+	delay 5
 	setfieldeffectargument 0, 1
 	dofieldeffect FLDEFF_NPCFLY_OUT
-	delay 15
+	delay 5
 	removeobject LOCALID_STEVEN
 	waitfieldeffect FLDEFF_NPCFLY_OUT
 	setmetatile 13, 15, METATILE_Fortree_WoodBridge1_Top, FALSE

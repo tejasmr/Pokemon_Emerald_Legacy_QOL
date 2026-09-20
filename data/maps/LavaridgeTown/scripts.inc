@@ -49,7 +49,7 @@ LavaridgeTown_EventScript_RivalGiveGoGoggles::
 	getplayerxy VAR_0x8008, VAR_0x8009
 	call_if_eq VAR_0x8008, 9, LavaridgeTown_EventScript_RivalNoticePlayer
 	call_if_ne VAR_0x8008, 9, LavaridgeTown_EventScript_RivalExitHerbShop
-	delay 20
+	delay 5
 	checkplayergender
 	call_if_eq VAR_RESULT, MALE, LavaridgeTown_EventScript_PlayMayMusic
 	call_if_eq VAR_RESULT, FEMALE, LavaridgeTown_EventScript_PlayBrendanMusic
@@ -114,7 +114,7 @@ LavaridgeTown_EventScript_RivalExit::
 	closemessage
 	removeobject LOCALID_RIVAL
 	addobject LOCALID_RIVAL_ON_BIKE
-	delay 30
+	delay 5
 	call_if_eq VAR_0x8008, 9, LavaridgeTown_EventScript_RivalExit1
 	call_if_ne VAR_0x8008, 9, LavaridgeTown_EventScript_RivalExit2
 	removeobject LOCALID_RIVAL_ON_BIKE

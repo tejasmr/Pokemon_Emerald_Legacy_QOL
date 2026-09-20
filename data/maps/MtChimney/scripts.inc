@@ -59,7 +59,7 @@ MtChimney_EventScript_Maxie::
 	trainerbattle_no_intro TRAINER_MAXIE_MT_CHIMNEY, MtChimney_Text_MaxieDefeat
 	msgbox MtChimney_Text_MaxieYouHaventSeenLastOfMagma, MSGBOX_DEFAULT
 	closemessage
-	delay 30
+	delay 5
 	fadescreen FADE_TO_BLACK
 	removeobject LOCALID_MAXIE
 	removeobject LOCALID_MAGMA_GRUNT_1

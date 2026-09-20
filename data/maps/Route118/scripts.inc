@@ -93,7 +93,7 @@ Route118_EventScript_StevenTrigger::
 	playse SE_LEDGE
 	applymovement LOCALID_STEVEN, Route118_Movement_StevenJumpLedge
 	waitmovement 0
-	delay 30
+	delay 5
 	msgbox Route118_Text_StevenQuestions, MSGBOX_DEFAULT
 	closemessage
 	call_if_eq VAR_0x8008, 0, Route118_EventScript_StevenExit0

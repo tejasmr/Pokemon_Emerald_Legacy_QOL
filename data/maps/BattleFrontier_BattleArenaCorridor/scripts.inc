@@ -9,7 +9,7 @@ BattleFrontier_BattleArenaCorridor_OnFrame:
 	.2byte 0
 
 BattleFrontier_BattleArenaCorridor_EventScript_WalkToBattleRoom::
-	delay 16
+	delay 5
 	setvar VAR_TEMP_0, 1
 	applymovement LOCALID_ATTENDANT, BattleFrontier_BattleArenaCorridor_Movement_AttendantWalkToDoor
 	applymovement OBJ_EVENT_ID_PLAYER, BattleFrontier_BattleArenaCorridor_Movement_PlayerWalkToDoor

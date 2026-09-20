@@ -100,7 +100,7 @@ PetalburgCity_Gym_EventScript_ReturnFromWallyTutorial::
 	playse SE_EXIT
 	removeobject LOCALID_WALLY
 	setflag FLAG_HIDE_PETALBURG_CITY_WALLY
-	delay 30
+	delay 5
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
 	msgbox PetalburgCity_Gym_Text_DadGoCollectBadges, MSGBOX_DEFAULT
@@ -443,14 +443,14 @@ PetalburgCity_Gym_EventScript_NormanBattle::
 	call PetalburgCity_Gym_EventScript_UnlockAllDoors
 	special DrawWholeMapView
 	call PetalburgCity_Gym_EventScript_GiveFacade
-	delay 30
+	delay 5
 	msgbox PetalburgCity_Gym_Text_DadHappyAndSad, MSGBOX_DEFAULT
 	closemessage
 	setflag FLAG_HIDE_LAVARIDGE_POKEMON_CENTER_BRENDAN
 	setflag FLAG_HIDE_LAVARIDGE_POKEMON_CENTER_MAY
-	delay 40
+	delay 5
 	playse SE_DOOR
-	delay 10
+	delay 5
 	addobject LOCALID_WALLYS_DAD
 	switch VAR_FACING
 	case DIR_NORTH, PetalburgCity_Gym_EventScript_WallysDadArrivesNorth
@@ -485,13 +485,13 @@ PetalburgCity_Gym_EventScript_WallysDadArrives::
 	waitmovement 0
 	applymovement LOCALID_WALLYS_DAD, Common_Movement_Delay48
 	waitmovement 0
-	delay 10
+	delay 5
 	call_if_eq VAR_0x8008, 1, PetalburgCity_Gym_EventScript_WallysDadApproachPlayerNorth
 	call_if_eq VAR_0x8008, 2, PetalburgCity_Gym_EventScript_WallysDadApproachPlayerEast
 	call_if_eq VAR_0x8008, 3, PetalburgCity_Gym_EventScript_WallysDadApproachPlayerWest
 	msgbox PetalburgCity_Gym_Text_PleaseComeWithMe, MSGBOX_DEFAULT
 	closemessage
-	delay 20
+	delay 5
 	call_if_eq VAR_0x8008, 1, PetalburgCity_Gym_EventScript_WallysDadFaceNormanNorth
 	call_if_eq VAR_0x8008, 2, PetalburgCity_Gym_EventScript_WallysDadFaceNormanEast
 	call_if_eq VAR_0x8008, 3, PetalburgCity_Gym_EventScript_WallysDadFaceNormanWest
@@ -800,7 +800,7 @@ PetalburgCity_Gym_EventScript_SpeedRoomDoor::
 
 PetalburgCity_Gym_EventScript_EnterRoom::
 	closemessage
-	delay 30
+	delay 5
 	warpdoor MAP_PETALBURG_CITY_GYM, VAR_0x8008, VAR_0x8009
 	waitstate
 	releaseall

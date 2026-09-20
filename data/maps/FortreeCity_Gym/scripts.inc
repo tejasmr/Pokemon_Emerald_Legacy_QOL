@@ -52,11 +52,11 @@ FortreeCity_Gym_EventScript_WinonaDefeated::
 	call Common_EventScript_SetGymTrainers
 	call FortreeCity_Gym_EventScript_GiveAerialAce
 	closemessage
-	delay 30
+	delay 5
 	msgbox FortreeCity_Gym_Text_RegisteredWinona, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage
-	delay 30
+	delay 5
 	setflag FLAG_ENABLE_WINONA_MATCH_CALL
 	setvar VAR_SCOTT_FORTREE_CALL_STEP_COUNTER, 0
 	setflag FLAG_SCOTT_CALL_FORTREE_GYM

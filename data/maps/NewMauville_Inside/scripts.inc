@@ -51,7 +51,7 @@ NewMauville_Inside_EventScript_TryRemoveZapdos::
 
 NewMauville_Inside_EventScript_Zapdos::
 	playmoncry SPECIES_ZAPDOS, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	setvar VAR_LAST_TALKED, LOCALID_ZAPDOS
 	seteventmon SPECIES_ZAPDOS, 50
@@ -233,7 +233,7 @@ NewMauville_Inside_EventScript_Voltorb1::
 	setwildbattle SPECIES_VOLTORB, 25
 	waitse
 	playmoncry SPECIES_VOLTORB, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
 	dowildbattle
@@ -257,7 +257,7 @@ NewMauville_Inside_EventScript_Voltorb2::
 	setwildbattle SPECIES_VOLTORB, 25
 	waitse
 	playmoncry SPECIES_VOLTORB, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
 	dowildbattle
@@ -281,7 +281,7 @@ NewMauville_Inside_EventScript_Voltorb3::
 	setwildbattle SPECIES_VOLTORB, 25
 	waitse
 	playmoncry SPECIES_VOLTORB, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
 	dowildbattle

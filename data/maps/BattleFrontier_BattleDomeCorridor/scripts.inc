@@ -9,7 +9,7 @@ BattleFrontier_BattleDomeCorridor_OnFrame:
 	.2byte 0
 
 BattleFrontier_BattleDomeCorridor_EventScript_EnterCorridor::
-	delay 16
+	delay 5
 	setvar VAR_TEMP_0, 1
 	frontier_get FRONTIER_DATA_LVL_MODE
 	goto_if_eq VAR_RESULT, FRONTIER_LVL_OPEN, BattleFrontier_BattleDomeCorridor_EventScript_WalkToBattleRoomLvOpen

@@ -220,12 +220,12 @@ SootopolisCity_EventScript_StartLegendariesScene::
 	end
 
 SootopolisCity_EventScript_LegendariesSceneFromPokeCenter::
-	delay 60
+	delay 5
 	special SpawnCameraObject
 	applymovement OBJ_EVENT_ID_CAMERA, SootopolisCity_Movement_PanToActionFromPokeCenter
 	waitmovement 0
 	special RemoveCameraObject
-	delay 60
+	delay 5
 	fadescreenspeed FADE_TO_BLACK, 8
 	setweather WEATHER_ABNORMAL
 	doweather
@@ -235,7 +235,7 @@ SootopolisCity_EventScript_LegendariesSceneFromPokeCenter::
 	applymovement LOCALID_KYOGRE, Common_Movement_WalkInPlaceFasterLeft
 	applymovement LOCALID_GROUDON, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
-	delay 60
+	delay 5
 	waitse
 	playmoncry SPECIES_KYOGRE, CRY_MODE_ENCOUNTER
 	applymovement LOCALID_KYOGRE, SootopolisCity_Movement_KyogreAttack
@@ -320,12 +320,12 @@ SootopolisCity_Movement_PanBackToPokeCenter:
 	step_end
 
 SootopolisCity_EventScript_LegendariesSceneFromDive::
-	delay 60
+	delay 5
 	special SpawnCameraObject
 	applymovement OBJ_EVENT_ID_CAMERA, SootopolisCity_Movement_PanToActionFromDive
 	waitmovement 0
 	special RemoveCameraObject
-	delay 60
+	delay 5
 	fadescreenspeed FADE_TO_BLACK, 8
 	setweather WEATHER_ABNORMAL
 	doweather
@@ -335,7 +335,7 @@ SootopolisCity_EventScript_LegendariesSceneFromDive::
 	applymovement LOCALID_KYOGRE, Common_Movement_WalkInPlaceFasterLeft
 	applymovement LOCALID_GROUDON, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
-	delay 60
+	delay 5
 	waitse
 	playmoncry SPECIES_KYOGRE, CRY_MODE_ENCOUNTER
 	applymovement LOCALID_KYOGRE, SootopolisCity_Movement_KyogreAttack
@@ -509,12 +509,12 @@ SootopolisCity_EventScript_StartRayquazaScene::
 	end
 
 SootopolisCity_EventScript_RayquazaSceneFromPokeCenter::
-	delay 60
+	delay 5
 	special SpawnCameraObject
 	applymovement OBJ_EVENT_ID_CAMERA, SootopolisCity_Movement_PanToActionFromPokeCenter
 	waitmovement 0
 	special RemoveCameraObject
-	delay 60
+	delay 5
 	fadescreenspeed FADE_TO_BLACK, 8
 	call SootopolisCity_EventScript_SetRoughWater
 	removeobject LOCALID_GROUDON
@@ -555,19 +555,19 @@ SootopolisCity_EventScript_RayquazaSceneFromPokeCenter::
 	setvar VAR_SKY_PILLAR_STATE, 3
 	clearflag FLAG_LEGENDARIES_IN_SOOTOPOLIS
 	fadenewbgm MUS_SOOTOPOLIS
-	delay 120
+	delay 5
 	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	warpwhitefade MAP_SOOTOPOLIS_CITY, 43, 32
 	waitstate
 	end
 
 SootopolisCity_EventScript_RayquazaSceneFromDive::
-	delay 60
+	delay 5
 	special SpawnCameraObject
 	applymovement OBJ_EVENT_ID_CAMERA, SootopolisCity_Movement_PanToActionFromDive
 	waitmovement 0
 	special RemoveCameraObject
-	delay 60
+	delay 5
 	fadescreenspeed FADE_TO_BLACK, 8
 	call SootopolisCity_EventScript_SetRoughWater
 	removeobject LOCALID_GROUDON
@@ -608,7 +608,7 @@ SootopolisCity_EventScript_RayquazaSceneFromDive::
 	setvar VAR_SKY_PILLAR_STATE, 2
 	clearflag FLAG_LEGENDARIES_IN_SOOTOPOLIS
 	fadenewbgm MUS_SURF
-	delay 120
+	delay 5
 	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	warpwhitefade MAP_SOOTOPOLIS_CITY, 29, 53
 	waitstate
@@ -984,7 +984,7 @@ SootopolisCity_EventScript_StevenLeadPlayerCaveOfOrigin::
 	applymovement LOCALID_STEVEN, SootopolisCity_Movement_StevenWalkToCaveOfOrigin
 	applymovement OBJ_EVENT_ID_PLAYER, SootopolisCity_Movement_PlayerWalkToCaveOfOrigin
 	waitmovement 0
-	delay 120
+	delay 5
 	applymovement LOCALID_EXPERT, SootopolisCity_Movement_ExpertMoveAside
 	waitmovement 0
 	applymovement LOCALID_STEVEN, SootopolisCity_Movement_StevenArriveCaveEntrance
@@ -1440,7 +1440,7 @@ SootopolisCity_EventScript_MayProfessor::
 	applymovement LOCALID_MAY, Common_Movement_ExclamationMark
 	waitmovement 0
 	applymovement LOCALID_MAY, Common_Movement_FaceUp
-	delay 80
+	delay 5
 	waitmovement 0
 	msgbox SootopolisCity_Text_MayBecomingProfessor, MSGBOX_DEFAULT
 	closemessage

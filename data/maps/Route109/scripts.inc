@@ -41,7 +41,7 @@ Route109_EventScript_DoSailToDewford::
 	applymovement LOCALID_BOAT_R109, Route109_Movement_SailToDewford
 	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_SailToDewford
 	waitmovement 0
-	delay 50
+	delay 5
 	call Common_EventScript_StopBrineysBoatMusic
 	showobjectat OBJ_EVENT_ID_PLAYER, MAP_DEWFORD_TOWN
 	applymovement OBJ_EVENT_ID_PLAYER, Route109_Movement_PlayerExitBoat

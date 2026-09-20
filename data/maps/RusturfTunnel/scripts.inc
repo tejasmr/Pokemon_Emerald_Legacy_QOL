@@ -314,7 +314,7 @@ RusturfTunnel_EventScript_Grunt::
 	applymovement LOCALID_GRUNT, RusturfTunnel_Movement_GruntEscape
 	waitmovement 0
 	removeobject LOCALID_GRUNT
-	delay 50
+	delay 5
 	addobject LOCALID_BRINEY
 	applymovement LOCALID_BRINEY, RusturfTunnel_Movement_BrineyApproachPeeko1
 	waitmovement 0

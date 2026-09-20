@@ -143,9 +143,9 @@ LittlerootTown_BrendansHouse_1F_EventScript_MeetRival2::
 
 LittlerootTown_BrendansHouse_1F_EventScript_MeetRival::
 	playse SE_EXIT
-	delay 10
+	delay 5
 	addobject LOCALID_RIVAL
-	delay 30
+	delay 5
 	playse SE_PIN
 	applymovement LOCALID_RIVAL, Common_Movement_ExclamationMark
 	waitmovement 0
@@ -166,7 +166,7 @@ LittlerootTown_BrendansHouse_1F_EventScript_MeetRival::
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_BRENDAN
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F_POKE_BALL
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_BEDROOM
-	delay 30
+	delay 5
 	setvar VAR_LITTLEROOT_RIVAL_STATE, 3
 	setvar VAR_LITTLEROOT_TOWN_STATE, 1
 	savebgm MUS_DUMMY

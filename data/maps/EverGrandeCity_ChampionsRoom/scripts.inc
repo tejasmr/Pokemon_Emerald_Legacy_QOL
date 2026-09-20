@@ -34,7 +34,7 @@ EverGrandeCity_ChampionsRoom_EventScript_EnterRoom::
 	lockall
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp4
 	waitmovement 0
-	delay 40
+	delay 5
 	applymovement OBJ_EVENT_ID_PLAYER, EverGrandeCity_ChampionsRoom_Movement_PlayerApproachWallace
 	waitmovement 0
 	setvar VAR_TEMP_1, 1
@@ -83,7 +83,7 @@ EverGrandeCity_ChampionsRoom_EventScript_PlayBrendanMusic::
 
 EverGrandeCity_ChampionsRoom_EventScript_MayAdvice::
 	msgbox EverGrandeCity_ChampionsRoom_Text_MayAdvice, MSGBOX_DEFAULT
-	delay 40
+	delay 5
 	playse SE_PIN
 	applymovement LOCALID_RIVAL, Common_Movement_ExclamationMark
 	waitmovement 0
@@ -96,7 +96,7 @@ EverGrandeCity_ChampionsRoom_EventScript_MayAdvice::
 
 EverGrandeCity_ChampionsRoom_EventScript_BrendanAdvice::
 	msgbox EverGrandeCity_ChampionsRoom_Text_BrendanAdvice, MSGBOX_DEFAULT
-	delay 40
+	delay 5
 	playse SE_PIN
 	applymovement LOCALID_RIVAL, Common_Movement_ExclamationMark
 	waitmovement 0
@@ -123,18 +123,18 @@ EverGrandeCity_ChampionsRoom_EventScript_BirchArrivesExitForHoF::
 EverGrandeCity_ChampionsRoom_EventScript_StevenGoToHOF::
 	applymovement LOCALID_STEVEN, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
-	delay 20
+	delay 5
 	applymovement LOCALID_STEVEN, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
 	msgbox EverGrandeCity_ChampionsRoom_Text_StevenComeWithMe, MSGBOX_DEFAULT
 	closemessage
-	delay 30
+	delay 5
 	applymovement LOCALID_STEVEN, EverGrandeCity_ChampionsRoom_Movement_WallaceExitStart
 	applymovement OBJ_EVENT_ID_PLAYER, EverGrandeCity_ChampionsRoom_Movement_PlayerExitStart
 	applymovement LOCALID_BIRCH, Common_Movement_WalkInPlaceFasterUp
 	applymovement LOCALID_RIVAL, EverGrandeCity_ChampionsRoom_Movement_RivalFollows
 	waitmovement 0
-	delay 20
+	delay 5
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
 	msgbox EverGrandeCity_ChampionsRoom_Text_StevenWaitOutside, MSGBOX_DEFAULT
@@ -223,18 +223,18 @@ EverGrandeCity_ChampionsRoom_EventScript_RematchBirchArrivesExitForHoF::
 EverGrandeCity_ChampionsRoom_EventScript_WallaceGoToHOF::
 	applymovement LOCALID_WALLACE, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
-	delay 20
+	delay 5
 	applymovement LOCALID_WALLACE, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
 	msgbox EverGrandeCity_ChampionsRoom_Text_RematchWallaceComeWithMe, MSGBOX_DEFAULT
 	closemessage
-	delay 30
+	delay 5
 	applymovement LOCALID_WALLACE, EverGrandeCity_ChampionsRoom_Movement_WallaceExitStart
 	applymovement OBJ_EVENT_ID_PLAYER, EverGrandeCity_ChampionsRoom_Movement_PlayerExitStart
 	applymovement LOCALID_BIRCH, Common_Movement_WalkInPlaceFasterUp
 	applymovement LOCALID_RIVAL, EverGrandeCity_ChampionsRoom_Movement_RivalFollows
 	waitmovement 0
-	delay 20
+	delay 5
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
 	checkplayergender

@@ -89,12 +89,12 @@ BattleFrontier_BattleDomeBattleRoom_EventScript_Draw::
 	closemessage
 	playse SE_M_ENCORE2
 	call BattleFrontier_BattleDomeBattleRoom_EventScript_AudienceLookAround
-	delay 60
+	delay 5
 	applymovement LOCALID_REFEREE, BattleFrontier_BattleDomeBattleRoom_Movement_RefereeEnter
 	waitmovement 0
 	applymovement LOCALID_ANNOUNCER, BattleFrontier_BattleDomeBattleRoom_Movement_AnnouncerFaceLeft
 	waitmovement 0
-	delay 180
+	delay 5
 	applymovement LOCALID_REFEREE, BattleFrontier_BattleDomeBattleRoom_Movement_RefereeExit
 	waitmovement 0
 	goto_if_eq VAR_TEMP_2, DRAW_TUCKER, BattleFrontier_BattleDomeBattleRoom_EventScript_LostToOpponent @ Tucker always wins on a draw
@@ -110,7 +110,7 @@ BattleFrontier_BattleDomeBattleRoom_EventScript_LostToOpponent::
 	call_if_eq VAR_TEMP_2, DRAW_TUCKER, BattleFrontier_BattleDomeBattleRoom_EventScript_TuckerWonDraw
 	playse SE_M_ENCORE2
 	call BattleFrontier_BattleDomeBattleRoom_EventScript_AudienceLookAround
-	delay 60
+	delay 5
 BattleFrontier_BattleDomeBattleRoom_EventScript_LostTourney::
 	dome_resolvewinners DOME_PLAYER_LOST_MATCH
 BattleFrontier_BattleDomeBattleRoom_EventScript_WarpToLobbyLost::
@@ -141,7 +141,7 @@ BattleFrontier_BattleDomeBattleRoom_EventScript_DefeatedOpponent::
 	call_if_eq VAR_TEMP_2, DRAW_TRAINER, BattleFrontier_BattleDomeBattleRoom_EventScript_PlayerWonDraw
 	playse SE_M_ENCORE2
 	call BattleFrontier_BattleDomeBattleRoom_EventScript_AudienceLookAround
-	delay 60
+	delay 5
 	dome_getroundtext
 	dome_resolvewinners DOME_PLAYER_WON_MATCH
 	frontier_get FRONTIER_DATA_BATTLE_NUM
@@ -168,7 +168,7 @@ BattleFrontier_BattleDomeBattleRoom_EventScript_CelebrateWin::
 	special DoDomeConfetti
 	playse SE_M_ENCORE2
 	call BattleFrontier_BattleDomeBattleRoom_EventScript_AudienceLookAround
-	delay 60
+	delay 5
 	frontier_set FRONTIER_DATA_CHALLENGE_STATUS, CHALLENGE_STATUS_WON
 	goto BattleFrontier_BattleDomeBattleRoom_EventScript_WarpToLobby
 
@@ -800,7 +800,7 @@ BattleFrontier_BattleDomeBattleRoom_EventScript_AudienceLookAround::
 	turnvobject 26, DIR_EAST
 	turnvobject 28, DIR_EAST
 	turnvobject 30, DIR_EAST
-	delay 20
+	delay 5
 	turnvobject 0, DIR_SOUTH
 	turnvobject 2, DIR_SOUTH
 	turnvobject 4, DIR_SOUTH
@@ -817,7 +817,7 @@ BattleFrontier_BattleDomeBattleRoom_EventScript_AudienceLookAround::
 	turnvobject 26, DIR_SOUTH
 	turnvobject 28, DIR_SOUTH
 	turnvobject 30, DIR_SOUTH
-	delay 20
+	delay 5
 	turnvobject 1, DIR_EAST
 	turnvobject 3, DIR_EAST
 	turnvobject 5, DIR_EAST
@@ -833,7 +833,7 @@ BattleFrontier_BattleDomeBattleRoom_EventScript_AudienceLookAround::
 	turnvobject 25, DIR_EAST
 	turnvobject 27, DIR_WEST
 	turnvobject 31, DIR_WEST
-	delay 20
+	delay 5
 	turnvobject 1, DIR_SOUTH
 	turnvobject 3, DIR_SOUTH
 	turnvobject 5, DIR_SOUTH
@@ -849,7 +849,7 @@ BattleFrontier_BattleDomeBattleRoom_EventScript_AudienceLookAround::
 	turnvobject 25, DIR_SOUTH
 	turnvobject 27, DIR_SOUTH
 	turnvobject 31, DIR_SOUTH
-	delay 20
+	delay 5
 	return
 
 BattleFrontier_BattleDomeBattleRoom_EventScript_WarpToLobby::

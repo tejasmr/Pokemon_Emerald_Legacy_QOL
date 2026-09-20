@@ -9,7 +9,7 @@ BattleFrontier_BattlePalaceCorridor_OnFrame:
 	.2byte 0
 
 BattleFrontier_BattlePalaceCorridor_EventScript_WalkThroughCorridor::
-	delay 16
+	delay 5
 	applymovement LOCALID_ATTENDANT, BattleFrontier_BattlePalaceCorridor_Movement_EnterCorridor
 	applymovement OBJ_EVENT_ID_PLAYER, BattleFrontier_BattlePalaceCorridor_Movement_EnterCorridor
 	waitmovement 0

@@ -72,7 +72,7 @@ BattleFrontier_OutsideWest_EventScript_BoardFerry::
 	closemessage
 	applymovement VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
-	delay 30
+	delay 5
 	hideobjectat LOCALID_FERRY_ATTENDANT, MAP_BATTLE_FRONTIER_OUTSIDE_WEST
 	setvar VAR_0x8004, LOCALID_SS_TIDAL
 	call Common_EventScript_FerryDepartIsland
@@ -142,7 +142,7 @@ BattleFrontier_OutsideWest_EventScript_FactoryChallengersTalk::
 	waitmovement 0
 	msgbox BattleFrontier_OutsideWest_Text_BigGuySaidIllLendYouMons, MSGBOX_DEFAULT
 	closemessage
-	delay 25
+	delay 5
 	applymovement LOCALID_MANIAC_1, Common_Movement_WalkInPlaceFasterUp
 	applymovement LOCALID_MANIAC_2, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
@@ -152,7 +152,7 @@ BattleFrontier_OutsideWest_EventScript_FactoryChallengersTalk::
 BattleFrontier_OutsideWest_EventScript_Camper::
 	lock
 	faceplayer
-	delay 20
+	delay 5
 	call_if_eq VAR_FACING, DIR_NORTH, BattleFrontier_OutsideWest_EventScript_CamperFaceFactory
 	call_if_eq VAR_FACING, DIR_SOUTH, BattleFrontier_OutsideWest_EventScript_CamperAlreadyFacingFactory
 	call_if_eq VAR_FACING, DIR_WEST, BattleFrontier_OutsideWest_EventScript_CamperFaceFactory
@@ -335,7 +335,7 @@ BattleFrontier_OutsideWest_EventScript_PokefanF::
 BattleFrontier_OutsideWest_EventScript_Raikou::
 	faceplayer
 	playmoncry SPECIES_RAIKOU, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	applymovement LOCALID_RAIKOU2, BattleFrontier_OutsideWest_Movement_Raikou
 	waitmovement 0

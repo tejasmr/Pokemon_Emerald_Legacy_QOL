@@ -118,11 +118,11 @@ MauvilleCity_Gym_EventScript_WattsonDefeated::
 	playse SE_UNLOCK
 	call MauvilleCity_Gym_EventScript_GiveShockWave
 	closemessage
-	delay 30
+	delay 5
 	msgbox MauvilleCity_Gym_Text_RegisteredWattson, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage
-	delay 30
+	delay 5
 	setflag FLAG_ENABLE_WATTSON_MATCH_CALL
 	release
 	end

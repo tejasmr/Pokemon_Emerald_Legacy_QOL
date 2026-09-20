@@ -14,7 +14,7 @@ MagmaHideout_4F_EventScript_Maxie::
 	playbgm MUS_ENCOUNTER_MAGMA, FALSE
 	msgbox MagmaHideout_4F_Text_MaxieAwakenGroudon, MSGBOX_DEFAULT
 	closemessage
-	delay 20
+	delay 5
 	setvar VAR_RESULT, 1
 	playse SE_M_DETECT
 	dofieldeffectsparkle 18, 42, 0
@@ -25,11 +25,11 @@ MagmaHideout_4F_EventScript_Maxie::
 	special DoOrbEffect
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
-	delay 150
+	delay 5
 	removeobject LOCALID_GROUDON_SLEEPING
 	addobject LOCALID_GROUDON
 	waitstate
-	delay 60
+	delay 5
 	applymovement LOCALID_GROUDON, MagmaHideout_4F_Movement_GroudonApproach
 	waitmovement 0
 	special FadeOutOrbEffect
@@ -50,14 +50,14 @@ MagmaHideout_4F_EventScript_Maxie::
 	setvar VAR_0x8007, 5  @ shake delay
 	special ShakeCamera
 	waitstate
-	delay 30
+	delay 5
 	applymovement LOCALID_MAXIE, MagmaHideout_4F_Movement_MaxieLookAround
 	waitmovement 0
 	msgbox MagmaHideout_4F_Text_MaxieGroudonWhatsWrong, MSGBOX_DEFAULT
 	closemessage
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
-	delay 30
+	delay 5
 	applymovement LOCALID_MAXIE, Common_Movement_FacePlayer
 	waitmovement 0
 	msgbox MagmaHideout_4F_Text_MaxieOhItWasYou, MSGBOX_DEFAULT

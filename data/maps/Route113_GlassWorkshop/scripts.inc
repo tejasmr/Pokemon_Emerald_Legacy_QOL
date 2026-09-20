@@ -188,7 +188,7 @@ Route113_GlassWorkshop_EventScript_MakeGlassItem::
 	closemessage
 	fadescreen FADE_TO_BLACK
 	playse SE_SELECT
-	delay 30
+	delay 5
 	fadescreen FADE_FROM_BLACK
 	msgbox Route113_GlassWorkshop_Text_IveFinishedGlassItem, MSGBOX_DEFAULT
 	call_if_eq VAR_0x8009, 0, Route113_GlassWorkshop_EventScript_GiveGlassFlute

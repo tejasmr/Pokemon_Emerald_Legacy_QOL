@@ -134,7 +134,7 @@ FallarborTown_BattleTentBattleRoom_EventScript_ContinueChallenge::
 	waitstate
 
 FallarborTown_BattleTentBattleRoom_EventScript_WarpToLobbyWon::
-	delay 60
+	delay 5
 	frontier_set FRONTIER_DATA_CHALLENGE_STATUS, CHALLENGE_STATUS_WON
 	special LoadPlayerParty
 	warp MAP_FALLARBOR_TOWN_BATTLE_TENT_LOBBY, 6, 6

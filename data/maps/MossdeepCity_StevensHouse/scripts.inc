@@ -45,7 +45,7 @@ MossdeepCity_StevensHouse_EventScript_StevenGivesDive::
 	setflag FLAG_OMIT_DIVE_FROM_STEVEN_LETTER
 	msgbox MossdeepCity_StevensHouse_Text_ExplainDive, MSGBOX_DEFAULT
 	closemessage
-	delay 20
+	delay 5
 	applymovement LOCALID_STEVEN, MossdeepCity_StevensHouse_Movement_StevenReturn
 	waitmovement 0
 	setflag FLAG_HIDE_MOSSDEEP_CITY_SCOTT

@@ -307,13 +307,13 @@ LilycoveCity_Harbor_EventScript_ExitFirstTimeTicketSailSelect::
 	closemessage
 	applymovement LOCALID_FERRY_SAILOR, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
-	delay 30
+	delay 5
 	removeobject LOCALID_FERRY_SAILOR
-	delay 30
+	delay 5
 	applymovement LOCALID_ATTENDANT, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
 	showobjectat LOCALID_ATTENDANT, MAP_LILYCOVE_CITY_HARBOR
-	delay 30
+	delay 5
 	msgbox LilycoveCity_Harbor_Text_SailAnotherTime, MSGBOX_DEFAULT
 	release
 	end
@@ -321,11 +321,11 @@ LilycoveCity_Harbor_EventScript_ExitFirstTimeTicketSailSelect::
 LilycoveCity_Harbor_EventScript_GetEventTicketSailor::
 	applymovement VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
-	delay 30
+	delay 5
 	hideobjectat VAR_LAST_TALKED, MAP_LILYCOVE_CITY_HARBOR
-	delay 60
+	delay 5
 	addobject LOCALID_FERRY_SAILOR
-	delay 30
+	delay 5
 	applymovement LOCALID_FERRY_SAILOR, Common_Movement_FacePlayer
 	waitmovement 0
 	return
@@ -333,11 +333,11 @@ LilycoveCity_Harbor_EventScript_GetEventTicketSailor::
 LilycoveCity_Harbor_EventScript_BoardFerryWithSailor::
 	applymovement LOCALID_FERRY_SAILOR, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
-	delay 30
+	delay 5
 	removeobject LOCALID_FERRY_SAILOR
 	call_if_eq VAR_FACING, DIR_NORTH, LilycoveCity_Harbor_EventScript_PlayerBoardFerryNorth
 	call_if_eq VAR_FACING, DIR_EAST, LilycoveCity_Harbor_EventScript_PlayerBoardFerryEast
-	delay 30
+	delay 5
 	hideobjectat OBJ_EVENT_ID_PLAYER, 0
 	setvar VAR_0x8004, LOCALID_SS_TIDAL
 	call Common_EventScript_FerryDepart
@@ -393,11 +393,11 @@ LilycoveCity_Harbor_EventScript_BoardFerry::
 	closemessage
 	applymovement VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
-	delay 30
+	delay 5
 	hideobjectat VAR_LAST_TALKED, MAP_LILYCOVE_CITY_HARBOR
 	call_if_eq VAR_FACING, DIR_NORTH, LilycoveCity_Harbor_EventScript_PlayerBoardFerryNorth
 	call_if_eq VAR_FACING, DIR_EAST, LilycoveCity_Harbor_EventScript_PlayerBoardFerryEast
-	delay 30
+	delay 5
 	hideobjectat OBJ_EVENT_ID_PLAYER, 0
 	setvar VAR_0x8004, LOCALID_SS_TIDAL
 	call Common_EventScript_FerryDepart

@@ -36,7 +36,7 @@ ShoalCave_LowTideIceRoom_EventScript_TryRemoveArticuno::
 
 ShoalCave_LowTideIceRoom_EventScript_Articuno::
 	playmoncry SPECIES_ARTICUNO, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	setvar VAR_LAST_TALKED, LOCALID_ARTICUNO
 	seteventmon SPECIES_ARTICUNO, 50

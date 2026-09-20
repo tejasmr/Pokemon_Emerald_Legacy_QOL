@@ -631,7 +631,7 @@ LilycoveCity_ContestLobby_EventScript_LeadToContestHall::
 	setmetatile 12, 2, METATILE_Contest_CounterFlap_Top, TRUE
 	setmetatile 12, 3, METATILE_Contest_CounterFlap_Bottom, TRUE
 	special DrawWholeMapView
-	delay 20
+	delay 5
 	applymovement LOCALID_RECEPTIONIST, LilycoveCity_ContestLobby_Movement_ReceptionistFacePlayer
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, LilycoveCity_ContestLobby_Movement_PlayerApproachReceptionist
@@ -1108,7 +1108,7 @@ LilycoveCity_ContestLobby_EventScript_LinkLeaderDecided::
 LilycoveCity_ContestLobby_EventScript_LeadToLinkContestHall::
 	messageautoscroll LilycoveCity_ContestLobby_Text_ContestBeginShortly
 	waitmessage
-	delay 20
+	delay 5
 	closemessage
 	applymovement LOCALID_LINK_RECEPTIONIST, LilycoveCity_ContestLobby_Movement_LinkReceptionistApproachCounter
 	waitmovement 0
@@ -1122,14 +1122,14 @@ LilycoveCity_ContestLobby_EventScript_LeadToLinkContestHall::
 	setmetatile 17, 2, METATILE_Contest_CounterFlap_Top, TRUE
 	setmetatile 17, 3, METATILE_Contest_CounterFlap_Bottom, TRUE
 	special DrawWholeMapView
-	delay 20
+	delay 5
 	applymovement LOCALID_LINK_RECEPTIONIST, LilycoveCity_ContestLobby_Movement_LinkReceptionistFacePlayer
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, LilycoveCity_ContestLobby_Movement_PlayerApproachLinkReceptionist
 	waitmovement 0
 	messageautoscroll LilycoveCity_ContestLobby_Text_ComeThroughHere
 	waitmessage
-	delay 20
+	delay 5
 	closemessage
 	call LilycoveCity_ContestLobby_EventScript_DelayIfContestWithRSPlayer
 	applymovement LOCALID_LINK_RECEPTIONIST, LilycoveCity_ContestLobby_Movement_LinkReceptionistWalkToContestHall

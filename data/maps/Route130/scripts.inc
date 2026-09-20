@@ -18,7 +18,7 @@ Route130_EventScript_Celebi1::
 	fadescreen FADE_FROM_WHITE
 	waitmovement 0
 	playmoncry SPECIES_CELEBI, CRY_MODE_ENCOUNTER
-	delay 80
+	delay 5
 	waitmoncry
 	fadescreen FADE_TO_WHITE
 	removeobject LOCALID_CELEBI
@@ -42,13 +42,13 @@ Route130_EventScript_Celebi2::
 	fadescreen FADE_FROM_WHITE
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceLeft
 	playmoncry SPECIES_CELEBI, CRY_MODE_ENCOUNTER
-	delay 80
+	delay 5
 	waitmoncry
 	fadescreen FADE_TO_WHITE
 	removeobject LOCALID_CELEBI
 	special Script_FadeOutMapMusic
 	fadescreen FADE_FROM_WHITE
-	delay 150
+	delay 5
 
 	fadescreen FADE_TO_WHITE
 	setobjectxyperm LOCALID_CELEBI, 38, 9
@@ -57,13 +57,13 @@ Route130_EventScript_Celebi2::
 	fadescreen FADE_FROM_WHITE
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
 	playmoncry SPECIES_CELEBI, CRY_MODE_ENCOUNTER
-	delay 80
+	delay 5
 	waitmoncry
 	fadescreen FADE_TO_WHITE
 	removeobject LOCALID_CELEBI
 	special Script_FadeOutMapMusic
 	fadescreen FADE_FROM_WHITE
-	delay 150
+	delay 5
 
 	fadescreen FADE_TO_WHITE
 	setobjectxyperm LOCALID_CELEBI, 40, 16
@@ -72,13 +72,13 @@ Route130_EventScript_Celebi2::
 	fadescreen FADE_FROM_WHITE
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceRight
 	playmoncry SPECIES_CELEBI, CRY_MODE_ENCOUNTER
-	delay 80
+	delay 5
 	waitmoncry
 	fadescreen FADE_TO_WHITE
 	removeobject LOCALID_CELEBI
 	special Script_FadeOutMapMusic
 	fadescreen FADE_FROM_WHITE
-	delay 250
+	delay 5
 
 	fadescreen FADE_TO_WHITE
 	setobjectxyperm LOCALID_CELEBI, 36, 11
@@ -87,7 +87,7 @@ Route130_EventScript_Celebi2::
 	fadescreen FADE_FROM_WHITE
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
 	playmoncry SPECIES_CELEBI, CRY_MODE_ENCOUNTER
-	delay 80
+	delay 5
 	waitmoncry
 	setvar VAR_LAST_TALKED, LOCALID_CELEBI
 	seteventmon SPECIES_CELEBI, 30

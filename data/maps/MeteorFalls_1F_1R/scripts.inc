@@ -24,7 +24,7 @@ MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene::
 	playbgm MUS_ENCOUNTER_MAGMA, FALSE
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown
 	waitmovement 0
-	delay 30
+	delay 5
 	applymovement LOCALID_MAGMA_GRUNT_1, Common_Movement_WalkInPlaceDown
 	waitmovement 0
 	msgbox MeteorFalls_1F_1R_Text_WithThisMeteorite, MSGBOX_DEFAULT
@@ -111,7 +111,7 @@ MeteorFalls_1F_1R_WarpToFallarbor:
 	clearflag FLAG_RECEIVED_AURORA_TICKET
 	setflag FLAG_HIDE_METEOR_FALLS_1F_1R_COZMO
 	msgbox MeteorFalls_1F_1R_Text_ProfCozmoWalkToFallarbor, MSGBOX_DEFAULT
-	delay 30
+	delay 5
 	warp MAP_FALLARBOR_TOWN_COZMOS_HOUSE, 7, 4
 	waitstate
 	releaseall

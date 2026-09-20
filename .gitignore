@@ -58,3 +58,6 @@ prefabs.json
 *.ss8
 *.ss9
 *.cheats
+
+agbcc/
+agbcc*

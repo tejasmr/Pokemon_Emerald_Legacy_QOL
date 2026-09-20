@@ -162,13 +162,13 @@ CaveOfOrigin_B1F_EventScript_Wallace::
 	closemessage
 	applymovement LOCALID_WALLACE, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
-	delay 60
+	delay 5
 	playse SE_PIN
 	applymovement LOCALID_WALLACE, Common_Movement_ExclamationMark
 	waitmovement 0
 	applymovement LOCALID_WALLACE, Common_Movement_Delay48
 	waitmovement 0
-	delay 30
+	delay 5
 	applymovement LOCALID_WALLACE, Common_Movement_FacePlayer
 	waitmovement 0
 	msgbox CaveOfOrigin_B1F_Text_WellHeadToSkyPillar, MSGBOX_DEFAULT

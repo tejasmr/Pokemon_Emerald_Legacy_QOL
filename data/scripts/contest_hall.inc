@@ -417,7 +417,7 @@ ContestHall_EventScript_AudienceVote::
 	waitmovement 0
 	applymovement LOCALID_JUDGE, ContestHall_Movement_JudgeFaceMC
 	waitmovement 0
-	delay 20
+	delay 5
 	applymovement LOCALID_MC, ContestHall_Movement_FaceContestants
 	applymovement LOCALID_JUDGE, ContestHall_Movement_FaceContestants
 	waitmovement 0
@@ -625,7 +625,7 @@ ContestHall_EventScript_TryDisplayHeartAudienceMember1::
 	goto_if_eq VAR_TEMP_1, 1, ContestHall_EventScript_AudienceMember1AlreadyEmoted
 	applymovement LOCALID_AUDIENCE_1, ContestHall_Movement_Heart
 	playse SE_PIN
-	delay 14
+	delay 5
 	setvar VAR_TEMP_1, 1
 	addvar VAR_TEMP_0, -1
 	return
@@ -637,7 +637,7 @@ ContestHall_EventScript_TryDisplayHeartAudienceMember2::
 	goto_if_eq VAR_TEMP_2, 1, ContestHall_EventScript_AudienceMember2AlreadyEmoted
 	applymovement LOCALID_AUDIENCE_2, ContestHall_Movement_Heart
 	playse SE_PIN
-	delay 14
+	delay 5
 	setvar VAR_TEMP_2, 1
 	addvar VAR_TEMP_0, -1
 	return
@@ -649,7 +649,7 @@ ContestHall_EventScript_TryDisplayHeartAudienceMember3::
 	goto_if_eq VAR_TEMP_3, 1, ContestHall_EventScript_AudienceMember3AlreadyEmoted
 	applymovement LOCALID_AUDIENCE_3, ContestHall_Movement_Heart
 	playse SE_PIN
-	delay 14
+	delay 5
 	setvar VAR_TEMP_3, 1
 	addvar VAR_TEMP_0, -1
 	return
@@ -661,7 +661,7 @@ ContestHall_EventScript_TryDisplayHeartAudienceMember4::
 	goto_if_eq VAR_TEMP_4, 1, ContestHall_EventScript_Audience4MemberAlreadyEmoted
 	applymovement LOCALID_AUDIENCE_4, ContestHall_Movement_Heart
 	playse SE_PIN
-	delay 14
+	delay 5
 	setvar VAR_TEMP_4, 1
 	addvar VAR_TEMP_0, -1
 	return
@@ -673,7 +673,7 @@ ContestHall_EventScript_TryDisplayHeartAudienceMember5::
 	goto_if_eq VAR_TEMP_5, 1, ContestHall_EventScript_AudienceMember5AlreadyEmoted
 	applymovement LOCALID_AUDIENCE_5, ContestHall_Movement_Heart
 	playse SE_PIN
-	delay 14
+	delay 5
 	setvar VAR_TEMP_5, 1
 	addvar VAR_TEMP_0, -1
 	return
@@ -685,7 +685,7 @@ ContestHall_EventScript_TryDisplayHeartAudienceMember6::
 	goto_if_eq VAR_TEMP_6, 1, ContestHall_EventScript_AudienceMember6AlreadyEmoted
 	applymovement LOCALID_AUDIENCE_6, ContestHall_Movement_Heart
 	playse SE_PIN
-	delay 14
+	delay 5
 	setvar VAR_TEMP_6, 1
 	addvar VAR_TEMP_0, -1
 	return
@@ -697,7 +697,7 @@ ContestHall_EventScript_TryDisplayHeartAudienceMember7::
 	goto_if_eq VAR_TEMP_7, 1, ContestHall_EventScript_AudienceMember7AlreadyEmoted
 	applymovement LOCALID_AUDIENCE_7, ContestHall_Movement_Heart
 	playse SE_PIN
-	delay 14
+	delay 5
 	setvar VAR_TEMP_7, 1
 	addvar VAR_TEMP_0, -1
 	return
@@ -709,7 +709,7 @@ ContestHall_EventScript_TryDisplayHeartAudienceMember8::
 	goto_if_eq VAR_TEMP_8, 1, ContestHall_EventScript_AudienceMember8AlreadyEmoted
 	applymovement LOCALID_ARTIST, ContestHall_Movement_Heart
 	playse SE_PIN
-	delay 14
+	delay 5
 	setvar VAR_TEMP_8, 1
 	addvar VAR_TEMP_0, -1
 	return
@@ -843,7 +843,7 @@ ContestHall_EventScript_ThatsItForJudgingLink::
 	call ContestHall_EventScript_TryWaitForLink
 	messageautoscroll ContestHall_Text_ThatsItForJudging
 	waitmessage
-	delay 30
+	delay 5
 	return
 
 ContestHall_EventScript_ThankYouForAppeals::
@@ -855,7 +855,7 @@ ContestHall_EventScript_ThankYouForAppealsLink::
 	call ContestHall_EventScript_TryWaitForLink
 	messageautoscroll ContestHall_Text_ThankYouForAppeals
 	waitmessage
-	delay 30
+	delay 5
 	return
 
 ContestHall_EventScript_JudgeLooksReady::
@@ -867,7 +867,7 @@ ContestHall_EventScript_JudgeLooksReadyLink::
 	call ContestHall_EventScript_TryWaitForLink
 	messageautoscroll ContestHall_Text_JudgeLooksReady
 	waitmessage
-	delay 30
+	delay 5
 	return
 
 ContestHall_EventScript_WeWillDeclareWinner::
@@ -879,7 +879,7 @@ ContestHall_EventScript_WeWillDeclareWinnerLink::
 	call ContestHall_EventScript_TryWaitForLink
 	messageautoscroll ContestHall_Text_WeWillNowDeclareWinner
 	waitmessage
-	delay 30
+	delay 5
 	return
 
 ContestHall_EventScript_GetWinnerObjEventId::
@@ -937,13 +937,13 @@ ContestHall_EventScript_AudienceLookAround::
 	applymovement LOCALID_AUDIENCE_5, ContestHall_Movement_AudienceMemberLookRight
 	applymovement LOCALID_AUDIENCE_2, ContestHall_Movement_AudienceMemberLookDown
 	applymovement LOCALID_AUDIENCE_3, ContestHall_Movement_AudienceMemberLookRight
-	delay 30
+	delay 5
 	applymovement LOCALID_AUDIENCE_6, ContestHall_Movement_AudienceMemberLookLeft
 	applymovement LOCALID_AUDIENCE_7, ContestHall_Movement_AudienceMemberLookDown
 	applymovement LOCALID_AUDIENCE_1, ContestHall_Movement_AudienceMemberLookUp
 	applymovement LOCALID_AUDIENCE_4, ContestHall_Movement_AudienceMemberLookLeft
 	goto_if_ne VAR_TEMP_1, 4, ContestHall_EventScript_AudienceLookAround
-	delay 30
+	delay 5
 	return
 
 ContestHall_EventScript_VObjectAudienceLookAround::
@@ -962,7 +962,7 @@ ContestHall_EventScript_VObjectAudienceLookAround::
 	turnvobject 25, DIR_EAST
 	turnvobject 27, DIR_WEST
 	turnvobject 28, DIR_EAST
-	delay 10
+	delay 5
 	turnvobject 0, DIR_EAST
 	turnvobject 2, DIR_EAST
 	turnvobject 4, DIR_EAST
@@ -978,7 +978,7 @@ ContestHall_EventScript_VObjectAudienceLookAround::
 	turnvobject 25, DIR_NORTH
 	turnvobject 27, DIR_NORTH
 	turnvobject 28, DIR_NORTH
-	delay 10
+	delay 5
 	turnvobject 1, DIR_NORTH
 	turnvobject 3, DIR_NORTH
 	turnvobject 5, DIR_NORTH
@@ -995,7 +995,7 @@ ContestHall_EventScript_VObjectAudienceLookAround::
 	turnvobject 26, DIR_EAST
 	turnvobject 29, DIR_WEST
 	turnvobject 30, DIR_WEST
-	delay 10
+	delay 5
 	turnvobject 1, DIR_EAST
 	turnvobject 3, DIR_EAST
 	turnvobject 5, DIR_EAST
@@ -1012,7 +1012,7 @@ ContestHall_EventScript_VObjectAudienceLookAround::
 	turnvobject 26, DIR_NORTH
 	turnvobject 29, DIR_NORTH
 	turnvobject 30, DIR_NORTH
-	delay 10
+	delay 5
 	return
 
 ContestHall_EventScript_GiveWinnerPrize::
@@ -1027,7 +1027,7 @@ ContestHall_EventScript_GiveWinnerPrize::
 	playse SE_M_ENCORE2
 	setvar VAR_TEMP_1, 0
 	call ContestHall_EventScript_AudienceLookAround
-	delay 30
+	delay 5
 	special ShouldReadyContestArtist
 	goto_if_eq VAR_0x8004, TRUE, ContestHall_EventScript_SetReadyForContestArtist
 	return
@@ -1036,7 +1036,7 @@ ContestHall_EventScript_SkipPrize::
 	lockall
 	msgbox ContestHall_Text_CongratsPleaseCompeteAgain, MSGBOX_DEFAULT
 	releaseall
-	delay 90
+	delay 5
 	special ShouldReadyContestArtist
 	goto_if_eq VAR_0x8004, TRUE, ContestHall_EventScript_SetReadyForContestArtist
 	return
@@ -1069,7 +1069,7 @@ ContestHall_EventScript_SetReadyForContestArtist::
 	return
 
 ContestHall_EventScript_EndLinkContest::
-	delay 60
+	delay 5
 	special GetContestPlayerId
 	special GetContestWinnerId
 	special ShouldReadyContestArtist
@@ -1367,7 +1367,7 @@ LilycoveCity_ContestLobby_EventScript_DelayIfContestWithRSPlayer::
 	return
 
 LilycoveCity_ContestLobby_EventScript_DelayForRSPlayer::
-	delay 9
+	delay 5
 	return
 
 LilycoveCity_ContestLobby_Text_ReceptionDontHavePokeblockCase:

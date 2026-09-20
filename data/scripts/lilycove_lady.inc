@@ -223,7 +223,7 @@ LilycoveCity_PokemonCenter_1F_EventScript_SubmitQuizResponse::
 
 LilycoveCity_PokemonCenter_1F_EventScript_CorrectResponse::
 	playse SE_SUCCESS
-	delay 10
+	delay 5
 	playse SE_SUCCESS
 	msgbox LilycoveCity_PokemonCenter_1F_Text_YouGotItRight, MSGBOX_DEFAULT
 	goto LilycoveCity_PokemonCenter_1F_EventScript_ReadyGivePrize
@@ -233,7 +233,7 @@ LilycoveCity_PokemonCenter_1F_EventScript_IncorrectResponse::
 	special BufferQuizCorrectAnswer
 	special BufferQuizPrizeName
 	playse SE_FAILURE
-	delay 10
+	delay 5
 	playse SE_FAILURE
 	msgbox LilycoveCity_PokemonCenter_1F_Text_WrongTheCorrectAnswerIs, MSGBOX_DEFAULT
 	msgbox LilycoveCity_PokemonCenter_1F_Text_IGetToKeepPrize, MSGBOX_DEFAULT
@@ -389,13 +389,13 @@ LilycoveCity_PokemonCenter_1F_EventScript_GivePokeblock::
 LilycoveCity_PokemonCenter_1F_EventScript_FeedPokeblock::
 	applymovement LOCALID_LILYCOVE_LADY, LilycoveCity_PokemonCenter_1F_Movement_LadyFaceMon
 	waitmovement 0
-	delay 60
+	delay 5
 	applymovement LOCALID_LADYS_MON, LilycoveCity_PokemonCenter_1F_Movement_MonFaceLady
 	waitmovement 0
-	delay 60
+	delay 5
 	waitse
 	playmoncry VAR_0x8005, CRY_MODE_NORMAL
-	delay 120
+	delay 5
 	waitmoncry
 	goto_if_eq VAR_0x8004, 1, LilycoveCity_PokemonCenter_1F_EventScript_MonEnjoyPokeblock
 	goto LilycoveCity_PokemonCenter_1F_EventScript_FinishFeedPokeblock
@@ -405,11 +405,11 @@ LilycoveCity_PokemonCenter_1F_EventScript_FeedPokeblock::
 LilycoveCity_PokemonCenter_1F_EventScript_MonEnjoyPokeblock::
 	applymovement LOCALID_LADYS_MON, LilycoveCity_PokemonCenter_1F_Movement_MonJump
 	waitmovement 0
-	delay 60
+	delay 5
 LilycoveCity_PokemonCenter_1F_EventScript_FinishFeedPokeblock::
 	applymovement LOCALID_LILYCOVE_LADY, LilycoveCity_PokemonCenter_1F_Movement_LadyFacePlayer
 	waitmovement 0
-	delay 60
+	delay 5
 	goto_if_eq VAR_0x8004, 0, LilycoveCity_PokemonCenter_1F_EventScript_MonDislikedPokeblock
 	goto_if_eq VAR_0x8004, 1, LilycoveCity_PokemonCenter_1F_EventScript_MonLikedPokeblock
 	end

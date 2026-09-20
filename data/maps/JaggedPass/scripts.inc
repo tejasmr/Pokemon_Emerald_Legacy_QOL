@@ -58,7 +58,7 @@ JaggedPass_EventScript_OpenMagmaHideout::
 	setmetatile 16, 17, METATILE_Lavaridge_CaveEntrance_Top, TRUE
 	setmetatile 16, 18, METATILE_Lavaridge_CaveEntrance_Bottom, FALSE
 	special DrawWholeMapView
-	delay 30
+	delay 5
 	setvar VAR_JAGGED_PASS_STATE, 2
 	waitse
 	releaseall

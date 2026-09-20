@@ -144,7 +144,7 @@ SlateportCity_OceanicMuseum_1F_EventScript_MuseumPatron4::
 SlateportCity_OceanicMuseum_1F_EventScript_FamiliarGrunt::
 	lock
 	faceplayer
-	delay 8
+	delay 5
 	playse SE_PIN
 	applymovement LOCALID_FAMILIAR_GRUNT, Common_Movement_ExclamationMark
 	waitmovement 0

@@ -72,7 +72,7 @@ BattleFrontier_BattleTowerMultiCorridor_EventScript_EnterCorridor::
 	applymovement LOCALID_ATTENDANT_2, BattleFrontier_BattleTowerMultiCorridor_Movement_PlayerAttendantWalkToDoor
 	applymovement LOCALID_ATTENDANT_1, BattleFrontier_BattleTowerMultiCorridor_Movement_PartnerAttendantWalkToDoor
 	waitmovement 0
-	delay 40
+	delay 5
 	applymovement LOCALID_ATTENDANT_2, Common_Movement_WalkInPlaceFasterUp
 	applymovement LOCALID_ATTENDANT_1, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
@@ -85,7 +85,7 @@ BattleFrontier_BattleTowerMultiCorridor_EventScript_EnterCorridor::
 	waitmovement 0
 	closedoor 7, 1
 	waitdooranim
-	delay 30
+	delay 5
 	setvar VAR_TEMP_1, 1
 	call BattleFrontier_BattleTowerMultiCorridor_EventScript_WarpToBattleRoom
 	releaseall

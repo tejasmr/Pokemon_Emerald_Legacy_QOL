@@ -74,7 +74,7 @@ BattleFrontier_BattleFactoryPreBattleRoom_EventScript_ReturnToRoomFromBattle::
 	waitmovement 0
 	msgbox BattleFrontier_BattleFactoryPreBattleRoom_Text_MessageFromHeadComeRightNow, MSGBOX_DEFAULT
 	closemessage
-	delay 16
+	delay 5
 	goto BattleFrontier_BattleFactoryPreBattleRoom_EventScript_AskReadyForHead
 	end
 

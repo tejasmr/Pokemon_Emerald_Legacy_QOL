@@ -27,9 +27,9 @@ LilycoveCity_DepartmentStore_1F_EventScript_LotteryClerk::
 	playse SE_PC_ON
 	special DoLotteryCornerComputerEffect
 	special PickLotteryCornerTicket
-	delay 220
+	delay 5
 	special EndLotteryCornerComputerEffect
-	delay 10
+	delay 5
 	applymovement LOCALID_LOTTERY_CLERK, Common_Movement_FacePlayer
 	waitmovement 0
 	goto_if_eq VAR_0x8004, 0, LilycoveCity_DepartmentStore_1F_EventScript_NoMatch

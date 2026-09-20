@@ -66,17 +66,17 @@ Route119_EventScript_RivalEncounter::
 	checkplayergender
 	call_if_eq VAR_RESULT, MALE, Route119_EventScript_PlayMayMusic
 	call_if_eq VAR_RESULT, FEMALE, Route119_EventScript_PlayBrendanMusic
-	delay 65
+	delay 5
 	call_if_eq VAR_TEMP_1, 1, Route119_EventScript_RivalEnter1
 	call_if_eq VAR_TEMP_1, 2, Route119_EventScript_RivalEnter2
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
-	delay 30
+	delay 5
 	call_if_eq VAR_TEMP_1, 1, Route119_EventScript_SetRivalPos1
 	call_if_eq VAR_TEMP_1, 2, Route119_EventScript_SetRivalPos2
 	removeobject LOCALID_RIVAL_ON_BIKE
 	addobject LOCALID_RIVAL
-	delay 30
+	delay 5
 	checkplayergender
 	goto_if_eq VAR_RESULT, MALE, Route119_EventScript_BattleMay
 	goto_if_eq VAR_RESULT, FEMALE, Route119_EventScript_BattleBrendan
@@ -162,14 +162,14 @@ Route119_EventScript_RivalExitScottArrive::
 	call_if_eq VAR_TEMP_1, 2, Route119_EventScript_SetRivalPos2
 	removeobject LOCALID_RIVAL
 	addobject LOCALID_RIVAL_ON_BIKE
-	delay 30
+	delay 5
 	call_if_eq VAR_TEMP_1, 1, Route119_EventScript_RivalExit1
 	call_if_eq VAR_TEMP_1, 2, Route119_EventScript_RivalExit2
 	removeobject LOCALID_RIVAL_ON_BIKE
 	setvar VAR_ROUTE119_STATE, 1
 	savebgm MUS_DUMMY
 	fadedefaultbgm
-	delay 60
+	delay 5
 	call_if_eq VAR_TEMP_1, 1, Route119_EventScript_SetScottPos1
 	call_if_eq VAR_TEMP_1, 2, Route119_EventScript_SetScottPos2
 	addobject LOCALID_SCOTT
@@ -502,7 +502,7 @@ Route119_EventScript_ScottWonAtFortreeGymCall::
 Route119_EventScript_Raikou::
 	faceplayer
 	playmoncry SPECIES_RAIKOU, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	setvar VAR_LAST_TALKED, LOCALID_RAIKOU
 	seteventmon SPECIES_RAIKOU, 40

@@ -229,11 +229,11 @@ SlateportCity_Harbor_EventScript_BoardFerry::
 	closemessage
 	applymovement VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
-	delay 30
+	delay 5
 	hideobjectat VAR_LAST_TALKED, MAP_SLATEPORT_CITY_HARBOR
 	call_if_eq VAR_FACING, DIR_NORTH, SlateportCity_Harbor_EventScript_BoardFerryNorth
 	call_if_eq VAR_FACING, DIR_EAST, SlateportCity_Harbor_EventScript_BoardFerryEast
-	delay 30
+	delay 5
 	hideobjectat OBJ_EVENT_ID_PLAYER, 0
 	setvar VAR_0x8004, LOCALID_SS_TIDAL
 	call Common_EventScript_FerryDepart

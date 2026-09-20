@@ -200,11 +200,11 @@ Route110_TrickHouseEntrance_OnFrame:
 
 Route110_TrickHouseEntrance_EventScript_BeginChallenge::
 	lockall
-	delay 20
+	delay 5
 	call_if_eq VAR_TRICK_HOUSE_LEVEL, 0, Route110_TrickHouseEntrance_EventScript_MeetTrickMaster
 	msgbox Route110_TrickHouseEntrance_Text_ComeToChallengeTrickHouse, MSGBOX_DEFAULT
 	closemessage
-	delay 20
+	delay 5
 	applymovement LOCALID_TRICK_MASTER, Route110_TrickHouse_Movement_TrickMasterSpin
 	waitmovement 0
 	playse SE_M_EXPLOSION
@@ -509,7 +509,7 @@ Route110_TrickHouseEntrance_EventScript_GoInHolePrompt::
 Route110_TrickHouseEntrance_EventScript_EnterPuzzleRoom::
 	setmetatile 5, 1, METATILE_GenericBuilding_TrickHouse_Stairs_Down, FALSE
 	special DrawWholeMapView
-	delay 20
+	delay 5
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkUp
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Route110_TrickHouseEntrance_Movement_EnterRoom
@@ -735,7 +735,7 @@ Route110_TrickHouseEntrance_EventScript_DoHidingSpotSparkle::
 	setvar VAR_0x8006, 0
 	dofieldeffectsparkle VAR_0x8004, VAR_0x8005, VAR_0x8006
 	waitfieldeffect FLDEFF_SPARKLE
-	delay 10
+	delay 5
 	return
 
 Route110_TrickHouseEntrance_Text_YoureBeingWatched:
