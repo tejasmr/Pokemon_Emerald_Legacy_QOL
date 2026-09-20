@@ -188,7 +188,6 @@ DewfordTown_Gym_EventScript_BrawlyDefeated::
 	call DewfordTown_Gym_EventScript_GiveBulkUp
 	closemessage
 	delay 30
-	playfanfare MUS_REGISTER_MATCH_CALL
 	msgbox DewfordTown_Gym_Text_RegisteredBrawly, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage

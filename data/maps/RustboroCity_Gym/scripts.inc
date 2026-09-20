@@ -148,7 +148,6 @@ RustboroCity_Gym_EventScript_RegisterRoxanne::
 	pokenavcall RustboroCity_Gym_Text_RoxanneRegisterCall
 	waitmessage
 	delay 30
-	playfanfare MUS_REGISTER_MATCH_CALL
 	msgbox RustboroCity_Gym_Text_RegisteredRoxanne, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage
