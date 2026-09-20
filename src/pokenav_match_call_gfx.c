@@ -205,7 +205,7 @@ static const u8 *const sMatchCallOptionTexts[MATCH_CALL_OPTION_COUNT] =
 };
 
 // The series of 5 dots that appear when someone is called with Match Call
-static const u8 sText_CallingDots[] = _("·{PAUSE 4}·{PAUSE 4}·{PAUSE 4}·{PAUSE 4}·\p");
+static const u8 sText_CallingDots[] = _("·{PAUSE 1}·{PAUSE 1}·{PAUSE 1}·{PAUSE 1}·\p");
 
 static const struct WindowTemplate sCallMsgBoxWindowTemplate =
 {
