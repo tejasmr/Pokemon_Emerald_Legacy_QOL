@@ -377,13 +377,7 @@ void SpriteCB_TrainerSlideIn(struct Sprite *sprite)
 {
     if (!(gIntroSlideFlags & 1))
     {
-        s16 speed = (gBattleTerrain == BATTLE_TERRAIN_SAND
-                  || gBattleTerrain == BATTLE_TERRAIN_WATER
-                  || gBattleTerrain == BATTLE_TERRAIN_BUILDING
-                  || gBattleTerrain == BATTLE_TERRAIN_PLAIN) ? 16 : 12;
-        if (sprite->sSpeedX < 0)
-            speed = -speed;
-        sprite->x2 += speed;
+        sprite->x2 += (sprite->sSpeedX * 2);
         if (sprite->x2 == 0)
         {
             if (sprite->y2 != 0)
