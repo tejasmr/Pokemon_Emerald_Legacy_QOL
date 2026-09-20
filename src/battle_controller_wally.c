@@ -1487,7 +1487,7 @@ static void StartSendOutAnim(u8 battlerId)
 
 static void Task_StartSendOutAnim(u8 taskId)
 {
-    if (gTasks[taskId].data[1] < 31)
+    if (gTasks[taskId].data[1] < 1)
     {
         gTasks[taskId].data[1]++;
     }

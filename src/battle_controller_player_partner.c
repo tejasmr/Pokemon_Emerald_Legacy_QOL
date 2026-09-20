@@ -1818,7 +1818,7 @@ static void PlayerPartnerHandleIntroTrainerBallThrow(void)
 
 static void Task_StartSendOutAnim(u8 taskId)
 {
-    if (gTasks[taskId].data[1] < 24)
+    if (gTasks[taskId].data[1] < 1)
     {
         gTasks[taskId].data[1]++;
     }
