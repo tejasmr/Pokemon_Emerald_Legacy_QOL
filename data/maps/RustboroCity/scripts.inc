@@ -41,7 +41,7 @@ RustboroCity_EventScript_ScientistAddMatchCall::
 	applymovement OBJ_EVENT_ID_PLAYER, RustboroCity_Movement_PlayerWalkDown
 	waitmovement 0
 	playse SE_EXIT
-	delay 10
+	delay 5
 	addobject LOCALID_SCIENTIST
 	applymovement LOCALID_SCIENTIST, RustboroCity_Movement_ScientistApproachPlayer
 	waitmovement 0
@@ -60,13 +60,13 @@ RustboroCity_EventScript_ScientistAddMatchCall::
 	applymovement LOCALID_SCIENTIST, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
 	playse SE_CLICK
-	delay 10
+	delay 5
 	playse SE_CLICK
-	delay 10
+	delay 5
 	playse SE_CLICK
-	delay 10
+	delay 5
 	playse SE_CLICK
-	delay 20
+	delay 5
 	applymovement LOCALID_SCIENTIST, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
 	msgbox RustboroCity_Text_AddedMatchCallPleaseCallMrStone, MSGBOX_DEFAULT
@@ -76,13 +76,13 @@ RustboroCity_EventScript_ScientistAddMatchCall::
 	case YES, RustboroCity_EventScript_EndMatchCallTutorial
 	msgbox RustboroCity_Text_PokenavTutorialStart, MSGBOX_DEFAULT
 	closemessage
-	delay 20
+	delay 5
 	goto RustboroCity_EventScript_MatchCallTutorial
 
 RustboroCity_EventScript_PleaseSelectPokenav::
 	msgbox RustboroCity_Text_PleaseSelectPokenav, MSGBOX_DEFAULT
 	closemessage
-	delay 10
+	delay 5
 	goto RustboroCity_EventScript_MatchCallTutorial
 
 RustboroCity_EventScript_MatchCallTutorial::
@@ -101,7 +101,7 @@ RustboroCity_EventScript_MatchCallTutorial::
 	waitstate
 RustboroCity_EventScript_EndMatchCallTutorial:
 	setflag FLAG_ENABLE_MR_STONE_POKENAV
-	delay 20
+	delay 5
 	msgbox RustboroCity_Text_IdBetterGetBackToWork, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_SCIENTIST, RustboroCity_Movement_ScientistLeave
@@ -613,7 +613,7 @@ RustboroCity_EventScript_ReturnGoods::
 	setflag FLAG_RETURNED_DEVON_GOODS
 	setflag FLAG_HIDE_RUSTBORO_CITY_DEVON_EMPLOYEE_1
 	setvar VAR_RUSTBORO_CITY_STATE, 5
-	delay 30
+	delay 5
 	warp MAP_RUSTBORO_CITY_DEVON_CORP_3F, 2, 2
 	waitstate
 	releaseall
@@ -844,11 +844,11 @@ RustboroCity_EventScript_MayEncounter::
 	setflag FLAG_MET_RIVAL_RUSTBORO
 	msgbox RustboroCity_Text_MayHiLetsRegister, MSGBOX_DEFAULT
 	closemessage
-	delay 30
+	delay 5
 	msgbox RustboroCity_Text_RegisteredMay, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage
-	delay 30
+	delay 5
 	setflag FLAG_ENABLE_RIVAL_MATCH_CALL
 	setflag FLAG_REGISTER_RIVAL_POKENAV
 	setvar VAR_RUSTBORO_CITY_STATE, 8
@@ -914,11 +914,11 @@ RustboroCity_EventScript_BrendanEncounter::
 	setflag FLAG_MET_RIVAL_RUSTBORO
 	msgbox RustboroCity_Text_BrendanHiLetsRegister, MSGBOX_DEFAULT
 	closemessage
-	delay 30
+	delay 5
 	msgbox RustboroCity_Text_RegisteredBrendan, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage
-	delay 30
+	delay 5
 	setflag FLAG_ENABLE_RIVAL_MATCH_CALL
 	setflag FLAG_REGISTER_RIVAL_POKENAV
 	setvar VAR_RUSTBORO_CITY_STATE, 8

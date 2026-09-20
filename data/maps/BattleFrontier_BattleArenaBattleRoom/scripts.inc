@@ -197,7 +197,7 @@ BattleFrontier_BattleArenaBattleRoom_EventScript_ContinueChallenge::
 	goto BattleFrontier_BattleArenaBattleRoom_EventScript_AnnounceTrainers
 	waitstate
 BattleFrontier_BattleArenaBattleRoom_EventScript_ReturnToLobbyWon::
-	delay 60
+	delay 5
 	frontier_set FRONTIER_DATA_CHALLENGE_STATUS, CHALLENGE_STATUS_WON
 	warp MAP_BATTLE_FRONTIER_BATTLE_ARENA_LOBBY, 7, 8
 	waitstate

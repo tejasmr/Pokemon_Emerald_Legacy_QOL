@@ -118,7 +118,7 @@ Route110_TrickHousePuzzle7_EventScript_TeleportPad::
 @ All the below switch scripts are unused leftover from R/S
 Route110_TrickHousePuzzle7_EventScript_Switch1::
 	lockall
-	delay 32
+	delay 5
 	call_if_unset FLAG_TRICK_HOUSE_PUZZLE_7_SWITCH_1, Route110_TrickHousePuzzle7_EventScript_SetSwitch1MetatilesOn
 	call_if_set FLAG_TRICK_HOUSE_PUZZLE_7_SWITCH_1, Route110_TrickHousePuzzle7_EventScript_SetSwitch1MetatilesOff
 	special DrawWholeMapView
@@ -129,7 +129,7 @@ Route110_TrickHousePuzzle7_EventScript_Switch1::
 
 Route110_TrickHousePuzzle7_EventScript_Switch2::
 	lockall
-	delay 32
+	delay 5
 	call_if_unset FLAG_TRICK_HOUSE_PUZZLE_7_SWITCH_2, Route110_TrickHousePuzzle7_EventScript_SetSwitch2MetatilesOn
 	call_if_set FLAG_TRICK_HOUSE_PUZZLE_7_SWITCH_2, Route110_TrickHousePuzzle7_EventScript_SetSwitch2MetatilesOff
 	special DrawWholeMapView
@@ -140,7 +140,7 @@ Route110_TrickHousePuzzle7_EventScript_Switch2::
 
 Route110_TrickHousePuzzle7_EventScript_Switch3::
 	lockall
-	delay 32
+	delay 5
 	call_if_unset FLAG_TRICK_HOUSE_PUZZLE_7_SWITCH_3, Route110_TrickHousePuzzle7_EventScript_SetSwitch3MetatilesOn
 	call_if_set FLAG_TRICK_HOUSE_PUZZLE_7_SWITCH_3, Route110_TrickHousePuzzle7_EventScript_SetSwitch3MetatilesOff
 	special DrawWholeMapView
@@ -151,7 +151,7 @@ Route110_TrickHousePuzzle7_EventScript_Switch3::
 
 Route110_TrickHousePuzzle7_EventScript_Switch4::
 	lockall
-	delay 32
+	delay 5
 	call_if_unset FLAG_TRICK_HOUSE_PUZZLE_7_SWITCH_4, Route110_TrickHousePuzzle7_EventScript_SetSwitch4MetatilesOn
 	call_if_set FLAG_TRICK_HOUSE_PUZZLE_7_SWITCH_4, Route110_TrickHousePuzzle7_EventScript_SetSwitch4MetatilesOff
 	special DrawWholeMapView
@@ -162,7 +162,7 @@ Route110_TrickHousePuzzle7_EventScript_Switch4::
 
 Route110_TrickHousePuzzle7_EventScript_Switch5::
 	lockall
-	delay 32
+	delay 5
 	call_if_unset FLAG_TRICK_HOUSE_PUZZLE_7_SWITCH_5, Route110_TrickHousePuzzle7_EventScript_SetSwitch5MetatilesOn
 	call_if_set FLAG_TRICK_HOUSE_PUZZLE_7_SWITCH_5, Route110_TrickHousePuzzle7_EventScript_SetSwitch5MetatilesOff
 	special DrawWholeMapView

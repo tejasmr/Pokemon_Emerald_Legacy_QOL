@@ -147,11 +147,11 @@ RustboroCity_Gym_EventScript_RegisterRoxanne::
 	lockall
 	pokenavcall RustboroCity_Gym_Text_RoxanneRegisterCall
 	waitmessage
-	delay 30
+	delay 5
 	msgbox RustboroCity_Gym_Text_RegisteredRoxanne, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage
-	delay 30
+	delay 5
 	setflag FLAG_ENABLE_ROXANNE_MATCH_CALL
 	clearflag FLAG_ENABLE_ROXANNE_FIRST_CALL
 	releaseall

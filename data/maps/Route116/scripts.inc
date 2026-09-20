@@ -185,7 +185,7 @@ Route116_EventScript_FoundGlassesOnPlayer::
 	end
 
 Route116_EventScript_GlassesManExit::
-	delay 20
+	delay 5
 	call_if_eq VAR_FACING, DIR_NORTH, Route116_EventScript_GlassesManExitNormal
 	call_if_eq VAR_FACING, DIR_SOUTH, Route116_EventScript_GlassesManExitNormal
 	call_if_eq VAR_FACING, DIR_WEST, Route116_EventScript_GlassesManExitNormal

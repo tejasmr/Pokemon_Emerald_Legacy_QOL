@@ -38,7 +38,7 @@ MarineCave_End_EventScript_BeatMaxie::
 	waitmovement 0
 	waitse
 	playmoncry SPECIES_GROUDON, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	setvar VAR_LAST_TALKED, LOCALID_GROUDON
 	setwildbattle SPECIES_GROUDON, 70

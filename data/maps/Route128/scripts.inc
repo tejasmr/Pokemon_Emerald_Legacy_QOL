@@ -17,7 +17,7 @@ Route128_OnFrame:
 
 Route128_EventScript_KyogreAwakenedScene::
 	lockall
-	delay 20
+	delay 5
 	applymovement LOCALID_ARCHIE, Route128_Movement_ArchieLookAround
 	waitmovement 0
 	msgbox Route128_Text_ArchieWhatHappened, MSGBOX_DEFAULT
@@ -44,13 +44,13 @@ Route128_EventScript_KyogreAwakenedScene::
 	waitmovement 0
 	msgbox Route128_Text_MaxieThisDefiesBelief, MSGBOX_DEFAULT
 	closemessage
-	delay 40
+	delay 5
 	applymovement LOCALID_MAXIE, Route128_Movement_MaxieExit
 	applymovement LOCALID_ARCHIE, Route128_Movement_ArchieExit
 	waitmovement 0
 	removeobject LOCALID_MAXIE
 	removeobject LOCALID_ARCHIE
-	delay 100
+	delay 5
 	setfieldeffectargument 0, 1
 	dofieldeffect FLDEFF_NPCFLY_OUT
 	waitfieldeffect FLDEFF_NPCFLY_OUT
@@ -71,10 +71,10 @@ Route128_EventScript_KyogreAwakenedScene::
 	closemessage
 	applymovement LOCALID_STEVEN, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
-	delay 50
+	delay 5
 	setfieldeffectargument 0, 1
 	dofieldeffect FLDEFF_NPCFLY_OUT
-	delay 15
+	delay 5
 	removeobject LOCALID_STEVEN
 	waitfieldeffect FLDEFF_NPCFLY_OUT
 	clearflag FLAG_HIDE_MAP_NAME_POPUP

@@ -28,7 +28,7 @@ BattleFrontier_BattlePikeRoomNormal_EventScript_EnterRoom::
 
 BattleFrontier_BattlePikeRoomNormal_EventScript_EnterSingleBattleRoom::
 	lockall
-	delay 16
+	delay 5
 	applymovement LOCALID_OBJ_0, BattleFrontier_BattlePikeRoomNormal_Movement_ApproachPlayer
 	waitmovement 0
 	pike_gettrainerintro 0
@@ -55,7 +55,7 @@ BattleFrontier_BattlePikeRoomNormal_EventScript_WonSingleBattle::
 
 BattleFrontier_BattlePikeRoomNormal_EventScript_EnterHardBattleRoom::
 	lockall
-	delay 16
+	delay 5
 	msgbox BattleFrontier_BattlePikeRoomNormal_Text_BattleSomewhatToughTrainer, MSGBOX_DEFAULT
 	waitmessage
 	closemessage
@@ -94,7 +94,7 @@ BattleFrontier_BattlePikeRoomNormal_EventScript_WonHardBattle::
 	end
 
 BattleFrontier_BattlePikeRoomNormal_EventScript_EnterBrainRoom::
-	delay 22
+	delay 5
 	lockall
 	applymovement LOCALID_OBJ_1, BattleFrontier_BattlePikeRoomNormal_Movement_PreQueenHealNPCApproachPlayer
 	waitmovement 0
@@ -119,9 +119,9 @@ BattleFrontier_BattlePikeRoomNormal_EventScript_LucyEnter::
 	call BattleFrontier_BattlePikeRoomNormal_EventScript_SetCurtainTilesClosed
 	delay 4
 	waitse
-	delay 60
+	delay 5
 	playse SE_PIKE_CURTAIN_OPEN
-	delay 65
+	delay 5
 	call BattleFrontier_BattlePikeRoomNormal_EventScript_SetCurtainTilesMostlyClosed
 	showobjectat LOCALID_OBJ_0, MAP_BATTLE_FRONTIER_BATTLE_PIKE_ROOM_NORMAL
 	delay 4
@@ -219,7 +219,7 @@ BattleFrontier_BattlePikeRoomNormal_EventScript_PreQueenHealTwoMons::
 
 BattleFrontier_BattlePikeRoomNormal_EventScript_EnterFullHealRoom::
 	lockall
-	delay 16
+	delay 5
 	applymovement LOCALID_OBJ_0, BattleFrontier_BattlePikeRoomNormal_Movement_ApproachPlayer
 	waitmovement 0
 	message BattleFrontier_BattlePikeRoomNormal_Text_WillRestoreToFullHealth
@@ -236,7 +236,7 @@ BattleFrontier_BattlePikeRoomNormal_EventScript_EnterFullHealRoom::
 
 BattleFrontier_BattlePikeRoomNormal_EventScript_EnterDoubleBattleRoom::
 	lockall
-	delay 16
+	delay 5
 	applymovement LOCALID_OBJ_0, BattleFrontier_BattlePikeRoomNormal_Movement_Trainer1WalkRight
 	applymovement LOCALID_OBJ_1, BattleFrontier_BattlePikeRoomNormal_Movement_Trainer2WalkLeft
 	waitmovement 0
@@ -251,7 +251,7 @@ BattleFrontier_BattlePikeRoomNormal_EventScript_EnterDoubleBattleRoom::
 	pike_gettrainerintro 0
 	msgbox gStringVar4, MSGBOX_DEFAULT
 	closemessage
-	delay 16
+	delay 5
 	applymovement OBJ_EVENT_ID_PLAYER, BattleFrontier_BattlePikeRoomNormal_Movement_PlayerFaceTrainer2
 	waitmovement 0
 	pike_gettrainerintro 1

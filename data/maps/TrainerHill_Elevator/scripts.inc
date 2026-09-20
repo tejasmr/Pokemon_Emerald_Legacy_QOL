@@ -33,7 +33,7 @@ TrainerHill_Elevator_EventScript_EnterElevator::
 	applymovement OBJ_EVENT_ID_PLAYER, TrainerHill_Elevator_Movement_PlayerMoveToCenterOfElevator
 	waitmovement 0
 	call TrainerHill_Elevator_EventScript_MoveElevator
-	delay 25
+	delay 5
 	applymovement OBJ_EVENT_ID_PLAYER, TrainerHill_Elevator_Movement_PlayerExitElevator
 	waitmovement 0
 	warp MAP_TRAINER_HILL_ENTRANCE, 17, 8

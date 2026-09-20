@@ -10,7 +10,7 @@ BattleFrontier_BattlePikeCorridor_OnFrame:
 	.2byte 0
 
 BattleFrontier_BattlePikeCorridor_EventScript_EnterCorridor::
-	delay 16
+	delay 5
 	frontier_set FRONTIER_DATA_BATTLE_NUM, 1
 	pike_cleartrainerids
 	pike_nohealing TRUE

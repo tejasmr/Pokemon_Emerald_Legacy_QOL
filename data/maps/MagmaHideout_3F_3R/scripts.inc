@@ -36,7 +36,7 @@ MagmaHideout_3F_3R_EventScript_TryRemoveMoltres::
 
 MagmaHideout_3F_3R_EventScript_Moltres::
 	playmoncry SPECIES_MOLTRES, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	setvar VAR_LAST_TALKED, LOCALID_MOLTRES
 	seteventmon SPECIES_MOLTRES, 50

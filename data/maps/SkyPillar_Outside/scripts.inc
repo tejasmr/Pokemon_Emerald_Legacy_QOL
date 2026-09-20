@@ -40,14 +40,14 @@ SkyPillar_Outside_EventScript_WallaceScene::
 	waitmovement 0
 	msgbox SkyPillar_Outside_Text_OpenedDoorToSkyPillar, MSGBOX_DEFAULT
 	closemessage
-	delay 30
+	delay 5
 	setvar VAR_0x8004, 1  @ vertical pan
 	setvar VAR_0x8005, 1  @ horizontal pan
 	setvar VAR_0x8006, 8  @ num shakes
 	setvar VAR_0x8007, 3  @ shake delay
 	special ShakeCamera
 	waitstate
-	delay 40
+	delay 5
 	msgbox SkyPillar_Outside_Text_EarthquakeNotMomentToWaste, MSGBOX_DEFAULT
 	closemessage
 	applymovement OBJ_EVENT_ID_PLAYER, SkyPillar_Outside_Movement_PlayerClimbSkyPillar
@@ -59,16 +59,16 @@ SkyPillar_Outside_EventScript_WallaceScene::
 	setvar VAR_0x8007, 5   @ shake delay
 	special ShakeCamera
 	waitstate
-	delay 20
+	delay 5
 	applymovement LOCALID_WALLACE, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
-	delay 10
+	delay 5
 	applymovement LOCALID_WALLACE, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
-	delay 20
+	delay 5
 	applymovement LOCALID_WALLACE, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
-	delay 30
+	delay 5
 	msgbox SkyPillar_Outside_Text_SituationGettingWorse, MSGBOX_DEFAULT
 	closemessage
 	setflag FLAG_SYS_WEATHER_CTRL
@@ -76,7 +76,7 @@ SkyPillar_Outside_EventScript_WallaceScene::
 	doweather
 	special WaitWeather
 	waitstate
-	delay 30
+	delay 5
 	msgbox SkyPillar_Outside_Text_GotToGoBackForSootopolis, MSGBOX_DEFAULT
 	closemessage
 	playse SE_EXIT

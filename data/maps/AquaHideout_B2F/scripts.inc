@@ -36,7 +36,7 @@ AquaHideout_B2F_EventScript_SubmarineEscape::
 	setvar VAR_0x8009, LOCALID_SUBMARINE
 	applymovement VAR_0x8008, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
-	delay 20
+	delay 5
 	applymovement VAR_0x8008, Common_Movement_FacePlayer
 	waitmovement 0
 	msgbox AquaHideout_B2F_Text_OurBossGotThroughHisPreparations, MSGBOX_DEFAULT
@@ -45,7 +45,7 @@ AquaHideout_B2F_EventScript_SubmarineEscape::
 	applymovement VAR_0x8009, AquaHideout_B2F_Movement_SumbarineDepartLeft
 	waitmovement 0
 	removeobject VAR_0x8009
-	delay 20
+	delay 5
 	applymovement VAR_0x8008, Common_Movement_FacePlayer
 	waitmovement 0
 	msgbox AquaHideout_B2F_Text_MattPostBattle, MSGBOX_DEFAULT

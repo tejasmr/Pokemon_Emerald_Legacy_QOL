@@ -175,7 +175,7 @@ Route123_EventScript_RematchFernando::
 Route123_EventScript_Raikou::
 	faceplayer
 	playmoncry SPECIES_RAIKOU, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	applymovement LOCALID_RAIKOU1, Route123_Movement_Raikou
 	waitmovement 0

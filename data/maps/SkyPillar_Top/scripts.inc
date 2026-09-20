@@ -48,7 +48,7 @@ SkyPillar_Top_EventScript_Rayquaza::
 	lockall
 	waitse
 	playmoncry SPECIES_RAYQUAZA, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	setwildbattle SPECIES_RAYQUAZA, 70
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
@@ -122,7 +122,7 @@ SkyPillar_Top_EventScript_AwakenRayquaza::
 	removeobject LOCALID_RAYQUAZA_SLEEPING
 	msgbox SkyPillar_Top_Text_RayquazaFlewOff, MSGBOX_DEFAULT
 	closemessage
-	delay 20
+	delay 5
 	fadeinbgm 1
 	special SpawnCameraObject
 	applymovement OBJ_EVENT_ID_CAMERA, SkyPillar_Top_Movement_CameraPanDown
@@ -139,7 +139,7 @@ SkyPillar_Top_EventScript_Zinnia::
 	waitmovement 0
 	applymovement LOCALID_ASTER, Common_Movement_FaceLeft
 	waitmovement 0
-	delay 20
+	delay 5
 	applymovement LOCALID_ASTER, Common_Movement_FaceDown
 	waitmovement 0
 	msgbox SkyPillar_Top_Text_Zinnia, MSGBOX_DEFAULT

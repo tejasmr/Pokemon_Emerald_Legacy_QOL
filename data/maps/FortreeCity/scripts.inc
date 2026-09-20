@@ -74,7 +74,7 @@ FortreeCity_EventScript_UseDevonScope::
 	waitmovement 0
 	waitse
 	playmoncry SPECIES_KECLEON, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	applymovement VAR_LAST_TALKED, FortreeCity_Movement_KecleonFlee
 	waitmovement 0

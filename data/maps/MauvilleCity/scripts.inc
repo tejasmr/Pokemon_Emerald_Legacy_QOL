@@ -128,7 +128,7 @@ MauvilleCity_EventScript_WallyAndUncleExitNorth::
 	waitmovement 0
 	applymovement LOCALID_WALLY, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
-	delay 30
+	delay 5
 	applymovement OBJ_EVENT_ID_PLAYER, MauvilleCity_Movement_PlayerFaceUncleNorth
 	applymovement LOCALID_WALLYS_UNCLE, MauvilleCity_Movement_WallysUncleApproachPlayerNorth
 	waitmovement 0
@@ -148,7 +148,7 @@ MauvilleCity_EventScript_WallyAndUncleExitEast::
 	waitmovement 0
 	applymovement LOCALID_WALLY, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
-	delay 30
+	delay 5
 	applymovement LOCALID_WALLYS_UNCLE, MauvilleCity_Movement_WallysUncleApproachPlayerEast
 	waitmovement 0
 	msgbox MauvilleCity_Text_UncleVisitUsSometime, MSGBOX_DEFAULT
@@ -487,11 +487,11 @@ MauvilleCity_EventScript_RegisterWallyCall::
 	lockall
 	pokenavcall MauvilleCity_Text_WallyPokenavCall
 	waitmessage
-	delay 30
+	delay 5
 	msgbox MauvilleCity_Text_RegisteredWally, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage
-	delay 30
+	delay 5
 	setflag FLAG_ENABLE_WALLY_MATCH_CALL
 	clearflag FLAG_ENABLE_FIRST_WALLY_POKENAV_CALL
 	releaseall

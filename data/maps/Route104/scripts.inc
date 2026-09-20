@@ -56,13 +56,13 @@ Route104_EventScript_RivalTrigger::
 	setvar VAR_ROUTE104_STATE, 2
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
 	waitmovement 0
-	delay 10
+	delay 5
 	addobject LOCALID_RIVAL
 	applymovement OBJ_EVENT_ID_PLAYER, Route104_Movement_PlayerBackUp
 	waitmovement 0
 	applymovement LOCALID_RIVAL, Route104_Movement_RivalExitBrineysCottage
 	waitmovement 0
-	delay 20
+	delay 5
 	setvar VAR_0x8008, 0
 	call RustboroCity_EventScript_PlayRivalMusic
 	playse SE_PIN
@@ -99,11 +99,11 @@ Route104_EventScript_MayEncounter::
 	setflag FLAG_REGISTER_RIVAL_POKENAV
 	msgbox Route104_Text_MayWeShouldRegister, MSGBOX_DEFAULT
 	closemessage
-	delay 30
+	delay 5
 	msgbox Route104_Text_RegisteredMay, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage
-	delay 30
+	delay 5
 	setflag FLAG_ENABLE_RIVAL_MATCH_CALL
 Route104_EventScript_MayContinue::
 	applymovement OBJ_EVENT_ID_PLAYER, Route104_Movement_PlayerFaceRival
@@ -191,11 +191,11 @@ Route104_EventScript_BrendanEncounter::
 	setflag FLAG_REGISTER_RIVAL_POKENAV
 	msgbox Route104_Text_BrendanWeShouldRegister, MSGBOX_DEFAULT
 	closemessage
-	delay 30
+	delay 5
 	msgbox Route104_Text_RegisteredBrendan, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage
-	delay 30
+	delay 5
 	setflag FLAG_ENABLE_RIVAL_MATCH_CALL
 Route104_EventScript_BrendanContinue::
 	applymovement OBJ_EVENT_ID_PLAYER, Route104_Movement_PlayerFaceRival
@@ -383,11 +383,11 @@ Route104_EventScript_SailToDewfordDadCalls::
 	waitmovement 0
 	pokenavcall Route104_Text_DadPokenavCall
 	waitmessage
-	delay 30
+	delay 5
 	msgbox Route104_Text_RegisteredDadInPokenav, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage
-	delay 30
+	delay 5
 	setflag FLAG_ENABLE_NORMAN_MATCH_CALL
 	applymovement OBJ_EVENT_ID_PLAYER, Route104_Movement_SailToDewfordAfterDadCalls
 	applymovement LOCALID_BOAT_R104, Route104_Movement_SailToDewfordAfterDadCalls, MAP_ROUTE104
@@ -396,7 +396,7 @@ Route104_EventScript_SailToDewfordDadCalls::
 	goto Route104_EventScript_ArriveInDewford
 
 Route104_EventScript_ArriveInDewford::
-	delay 50
+	delay 5
 	applymovement OBJ_EVENT_ID_PLAYER, Route104_Movement_PlayerExitBoat
 	waitmovement 0
 	call Common_EventScript_StopBrineysBoatMusic

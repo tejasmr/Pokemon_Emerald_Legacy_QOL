@@ -32,7 +32,7 @@ AquaHideout_B1F_EventScript_Electrode1::
 	setwildbattle SPECIES_ELECTRODE, 30
 	waitse
 	playmoncry SPECIES_ELECTRODE, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
 	dowildbattle
@@ -56,7 +56,7 @@ AquaHideout_B1F_EventScript_Electrode2::
 	setwildbattle SPECIES_ELECTRODE, 30
 	waitse
 	playmoncry SPECIES_ELECTRODE, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
 	dowildbattle

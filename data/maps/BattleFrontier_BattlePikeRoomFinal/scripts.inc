@@ -10,7 +10,7 @@ BattleFrontier_BattlePikeRoomFinal_OnFrame:
 	.2byte 0
 
 BattleFrontier_BattlePikeRoomFinal_EventScript_EnterRoom::
-	delay 16
+	delay 5
 	applymovement LOCALID_ATTENDANT, BattleFrontier_BattlePikeRoomFinal_Movement_AttendantApproachPlayer
 	waitmovement 0
 	frontier_set FRONTIER_DATA_CHALLENGE_STATUS, CHALLENGE_STATUS_WON

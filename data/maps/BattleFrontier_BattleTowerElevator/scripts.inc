@@ -18,7 +18,7 @@ BattleFrontier_BattleTowerElevator_EventScript_EnterElevator::
 	waitse
 	special MoveElevator
 	waitstate
-	delay 48
+	delay 5
 	applymovement LOCALID_ATTENDANT, BattleFrontier_BattleTowerElevator_Movement_AttendantExit
 	applymovement OBJ_EVENT_ID_PLAYER, BattleFrontier_BattleTowerElevator_Movement_PlayerExit
 	waitmovement 0

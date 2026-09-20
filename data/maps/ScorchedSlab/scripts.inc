@@ -34,7 +34,7 @@ ScorchedSlab_EventScript_TryRemoveEntei::
 
 ScorchedSlab_EventScript_Entei::
 	playmoncry SPECIES_ENTEI, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	setvar VAR_LAST_TALKED, LOCALID_ENTEI
 	seteventmon SPECIES_ENTEI, 40

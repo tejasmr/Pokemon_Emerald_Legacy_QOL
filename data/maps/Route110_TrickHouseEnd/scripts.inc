@@ -148,12 +148,12 @@ Route110_TrickHouseEnd_EventScript_CompletedPuzzle8::
 	call_if_eq VAR_FACING, DIR_NORTH, Route110_TrickHouseEnd_EventScript_TrickMasterFaceAwayNorth
 	call_if_eq VAR_FACING, DIR_WEST, Route110_TrickHouseEnd_EventScript_TrickMasterFaceAwayWest
 	call_if_eq VAR_FACING, DIR_EAST, Route110_TrickHouseEnd_EventScript_TrickMasterFaceAwayEast
-	delay 30
+	delay 5
 	msgbox Route110_TrickHouseEnd_Text_FountainOfIdeasRunDry, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_TRICK_MASTER, Common_Movement_FacePlayer
 	waitmovement 0
-	delay 30
+	delay 5
 	setvar VAR_TRICK_HOUSE_PRIZE_PICKUP, 0
 	msgbox Route110_TrickHouseEnd_Text_DefeatedMeEeveeReward, MSGBOX_DEFAULT
 	call Route110_TrickHouseEnd_EventScript_GiveEevee
@@ -270,7 +270,7 @@ Route110_TrickHouseEnd_EventScript_TrickMasterExitTrigger::
 	playse SE_PIN
 	applymovement LOCALID_TRICK_MASTER, Common_Movement_ExclamationMark
 	waitmovement 0
-	delay 20
+	delay 5
 	applymovement LOCALID_TRICK_MASTER, Route110_TrickHouseEnd_Movement_TrickMasterSurprise
 	waitmovement 0
 	playse SE_M_EXPLOSION

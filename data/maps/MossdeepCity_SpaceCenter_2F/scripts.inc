@@ -216,7 +216,7 @@ MossdeepCity_SpaceCenter_2F_EventScript_Steven::
 	msgbox MossdeepCity_SpaceCenter_2F_Text_StevenWhyStealRocketFuel, MSGBOX_DEFAULT
 	msgbox MossdeepCity_SpaceCenter_2F_Text_MaxieUseFuelToEruptVolcano, MSGBOX_DEFAULT
 	closemessage
-	delay 30
+	delay 5
 	playse SE_NOT_EFFECTIVE
 	switch VAR_FACING
 	case DIR_SOUTH, MossdeepCity_SpaceCenter_2F_EventScript_StevenFightMovementSouth
@@ -296,15 +296,15 @@ MossdeepCity_SpaceCenter_2F_EventScript_DoStevenMultiBattle::
 MossdeepCity_SpaceCenter_2F_EventScript_DefeatedMaxieTabitha::
 	msgbox MossdeepCity_SpaceCenter_2F_Text_MaxieWeFailedIsAquaAlsoMisguided, MSGBOX_DEFAULT
 	closemessage
-	delay 20
+	delay 5
 	applymovement LOCALID_MAXIE, Common_Movement_WalkInPlaceFasterLeft
 	applymovement LOCALID_TABITHA, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
-	delay 60
+	delay 5
 	applymovement LOCALID_MAXIE, Common_Movement_WalkInPlaceFasterUp
 	applymovement LOCALID_TABITHA, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
-	delay 20
+	delay 5
 	msgbox MossdeepCity_SpaceCenter_2F_Text_MaxieWeWillGiveUp, MSGBOX_DEFAULT
 	closemessage
 	setvar VAR_MOSSDEEP_CITY_STATE, 3

@@ -127,7 +127,7 @@ FarawayIsland_Interior_EventScript_Mew::
 	call_if_eq VAR_FACING, DIR_WEST, FarawayIsland_Interior_EventScript_FoundMewWest
 	call_if_eq VAR_FACING, DIR_EAST, FarawayIsland_Interior_EventScript_FoundMewEast
 	special DestroyMewEmergingGrassSprite
-	delay 40
+	delay 5
 	waitmoncry
 	seteventmon SPECIES_MEW, 30
 	setflag FLAG_SYS_CTRL_OBJ_DELETE

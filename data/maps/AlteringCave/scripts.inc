@@ -37,7 +37,7 @@ AlteringCave_EventScript_TryRemoveMewtwo::
 
 AlteringCave_EventScript_Mewtwo::
 	playmoncry SPECIES_MEWTWO, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	setvar VAR_LAST_TALKED, LOCALID_MEWTWO
 	seteventmon SPECIES_MEWTWO, 50

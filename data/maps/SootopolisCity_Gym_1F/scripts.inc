@@ -54,7 +54,7 @@ SootopolisCity_Gym_1F_EventScript_TryRematchRewardEnd::
 
 SootopolisCity_Gym_1F_EventScript_UnlockFirstStairs::
 	addvar VAR_ICE_STEP_COUNT, 1
-	delay 40
+	delay 5
 	playse SE_ICE_STAIRS
 	call SootopolisCity_Gym_1F_EventScript_CheckSetStairMetatiles
 	special DrawWholeMapView
@@ -62,7 +62,7 @@ SootopolisCity_Gym_1F_EventScript_UnlockFirstStairs::
 
 SootopolisCity_Gym_1F_EventScript_UnlockSecondStairs::
 	addvar VAR_ICE_STEP_COUNT, 1
-	delay 40
+	delay 5
 	playse SE_ICE_STAIRS
 	call SootopolisCity_Gym_1F_EventScript_CheckSetStairMetatiles
 	special DrawWholeMapView
@@ -70,7 +70,7 @@ SootopolisCity_Gym_1F_EventScript_UnlockSecondStairs::
 
 SootopolisCity_Gym_1F_EventScript_UnlockThirdStairs::
 	addvar VAR_ICE_STEP_COUNT, 1
-	delay 40
+	delay 5
 	playse SE_ICE_STAIRS
 	call SootopolisCity_Gym_1F_EventScript_CheckSetStairMetatiles
 	special DrawWholeMapView
@@ -78,11 +78,11 @@ SootopolisCity_Gym_1F_EventScript_UnlockThirdStairs::
 
 SootopolisCity_Gym_1F_EventScript_FallThroughIce::
 	lockall
-	delay 20
+	delay 5
 	applymovement OBJ_EVENT_ID_PLAYER, SootopolisCity_Gym_1F_Movement_FallThroughIce
 	waitmovement 0
 	playse SE_FALL
-	delay 60
+	delay 5
 	warphole MAP_SOOTOPOLIS_CITY_GYM_B1F
 	waitstate
 	end
@@ -132,7 +132,7 @@ SootopolisCity_Gym_1F_EventScript_SootopolisDoneRivalScene2::
 	call Common_EventScript_SetGymTrainers
 	call SootopolisCity_Gym_1F_EventScript_GiveWaterPulse
 	closemessage
-	delay 30
+	delay 5
 	release
 	end
 
@@ -178,7 +178,7 @@ SootopolisCity_Gym_1F_EventScript_GiveRematchReward::
 	msgbox SootopolisCity_Gym_1F_Text_RegisteredJuan, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage
-	delay 30
+	delay 5
 	setflag FLAG_ENABLE_JUAN_MATCH_CALL
 	release
 	end

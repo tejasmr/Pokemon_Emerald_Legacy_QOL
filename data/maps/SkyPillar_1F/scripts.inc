@@ -24,13 +24,13 @@ SkyPillar_1F_EventScript_TryShowZinniaReturn::
 SkyPillar_1F_EventScript_ZinniaAppears::
 	addobject LOCALID_ZINNIA
 	fadescreen FADE_TO_BLACK
-	delay 20
+	delay 5
 	setobjectxy LOCALID_ZINNIA, 3, 6
-	delay 20
+	delay 5
 	applymovement LOCALID_ZINNIA, Common_Movement_FacePlayer
 	waitmovement 0
 	fadescreen FADE_FROM_BLACK
-	delay 20
+	delay 5
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
 	@ fallthrough
 SkyPillar_1F_EventScript_Zinnia::

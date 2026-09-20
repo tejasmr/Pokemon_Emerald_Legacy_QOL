@@ -61,17 +61,17 @@ SouthernIsland_Interior_EventScript_Lati::
 	special SpawnCameraObject
 	applymovement OBJ_EVENT_ID_CAMERA, SouthernIsland_Interior_Movement_CameraPanUp
 	waitmovement 0
-	delay 50
+	delay 5
 	waitse
 	playmoncry VAR_TEMP_4, CRY_MODE_NORMAL
-	delay 30
+	delay 5
 	waitmoncry
 	addobject LOCALID_LATI
-	delay 30
+	delay 5
 	applymovement OBJ_EVENT_ID_CAMERA, SouthernIsland_Interior_Movement_CameraPanDown
 	applymovement LOCALID_LATI, SouthernIsland_Interior_Movement_LatiApproach
 	waitmovement 0
-	delay 50
+	delay 5
 	special RemoveCameraObject
 	setvar VAR_LAST_TALKED, LOCALID_LATI
 	call_if_eq VAR_ROAMER_POKEMON, 0, SouthernIsland_Interior_EventScript_SetLatiosBattleVars

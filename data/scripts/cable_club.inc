@@ -210,7 +210,7 @@ CableClub_EventScript_TrainerCardDataOverwritten::
 	message CableClub_Text_TrainerCardDataOverwritten
 	waitmessage
 	playse SE_PIN
-	delay 60
+	delay 5
 	message CableClub_Text_HopeToSeeYouAgain
 	waitmessage
 	applymovement OBJ_EVENT_ID_PLAYER, Movement_PlayerExitLinkRoom
@@ -232,7 +232,7 @@ CableClub_EventScript_Tutorial::
 	closemessage
 	applymovement OBJ_EVENT_ID_PLAYER, CableClub_Movement_PlayerApproachCounter
 	waitmovement 0
-	delay 30
+	delay 5
 	msgbox CableClub_Text_ExplainWirelessClubFirstTime, MSGBOX_DEFAULT
 	setvar VAR_CABLE_CLUB_TUTORIAL_STATE, 2
 	releaseall
@@ -246,7 +246,7 @@ CableClub_Movement_PlayerApproachCounter:
 CableClub_EventScript_WelcomeToCableClub::
 	message CableClub_Text_WelcomeWhichCableClubService
 	waitmessage
-	delay 28
+	delay 5
 	goto CableClub_EventScript_SelectCableClubRoom
 	end
 
@@ -346,7 +346,7 @@ CableClub_EventScript_EnterColosseum::
 	call CableClub_EventScript_OpenDirectCornerBarrier
 	special DrawWholeMapView
 	playse SE_CLICK
-	delay 60
+	delay 5
 	applymovement VAR_LAST_TALKED, Movement_AttendantFaceLeft
 	waitmovement 0
 	closemessage
@@ -440,7 +440,7 @@ CableClub_EventScript_EnterTradeCenter::
 	call CableClub_EventScript_OpenDirectCornerBarrier
 	special DrawWholeMapView
 	playse SE_CLICK
-	delay 60
+	delay 5
 	applymovement VAR_LAST_TALKED, Movement_AttendantFaceLeft
 	waitmovement 0
 	closemessage
@@ -505,7 +505,7 @@ CableClub_EventScript_EnterRecordCorner::
 	call CableClub_EventScript_OpenDirectCornerBarrier
 	special DrawWholeMapView
 	playse SE_CLICK
-	delay 60
+	delay 5
 	applymovement VAR_LAST_TALKED, Movement_AttendantFaceLeft
 	waitmovement 0
 	closemessage
@@ -893,7 +893,7 @@ CableClub_EventScript_EnterUnionRoom::
 	call CableClub_EventScript_OpenUnionRoomBarrier
 	special DrawWholeMapView
 	playse SE_CLICK
-	delay 60
+	delay 5
 	applymovement VAR_LAST_TALKED, Movement_AttendantFaceLeft
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Movement_PlayerApproachLinkRoomLeft
@@ -962,7 +962,7 @@ CableClub_EventScript_DirectCornerAttendant::
 	goto_if_eq VAR_RESULT, FALSE, CableClub_EventScript_WelcomeToCableClub
 	message CableClub_Text_WelcomeWhichDirectCornerRoom
 	waitmessage
-	delay 28
+	delay 5
 	goto CableClub_EventScript_DirectCornerSelectService
 	end
 
@@ -1186,13 +1186,13 @@ CableClub_EventScript_TryJoinLinkGroup::
 CableClub_EventScript_EnterWirelessLinkRoom::
 	messageautoscroll CableClub_Text_DirectYouToYourRoom
 	waitmessage
-	delay 60
+	delay 5
 	closemessage
 	copyvar VAR_0x8007, VAR_LAST_TALKED
 	call CableClub_EventScript_OpenDirectCornerBarrier
 	special DrawWholeMapView
 	playse SE_CLICK
-	delay 60
+	delay 5
 	applymovement VAR_LAST_TALKED, Movement_AttendantFaceLeft
 	waitmovement 0
 	closemessage
@@ -1295,7 +1295,7 @@ MossdeepCity_GameCorner_1F_EventScript_OldMan2::
 	waitmessage
 	specialvar VAR_RESULT, IsWirelessAdapterConnected
 	goto_if_eq VAR_RESULT, FALSE, MossdeepCity_GameCorner_1F_EventScript_AdapterNotConnected
-	delay 60
+	delay 5
 	message MossdeepCity_GameCorner_1F_Text_PlayWhichGame
 	waitmessage
 	multichoice 0, 0, MULTI_WIRELESS_MINIGAME, FALSE
@@ -1368,13 +1368,13 @@ MossdeepCity_GameCorner_1F_EventScript_TryJoinLinkGroup::
 MossdeepCity_GameCorner_1F_EventScript_EnterMinigameRoom::
 	messageautoscroll MossdeepCity_GameCorner_1F_Text_AllGoodToGo
 	waitmessage
-	delay 60
+	delay 5
 	closemessage
 	copyvar VAR_0x8007, VAR_LAST_TALKED
 	call EventScript_OpenMossdeepGameCornerBarrier
 	special DrawWholeMapView
 	playse SE_CLICK
-	delay 60
+	delay 5
 	applymovement VAR_LAST_TALKED, Movement_AttendantFaceLeft
 	waitmovement 0
 	closemessage
@@ -1386,7 +1386,7 @@ MossdeepCity_GameCorner_1F_EventScript_EnterMinigameRoom::
 	end
 
 MossdeepCity_GameCorner_1F_EventScript_AdapterNotConnected::
-	delay 60
+	delay 5
 	msgbox MossdeepCity_GameCorner_1F_Text_AdapterNotConnected, MSGBOX_DEFAULT
 	release
 	end

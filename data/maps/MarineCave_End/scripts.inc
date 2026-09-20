@@ -37,7 +37,7 @@ MarineCave_End_EventScript_Kyogre::
 	waitmovement 0
 	waitse
 	playmoncry SPECIES_KYOGRE, CRY_MODE_ENCOUNTER
-	delay 40
+	delay 5
 	waitmoncry
 	setvar VAR_LAST_TALKED, LOCALID_KYOGRE
 	setwildbattle SPECIES_KYOGRE, 70
