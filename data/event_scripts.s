@@ -817,10 +817,8 @@ Common_EventScript_NameReceivedPartyMon::
 
 Common_EventScript_PlayerHandedOverTheItem::
 	bufferitemname STR_VAR_1, VAR_0x8004
-	playfanfare MUS_OBTAIN_TMHM
 	message gText_PlayerHandedOverTheItem
 	waitmessage
-	waitfanfare
 	removeitem VAR_0x8004
 	return
 
