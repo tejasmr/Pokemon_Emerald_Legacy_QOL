@@ -24,7 +24,6 @@ LilycoveCity_CoveLilyMotel_2F_EventScript_AllHoennMonsFanfare::
 LilycoveCity_CoveLilyMotel_2F_EventScript_ShowDiploma::
 	message LilycoveCity_CoveLilyMotel_2F_Text_FilledPokedexGiveYouThis
 	waitmessage
-	call Common_EventScript_PlayGymBadgeFanfare
 	special Special_ShowDiploma
 	waitstate
 	release
