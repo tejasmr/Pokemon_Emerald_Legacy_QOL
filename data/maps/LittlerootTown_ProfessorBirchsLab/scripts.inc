@@ -532,7 +532,6 @@ EventScript_RegisterProfBirch::
 	msgbox MatchCall_Text_BirchRegisterCall, MSGBOX_DEFAULT
 	closemessage
 	delay 30
-	playfanfare MUS_REGISTER_MATCH_CALL
 	msgbox MatchCall_Text_RegisteredBirch, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage

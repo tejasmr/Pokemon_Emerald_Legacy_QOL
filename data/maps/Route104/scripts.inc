@@ -100,7 +100,6 @@ Route104_EventScript_MayEncounter::
 	msgbox Route104_Text_MayWeShouldRegister, MSGBOX_DEFAULT
 	closemessage
 	delay 30
-	playfanfare MUS_REGISTER_MATCH_CALL
 	msgbox Route104_Text_RegisteredMay, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage
@@ -193,7 +192,6 @@ Route104_EventScript_BrendanEncounter::
 	msgbox Route104_Text_BrendanWeShouldRegister, MSGBOX_DEFAULT
 	closemessage
 	delay 30
-	playfanfare MUS_REGISTER_MATCH_CALL
 	msgbox Route104_Text_RegisteredBrendan, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage
@@ -386,7 +384,6 @@ Route104_EventScript_SailToDewfordDadCalls::
 	pokenavcall Route104_Text_DadPokenavCall
 	waitmessage
 	delay 30
-	playfanfare MUS_REGISTER_MATCH_CALL
 	msgbox Route104_Text_RegisteredDadInPokenav, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage

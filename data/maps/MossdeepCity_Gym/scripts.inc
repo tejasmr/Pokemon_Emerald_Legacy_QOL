@@ -96,7 +96,6 @@ MossdeepCity_Gym_EventScript_TateAndLizaDefeated::
 	call MossdeepCity_Gym_EventScript_GiveCalmMind
 	closemessage
 	delay 30
-	playfanfare MUS_REGISTER_MATCH_CALL
 	msgbox MossdeepCity_Gym_Text_RegisteredTateAndLiza, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage
