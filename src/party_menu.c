@@ -4499,6 +4499,17 @@ static void Task_ClosePartyMenuAfterText(u8 taskId)
     }
 }
 
+static void Task_EVEditorReturnToChooseStatAfterText(u8 taskId)
+{
+    if (IsPartyMenuTextPrinterActive() != TRUE)
+    {
+        ClearStdWindowAndFrameToTransparent(WIN_MSG, FALSE);
+        ClearWindowTilemap(WIN_MSG);
+        gTasks[taskId].data[0] = 0;
+        gTasks[taskId].func = Task_EVEditorChooseStat;
+    }
+}
+
 void ItemUseCB_ReduceEV(u8 taskId, TaskFunc task)
 {
     struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
@@ -4552,7 +4563,7 @@ void ItemUseCB_EVEditor(u8 taskId, TaskFunc task)
         PlaySE(SE_SELECT);
         DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
         ScheduleBgCopyTilemapToVram(2);
-        gTasks[taskId].func = task;
+        gTasks[taskId].func = Task_EVEditorReturnToChooseStatAfterText;
         return;
     }
 
@@ -4620,14 +4631,14 @@ static void Task_EVEditorChooseStat(u8 taskId)
     static const u8 sEvEditorActionMinus[] = _("-4 EV");
     static const u8 sEvEditorActionMax[] = _("MAX EV");
     static const u8 sEvEditorActionReset[] = _("RESET EV");
-    static const u8 sEvEditorActionClose[] = _("CLOSE");
+    static const u8 sEvEditorActionBack[] = _("BACK");
     const u8 *actionText[] =
     {
         sEvEditorActionPlus,
         sEvEditorActionMinus,
         sEvEditorActionMax,
         sEvEditorActionReset,
-        sEvEditorActionClose,
+        sEvEditorActionBack,
     };
     u8 cursorDimension;
     u8 letterSpacing;
@@ -4690,7 +4701,8 @@ static void Task_EVEditorChooseStat(u8 taskId)
     {
         ClearWindowTilemap(sPartyMenuInternal->windowId[0]);
         PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
-        gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+        gTasks[taskId].data[0] = 0;
+        gTasks[taskId].func = Task_EVEditorChooseStat;
         return;
     }
 
@@ -4722,9 +4734,8 @@ static void Task_EVEditorChooseStat(u8 taskId)
         }
         break;
     case 4:
-        gPartyMenuUseExitCallback = FALSE;
-        PlaySE(SE_SELECT);
-        gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+        gTasks[taskId].data[0] = 0;
+        gTasks[taskId].func = Task_EVEditorChooseStat;
         return;
     default:
         changed = FALSE;
@@ -4737,13 +4748,14 @@ static void Task_EVEditorChooseStat(u8 taskId)
         PlaySE(SE_SELECT);
         DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
         ScheduleBgCopyTilemapToVram(2);
-        gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+        gTasks[taskId].func = Task_EVEditorReturnToChooseStatAfterText;
         return;
     }
 
-    gPartyMenuUseExitCallback = TRUE;
+    gPartyMenuUseExitCallback = FALSE;
     PlaySE(SE_USE_ITEM);
-    gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+    gTasks[taskId].data[0] = 0;
+    gTasks[taskId].func = Task_EVEditorChooseStat;
 }
 
 static u16 ItemEffectToMonEv(struct Pokemon *mon, u8 effectType)
