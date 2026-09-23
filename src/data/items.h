@@ -4549,6 +4549,6 @@ const struct Item gItems[] =
         .registrability = TRUE,
         .pocket = POCKET_KEY_ITEMS,
         .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_PortalHeal,
+        .fieldUseFunc = ItemUseOutOfBattle_PortaHeal,
     },
 };
