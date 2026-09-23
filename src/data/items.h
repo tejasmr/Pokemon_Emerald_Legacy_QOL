@@ -4551,4 +4551,17 @@ const struct Item gItems[] =
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_PortaHeal,
     },
+
+    [ITEM_EV_EDITOR] =
+    {
+        .name = _("EV EDITOR"),
+        .itemId = ITEM_EV_EDITOR,
+        .price = 0,
+        .description = sEvEditorDesc,
+        .importance = 1,
+        .registrability = TRUE,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_EvEditor,
+    },
 };
