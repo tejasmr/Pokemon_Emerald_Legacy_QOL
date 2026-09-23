@@ -1554,5 +1554,5 @@ static const u8 sOldSeaMapDesc[] = _(
     "that shows the way\n"
     "to a certain island.");
 
-static const u8 sAutoHealerDesc[] = _(
-    "Auto heals party.");
+static const u8 sPortalHealDesc[] = _(
+    "Heals the party.");

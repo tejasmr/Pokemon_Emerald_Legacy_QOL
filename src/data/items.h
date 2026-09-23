@@ -4539,16 +4539,16 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
     },
 
-    [ITEM_AUTO_HEALER] =
+    [ITEM_PORTA_HEAL] =
     {
-        .name = _("AUTO HEALER"),
-        .itemId = ITEM_AUTO_HEALER,
+        .name = _("PORTA HEAL"),
+        .itemId = ITEM_PORTA_HEAL,
         .price = 0,
-        .description = sAutoHealerDesc,
+        .description = sPortalHealDesc,
         .importance = 1,
         .registrability = TRUE,
         .pocket = POCKET_KEY_ITEMS,
         .type = ITEM_USE_BAG_MENU,
-        .fieldUseFunc = ItemUseOutOfBattle_AutoHealer,
+        .fieldUseFunc = ItemUseOutOfBattle_PortalHeal,
     },
 };

@@ -416,7 +416,7 @@
 // Emerald
 #define ITEM_MAGMA_EMBLEM 375
 #define ITEM_OLD_SEA_MAP 376
-#define ITEM_AUTO_HEALER 377
+#define ITEM_PORTA_HEAL 377
 
 #define ITEMS_COUNT 378
 

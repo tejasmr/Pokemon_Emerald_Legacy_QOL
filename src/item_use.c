@@ -222,7 +222,7 @@ void ItemUseOutOfBattle_Bike(u8 taskId)
 }
 
 
-void ItemUseOutOfBattle_AutoHealer(u8 taskId)
+void ItemUseOutOfBattle_PortalHeal(u8 taskId)
 {
     HealPlayerParty();
     StringExpandPlaceholders(gStringVar4, gText_PartyWasRestored);
