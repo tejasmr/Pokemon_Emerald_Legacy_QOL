@@ -1556,3 +1556,7 @@ static const u8 sOldSeaMapDesc[] = _(
 
 static const u8 sPortalHealDesc[] = _(
     "Heals the party.");
+
+static const u8 sEvEditorDesc[] = _(
+    "A device for editing\n"
+    "a POKéMON's EVs.");

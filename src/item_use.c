@@ -41,6 +41,7 @@
 #include "constants/event_objects.h"
 #include "constants/item_effects.h"
 #include "constants/items.h"
+#include "constants/party_menu.h"
 #include "constants/songs.h"
 
 static void SetUpItemUseCallback(u8);
@@ -237,6 +238,12 @@ void ItemUseOutOfBattle_PortaHeal(u8 taskId)
     {
         DisplayPartyWasRestoredMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem);
     }
+}
+
+void ItemUseOutOfBattle_EvEditor(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_EVEditor;
+    SetUpItemUseCallback(taskId);
 }
 
 static void ItemUseOnFieldCB_Bike(u8 taskId)

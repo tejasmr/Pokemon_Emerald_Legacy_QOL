@@ -386,9 +386,7 @@ static void CreateHeldItemSpriteForTrade(u8, bool8);
 static void SpriteCB_HeldItem(struct Sprite *);
 static void SetPartyMonAilmentGfx(struct Pokemon *, struct PartyMenuBox *);
 static void UpdatePartyMonAilmentGfx(u8, struct PartyMenuBox *);
-static u8 GetPartyLayoutFromBattleType(void);
 static void Task_SetSacredAshCB(u8);
-static void CB2_ReturnToBagMenu(void);
 static void Task_DisplayHPRestoredMessage(u8);
 static u16 ItemEffectToMonEv(struct Pokemon *, u8);
 static void ItemEffectToStatString(u8, u8 *);
@@ -483,13 +481,14 @@ static bool8 SetUpFieldMove_Surf(void);
 static bool8 SetUpFieldMove_Fly(void);
 static bool8 SetUpFieldMove_Waterfall(void);
 static bool8 SetUpFieldMove_Dive(void);
+static void Task_EVEditorChooseStat(u8 taskId);
 
 // static const data
 #include "data/pokemon/tutor_learnsets.h"
 #include "data/party_menu.h"
 
 // code
-static void InitPartyMenu(u8 menuType, u8 layout, u8 partyAction, bool8 keepCursorPos, u8 messageId, TaskFunc task, MainCallback callback)
+void InitPartyMenu(u8 menuType, u8 layout, u8 partyAction, bool8 keepCursorPos, u8 messageId, TaskFunc task, MainCallback callback)
 {
     u16 i;
 
@@ -4279,7 +4278,7 @@ void CB2_ShowPartyMenuForItemUse(void)
     InitPartyMenu(menuType, partyLayout, PARTY_ACTION_USE_ITEM, TRUE, msgId, task, callback);
 }
 
-static void CB2_ReturnToBagMenu(void)
+void CB2_ReturnToBagMenu(void)
 {
     if (InBattlePyramid() == FALSE)
         GoToBagMenu(ITEMMENULOCATION_LAST, POCKETS_COUNT, NULL);
@@ -4541,6 +4540,210 @@ void ItemUseCB_ReduceEV(u8 taskId, TaskFunc task)
         ScheduleBgCopyTilemapToVram(2);
         gTasks[taskId].func = task;
     }
+}
+
+void ItemUseCB_EVEditor(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+
+    if (GetMonData(mon, MON_DATA_IS_EGG) == TRUE)
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        PlaySE(SE_SELECT);
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = task;
+        return;
+    }
+
+    gTasks[taskId].data[0] = 0;
+    gTasks[taskId].func = Task_EVEditorChooseStat;
+}
+
+static bool8 TrySetMonEVByDelta(struct Pokemon *mon, u8 statId, s16 delta)
+{
+    u16 evs[NUM_STATS];
+    u16 totalEVs = 0;
+    u16 currentEV;
+    s16 clampedDelta = delta;
+    int i;
+
+    for (i = 0; i < NUM_STATS; i++)
+    {
+        evs[i] = GetMonData(mon, MON_DATA_HP_EV + i, NULL);
+        totalEVs += evs[i];
+    }
+
+    currentEV = evs[statId];
+    if (delta > 0)
+    {
+        if (currentEV >= MAX_PER_STAT_EVS || totalEVs >= MAX_TOTAL_EVS)
+            return FALSE;
+        if (clampedDelta > MAX_PER_STAT_EVS - currentEV)
+            clampedDelta = MAX_PER_STAT_EVS - currentEV;
+        if ((u16)(totalEVs + clampedDelta) > MAX_TOTAL_EVS)
+            clampedDelta = MAX_TOTAL_EVS - totalEVs;
+    }
+    else if (delta < 0)
+    {
+        if (currentEV == 0)
+            return FALSE;
+        if (clampedDelta < -(s16)currentEV)
+            clampedDelta = -(s16)currentEV;
+    }
+    else
+    {
+        return FALSE;
+    }
+
+    if (clampedDelta == 0)
+        return FALSE;
+
+    evs[statId] = currentEV + clampedDelta;
+    SetMonData(mon, MON_DATA_HP_EV + statId, &evs[statId]);
+    return TRUE;
+}
+
+static void Task_EVEditorChooseStat(u8 taskId)
+{
+    struct WindowTemplate window;
+    const u8 *statText[] =
+    {
+        gText_HP3,
+        gText_Attack3,
+        gText_Defense3,
+        gText_Speed2,
+        gText_SpAtk3,
+        gText_SpDef3,
+    };
+    static const u8 sEvEditorActionPlus[] = _("+4 EV");
+    static const u8 sEvEditorActionMinus[] = _("-4 EV");
+    static const u8 sEvEditorActionMax[] = _("MAX EV");
+    static const u8 sEvEditorActionReset[] = _("RESET EV");
+    static const u8 sEvEditorActionClose[] = _("CLOSE");
+    const u8 *actionText[] =
+    {
+        sEvEditorActionPlus,
+        sEvEditorActionMinus,
+        sEvEditorActionMax,
+        sEvEditorActionReset,
+        sEvEditorActionClose,
+    };
+    u8 cursorDimension;
+    u8 letterSpacing;
+    u8 i;
+    s8 input;
+    u8 statId;
+    bool8 changed;
+
+    if (gTasks[taskId].data[0] == 0)
+    {
+        SetWindowTemplateFields(&window, 2, 20, 7, 9, 12, 14, 0x2E9);
+        sPartyMenuInternal->windowId[0] = AddWindow(&window);
+        DrawStdFrameWithCustomTileAndPalette(sPartyMenuInternal->windowId[0], FALSE, 0x4F, 13);
+        cursorDimension = GetMenuCursorDimensionByFont(FONT_NORMAL, 0);
+        letterSpacing = GetFontAttribute(FONT_NORMAL, FONTATTR_LETTER_SPACING);
+
+        for (i = 0; i < 6; i++)
+            AddTextPrinterParameterized4(sPartyMenuInternal->windowId[0], FONT_NORMAL, cursorDimension, (i * 16) + 1, letterSpacing, 0, sFontColorTable[3], 0, statText[i]);
+
+        InitMenuInUpperLeftCorner(sPartyMenuInternal->windowId[0], 6, 0, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].data[0] = 1;
+        return;
+    }
+
+    if (gTasks[taskId].data[0] == 1)
+    {
+        if (JOY_NEW(B_BUTTON))
+        {
+            ClearWindowTilemap(sPartyMenuInternal->windowId[0]);
+            PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+            gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+            return;
+        }
+
+        input = ProcessMenuInput_other();
+        if (input == MENU_NOTHING_CHOSEN)
+            return;
+
+        gTasks[taskId].data[1] = input;
+        ClearWindowTilemap(sPartyMenuInternal->windowId[0]);
+        PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+
+        SetWindowTemplateFields(&window, 2, 20, 7, 9, 12, 14, 0x2E9);
+        sPartyMenuInternal->windowId[0] = AddWindow(&window);
+        DrawStdFrameWithCustomTileAndPalette(sPartyMenuInternal->windowId[0], FALSE, 0x4F, 13);
+        cursorDimension = GetMenuCursorDimensionByFont(FONT_NORMAL, 0);
+        letterSpacing = GetFontAttribute(FONT_NORMAL, FONTATTR_LETTER_SPACING);
+
+        for (i = 0; i < 5; i++)
+            AddTextPrinterParameterized4(sPartyMenuInternal->windowId[0], FONT_NORMAL, cursorDimension, (i * 16) + 1, letterSpacing, 0, sFontColorTable[3], 0, actionText[i]);
+
+        InitMenuInUpperLeftCorner(sPartyMenuInternal->windowId[0], 5, 0, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].data[0] = 2;
+        return;
+    }
+
+    if (JOY_NEW(B_BUTTON))
+    {
+        ClearWindowTilemap(sPartyMenuInternal->windowId[0]);
+        PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+        gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+        return;
+    }
+
+    input = ProcessMenuInput_other();
+    if (input == MENU_NOTHING_CHOSEN)
+        return;
+
+    statId = gTasks[taskId].data[1];
+    ClearWindowTilemap(sPartyMenuInternal->windowId[0]);
+    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+
+    switch (input)
+    {
+    case 0:
+        changed = TrySetMonEVByDelta(&gPlayerParty[gPartyMenu.slotId], statId, 4);
+        break;
+    case 1:
+        changed = TrySetMonEVByDelta(&gPlayerParty[gPartyMenu.slotId], statId, -4);
+        break;
+    case 2:
+        changed = TrySetMonEVByDelta(&gPlayerParty[gPartyMenu.slotId], statId, 252);
+        break;
+    case 3:
+        {
+            u16 zero = 0;
+            changed = GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_HP_EV + statId) != 0;
+            if (changed)
+                SetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_HP_EV + statId, &zero);
+        }
+        break;
+    case 4:
+        gPartyMenuUseExitCallback = FALSE;
+        PlaySE(SE_SELECT);
+        gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+        return;
+    default:
+        changed = FALSE;
+        break;
+    }
+
+    if (!changed)
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        PlaySE(SE_SELECT);
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+        return;
+    }
+
+    gPartyMenuUseExitCallback = TRUE;
+    PlaySE(SE_USE_ITEM);
+    gTasks[taskId].func = Task_ClosePartyMenuAfterText;
 }
 
 static u16 ItemEffectToMonEv(struct Pokemon *mon, u8 effectType)
@@ -5804,7 +6007,7 @@ void ChooseMonForWirelessMinigame(void)
     InitPartyMenu(PARTY_MENU_TYPE_MINIGAME, PARTY_LAYOUT_SINGLE, PARTY_ACTION_MINIGAME, FALSE, PARTY_MSG_CHOOSE_MON_OR_CANCEL, Task_HandleChooseMonInput, CB2_ReturnToFieldContinueScriptPlayMapMusic);
 }
 
-static u8 GetPartyLayoutFromBattleType(void)
+u8 GetPartyLayoutFromBattleType(void)
 {
     if (IsDoubleBattle() == FALSE)
         return PARTY_LAYOUT_SINGLE;
