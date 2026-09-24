@@ -332,13 +332,17 @@ void RunTextPrinters(void)
                 if (sTextPrinters[i].active)
                 {
                     u16 renderCmd = RenderFont(&sTextPrinters[i]);
-                    CopyWindowToVram(sTextPrinters[i].printerTemplate.windowId, 2);
                     switch (renderCmd)
                     {
                     case RENDER_PRINT:
+                        CopyWindowToVram(sTextPrinters[i].printerTemplate.windowId, 2);
+                        if (sTextPrinters[i].callback != NULL)
+                            sTextPrinters[i].callback(&sTextPrinters[i].printerTemplate, renderCmd);
+                        break;
                     case RENDER_UPDATE:
                         if (sTextPrinters[i].callback != NULL)
                             sTextPrinters[i].callback(&sTextPrinters[i].printerTemplate, renderCmd);
+                        isInstantText = FALSE;
                         break;
                     case RENDER_FINISH:
                         sTextPrinters[i].active = FALSE;
