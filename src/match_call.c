@@ -1333,7 +1333,7 @@ static bool32 MatchCall_PrintIntro(u8 taskId)
 static bool32 MatchCall_PrintMessage(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
-    if (!RunMatchCallTextPrinter(tWindowId) && !IsSEPlaying() && JOY_NEW(A_BUTTON | B_BUTTON))
+    if (!RunMatchCallTextPrinter(tWindowId) && !IsSEPlaying() && (JOY_NEW(A_BUTTON | B_BUTTON) || JOY_HELD(A_BUTTON | B_BUTTON)))
     {
         FillWindowPixelBuffer(tWindowId, PIXEL_FILL(8));
         CopyWindowToVram(tWindowId, COPYWIN_GFX);

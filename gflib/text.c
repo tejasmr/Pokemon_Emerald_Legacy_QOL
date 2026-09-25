@@ -320,29 +320,44 @@ bool16 AddTextPrinter(struct TextPrinterTemplate *printerTemplate, u8 speed, voi
 void RunTextPrinters(void)
 {
     int i;
+    u16 temp;
+    bool32 isInstantText = (gSaveBlock2Ptr->optionsTextSpeed == OPTIONS_TEXT_SPEED_INST);
 
-    if (!gDisableTextPrinters)
-    {
-        for (i = 0; i < WINDOWS_MAX; ++i)
+    do {
+        if (!gDisableTextPrinters)
         {
-            if (sTextPrinters[i].active)
+        	int numEmpty = 0;
+            for (i = 0; i < WINDOWS_MAX; ++i)
             {
-                u16 renderCmd = RenderFont(&sTextPrinters[i]);
-                CopyWindowToVram(sTextPrinters[i].printerTemplate.windowId, 2);
-                switch (renderCmd)
+                if (sTextPrinters[i].active)
                 {
-                case RENDER_PRINT:
-                case RENDER_UPDATE:
-                    if (sTextPrinters[i].callback != NULL)
-                        sTextPrinters[i].callback(&sTextPrinters[i].printerTemplate, renderCmd);
-                    break;
-                case RENDER_FINISH:
-                    sTextPrinters[i].active = FALSE;
-                    break;
+                    u16 renderCmd = RenderFont(&sTextPrinters[i]);
+                    CopyWindowToVram(sTextPrinters[i].printerTemplate.windowId, 2);
+                    switch (renderCmd)
+                    {
+                    case RENDER_PRINT:
+                        if (sTextPrinters[i].callback != NULL)
+                            sTextPrinters[i].callback(&sTextPrinters[i].printerTemplate, renderCmd);
+                        break;
+                    case RENDER_UPDATE:
+                        if (sTextPrinters[i].callback != NULL)
+                            sTextPrinters[i].callback(&sTextPrinters[i].printerTemplate, renderCmd);
+                        isInstantText = FALSE;
+                        break;
+                    case RENDER_FINISH:
+                        sTextPrinters[i].active = FALSE;
+                        break;
+                    }
+                }
+                else 
+                {
+                    numEmpty++;
                 }
             }
+            if(numEmpty == WINDOWS_MAX)
+                return;
         }
-    }
+    } while (isInstantText);
 }
 
 bool16 IsTextPrinterActive(u8 id)
@@ -873,7 +888,7 @@ bool16 TextPrinterWaitWithDownArrow(struct TextPrinter *textPrinter)
     else
     {
         TextPrinterDrawDownArrow(textPrinter);
-        if (JOY_NEW(A_BUTTON | B_BUTTON))
+        if ((JOY_HELD(A_BUTTON | B_BUTTON) && 1) || JOY_NEW(A_BUTTON | B_BUTTON))
         {
             result = TRUE;
             PlaySE(SE_SELECT);
@@ -891,7 +906,7 @@ bool16 TextPrinterWait(struct TextPrinter *textPrinter)
     }
     else
     {
-        if (JOY_NEW(A_BUTTON | B_BUTTON))
+        if ((JOY_HELD(A_BUTTON | B_BUTTON) && 1) || JOY_NEW(A_BUTTON | B_BUTTON))
         {
             result = TRUE;
             PlaySE(SE_SELECT);
@@ -949,7 +964,7 @@ static u16 RenderText(struct TextPrinter *textPrinter)
         if (textPrinter->delayCounter && textPrinter->textSpeed)
         {
             textPrinter->delayCounter--;
-            if (gTextFlags.canABSpeedUpPrint && (JOY_NEW(A_BUTTON | B_BUTTON)))
+            if (gTextFlags.canABSpeedUpPrint && (JOY_HELD(A_BUTTON | B_BUTTON) || JOY_NEW(A_BUTTON | B_BUTTON)))
             {
                 subStruct->hasPrintBeenSpedUp = TRUE;
                 textPrinter->delayCounter = 0;
@@ -971,6 +986,9 @@ static u16 RenderText(struct TextPrinter *textPrinter)
 				repeats = 1;
 				break;
 			case OPTIONS_TEXT_SPEED_FAST:
+				repeats = 2;
+				break;
+			case OPTIONS_TEXT_SPEED_INST:
 				repeats = 2;
 				break;
         }
