@@ -6,6 +6,7 @@ void ItemUseOutOfBattle_Bike(u8);
 void ItemUseOutOfBattle_PortaHeal(u8);
 void ItemUseOutOfBattle_EvEditor(u8);
 void ItemUseOutOfBattle_AbilityCapsule(u8);
+void ItemUseOutOfBattle_MoveRelearner(u8);
 void ItemUseOutOfBattle_Rod(u8);
 void ItemUseOutOfBattle_Itemfinder(u8);
 void ItemUseOutOfBattle_PokeblockCase(u8);

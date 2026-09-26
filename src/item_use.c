@@ -252,6 +252,12 @@ void ItemUseOutOfBattle_AbilityCapsule(u8 taskId)
     SetUpItemUseCallback(taskId);
 }
 
+void ItemUseOutOfBattle_MoveRelearner(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_MoveRelearner;
+    SetUpItemUseCallback(taskId);
+}
+
 static void ItemUseOnFieldCB_Bike(u8 taskId)
 {
     if (ItemId_GetSecondaryId(gSpecialVar_ItemId) == MACH_BIKE)

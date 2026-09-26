@@ -39,6 +39,7 @@
 #include "menu_helpers.h"
 #include "menu_specialized.h"
 #include "metatile_behavior.h"
+#include "move_relearner.h"
 #include "overworld.h"
 #include "palette.h"
 #include "party_menu.h"
@@ -4835,6 +4836,41 @@ static void Task_AbilityCapsuleChooseAbility(u8 taskId)
     gTasks[taskId].func = Task_ClosePartyMenuAfterText;
 }
 
+void ItemUseCB_MoveRelearner(u8 taskId, TaskFunc task)
+{
+    ChooseMonForMoveRelearner();
+
+    if (IsSelectedMonEgg2())
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        PlaySE(SE_SELECT);
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+        return;
+    }
+
+    if (JOY_NEW(B_BUTTON) || (gSpecialVar_0x8004 == PARTY_NOTHING_CHOSEN))
+    {
+        ClearWindowTilemap(sPartyMenuInternal->windowId[0]);
+        PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+        gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+        return;
+    }
+
+    if (gSpecialVar_0x8005 == 0)
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        PlaySE(SE_SELECT);
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+        return;
+    }
+
+    TeachMoveRelearnerMove();
+}
+
 static u16 ItemEffectToMonEv(struct Pokemon *mon, u8 effectType)
 {
     switch (effectType)
@@ -6610,6 +6646,8 @@ static void Task_ChoosePartyMon(u8 taskId)
     }
 }
 
+
+
 void ChooseMonForMoveRelearner(void)
 {
     LockPlayerFieldControls();
@@ -6728,6 +6766,13 @@ static void ShiftMoveSlot(struct Pokemon *mon, u8 slotTo, u8 slotFrom)
     SetMonData(mon, MON_DATA_PP1 + slotTo, &pp0);
     SetMonData(mon, MON_DATA_PP1 + slotFrom, &pp1);
     SetMonData(mon, MON_DATA_PP_BONUSES, &ppBonuses);
+}
+
+bool8 IsSelectedMonEgg2(void)
+{
+    if (GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_IS_EGG))
+        return TRUE;
+    return FALSE;
 }
 
 void IsSelectedMonEgg(void)
