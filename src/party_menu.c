@@ -4851,12 +4851,12 @@ void ItemUseCB_MoveRelearner(u8 taskId, TaskFunc task)
     {
         nothingChosen = TRUE;
     }
-    else if (GetNumberOfRelearnableMoves() == 0)
+    else if (gSpecialVar_0x8005 == 0)
     {
         noMoves = TRUE;
     }
 
-    if (isEgg == FALSE && nothingChose == FALSE && noMoves == FALSE)
+    if (isEgg == FALSE && nothingChosen == FALSE && noMoves == FALSE)
     {
         TeachMoveRelearnerMove();
         return;
