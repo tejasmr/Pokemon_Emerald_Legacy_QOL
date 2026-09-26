@@ -4782,7 +4782,6 @@ void ItemUseCB_AbilityCapsule(u8 taskId, TaskFunc task)
     SetMonData(mon, MON_DATA_ABILITY_NUM, &newAbilityNum);
     gPartyMenuUseExitCallback = TRUE;
     PlaySE(SE_USE_ITEM);
-    RemoveBagItem(gSpecialVar_ItemId, 1);
     gTasks[taskId].func = task;
 }
 
