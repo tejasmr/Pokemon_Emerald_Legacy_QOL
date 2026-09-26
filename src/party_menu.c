@@ -483,7 +483,7 @@ static bool8 SetUpFieldMove_Fly(void);
 static bool8 SetUpFieldMove_Waterfall(void);
 static bool8 SetUpFieldMove_Dive(void);
 static void Task_EVEditorChooseStat(u8 taskId);
-static void Task_AbilityCapsuleChooseAbility(u8 taskId)
+static void Task_AbilityCapsuleChooseAbility(u8 taskId);
 
 // static const data
 #include "data/pokemon/tutor_learnsets.h"
