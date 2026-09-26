@@ -55,7 +55,6 @@ ArtisanCave_1F_EventScript_CantTeachEgg::
 ArtisanCave_1F_EventScript_ComeBackWithHeartScale::
 	msgbox ArtisanCave_1F_Text_ComeBackWithHeartScale, MSGBOX_DEFAULT
 	releaseall
-	clearflag FLAG_EGG_MOVES_TUTOR
 	end
 
 ArtisanCave_1F_Text_ImTheMoveTutor:
