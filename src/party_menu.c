@@ -4841,8 +4841,8 @@ void ItemUseCB_MoveRelearner(u8 taskId, TaskFunc task)
     bool8 isEgg = FALSE;
     bool8 nothingChosen = FALSE;
     bool8 noMoves = FALSE;
+    const u8 text[3];
 
-    FlagSet(FLAG_EGG_MOVES_TUTOR);
     ChooseMonForMoveRelearner();
 
     if (IsSelectedMonEgg2())
@@ -4857,6 +4857,11 @@ void ItemUseCB_MoveRelearner(u8 taskId, TaskFunc task)
     {
         noMoves = TRUE;
     }
+    text[0] = gSpecialVar_0x8004;
+    text[1] = gSpecialVar_0x8005;
+    text[2] = '\0';
+
+    DisplayPartyMenuMessage(text, TRUE);
 
     if (isEgg == FALSE && nothingChosen == FALSE && noMoves == FALSE)
     {
