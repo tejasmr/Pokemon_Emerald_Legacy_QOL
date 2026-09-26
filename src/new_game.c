@@ -211,6 +211,7 @@ void NewGameInitData(void)
 
     AddBagItem(ITEM_PORTA_HEAL, 1);
     AddBagItem(ITEM_EV_EDITOR, 1);
+    AddBagItem(ITEM_ABILITY_CAPSULE, 1);
     FlagSet(FLAG_RECEIVED_RUNNING_SHOES);
     FlagSet(FLAG_SYS_B_DASH);
 }
