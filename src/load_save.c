@@ -217,6 +217,10 @@ void LoadPlayerBag(void)
     for (i = 0; i < BAG_KEYITEMS_COUNT; i++)
         gLoadedSaveData.keyItems[i] = gSaveBlock1Ptr->bagPocket_KeyItems[i];
 
+    // load player mods.
+    for (i = 0; i < BAG_MODS_COUNT; i++)
+        gLoadedSaveData.mods[i] = gSaveBlock1Ptr->bagPocket_Mods[i];
+
     // load player pokeballs.
     for (i = 0; i < BAG_POKEBALLS_COUNT; i++)
         gLoadedSaveData.pokeBalls[i] = gSaveBlock1Ptr->bagPocket_PokeBalls[i];
@@ -248,6 +252,10 @@ void SavePlayerBag(void)
     // save player key items.
     for (i = 0; i < BAG_KEYITEMS_COUNT; i++)
         gSaveBlock1Ptr->bagPocket_KeyItems[i] = gLoadedSaveData.keyItems[i];
+
+    // save player mods.
+    for (i = 0; i < BAG_MODS_COUNT; i++)
+        gSaveBlock1Ptr->bagPocket_Mods[i] = gLoadedSaveData.mods[i];
 
     // save player pokeballs.
     for (i = 0; i < BAG_POKEBALLS_COUNT; i++)
