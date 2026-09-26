@@ -1068,7 +1068,7 @@ struct SaveBlock1
     /*0x3D64*/ struct TrainerHillSave trainerHill;
     /*0x3D70*/ struct WaldaPhrase waldaPhrase;
     /*0x3D88*/ struct ItemSlot bagPocket_Mods[BAG_MODS_COUNT];
-    // sizeof: 0x3E08
+    // sizeof: 0x3E00
 };
 
 extern struct SaveBlock1* gSaveBlock1Ptr;
