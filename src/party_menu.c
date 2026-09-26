@@ -4841,7 +4841,7 @@ void ItemUseCB_MoveRelearner(u8 taskId, TaskFunc task)
     bool8 isEgg = FALSE;
     bool8 nothingChosen = FALSE;
     bool8 noMoves = FALSE;
-    const u8 text[3];
+    u8 text[3];
 
     ChooseMonForMoveRelearner();
 
