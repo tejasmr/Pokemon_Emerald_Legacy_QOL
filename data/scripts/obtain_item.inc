@@ -13,6 +13,7 @@ Std_ObtainItem::
 EventScript_TryAddItemToPCObtain::
 	checkitemtype VAR_0x8004 @ Don't add if it's a key item
 	goto_if_eq VAR_RESULT, POCKET_KEY_ITEMS, EventScript_TryAddItemToPCObtainContinue
+	goto_if_eq VAR_RESULT, POCKET_MODS, EventScript_TryAddItemToPCObtainContinue
 	addpcitem VAR_0x8004, VAR_0x8005
 	goto_if_eq VAR_RESULT, FALSE, EventScript_TryAddItemToPCObtainContinue
 	setvar VAR_0x8007, 2  @ (0= full, 1= in pocket, 2=in PC) 
@@ -34,6 +35,7 @@ EventScript_BufferPocketNameAndTryFanfare::
 	case POCKET_POKE_BALLS, EventScript_BufferPokeballsPocket
 	case POCKET_TM_HM,      EventScript_BufferTMHMsPocket
 	case POCKET_BERRIES,    EventScript_BufferBerriesPocket
+	case POCKET_MODS,       EventScript_BufferModsPocket
 	end
 
 EventScript_BufferItemsPocket::
@@ -58,6 +60,11 @@ EventScript_BufferTMHMsPocket::
 
 EventScript_BufferBerriesPocket::
 	bufferstdstring STR_VAR_3, STDSTRING_BERRIES
+	call_if_ne VAR_0x8007, FALSE, EventScript_PlayFanfareObtainedItem
+	return
+
+EventScript_BufferModsPocket::
+	bufferstdstring STR_VAR_3, STDSTRING_MODS
 	call_if_ne VAR_0x8007, FALSE, EventScript_PlayFanfareObtainedItem
 	return
 
@@ -121,6 +128,7 @@ Std_FindItem::
 EventScript_CheckPCSpace::
 	checkitemtype VAR_0x8004 @ Don't add if it's a key item
 	goto_if_eq VAR_RESULT, POCKET_KEY_ITEMS, EventScript_CheckPCSpaceContinue
+	goto_if_eq VAR_RESULT, POCKET_MODS, EventScript_CheckPCSpaceContinue
 	pyramid_inchallenge
 	copyvar VAR_0x8004, ITEMID  @ pyramid_inchallenge modifies VAR_0x8004
 	goto_if_eq VAR_RESULT, TRUE, EventScript_CheckPCSpaceContinue
@@ -185,6 +193,7 @@ EventScript_HiddenItemScript::
 EventScript_TryAddItemToPCHidden::
 	checkitemtype VAR_0x8005 @ Don't add if it's a key item
 	goto_if_eq VAR_RESULT, POCKET_KEY_ITEMS, EventScript_TryAddHiddenItemToPCContinue
+	goto_if_eq VAR_RESULT, POCKET_MODS, EventScript_TryAddHiddenItemToPCContinue
 	addpcitem VAR_0x8005
 	goto_if_eq VAR_RESULT, FALSE, EventScript_TryAddHiddenItemToPCContinue
 	setvar VAR_0x8007, 2  @ (0= full, 1= in pocket, 2=in PC) 

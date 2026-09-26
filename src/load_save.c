@@ -26,6 +26,7 @@ struct LoadedSaveData
  /*0x0130*/ struct ItemSlot TMsHMs[BAG_TMHM_COUNT];
  /*0x0230*/ struct ItemSlot berries[BAG_BERRIES_COUNT];
  /*0x02E8*/ struct Mail mail[MAIL_COUNT];
+ /*0x03A0*/ struct ItemSlot mods[BAG_MODS_COUNT];
 };
 
 // EWRAM DATA
@@ -217,6 +218,10 @@ void LoadPlayerBag(void)
     for (i = 0; i < BAG_KEYITEMS_COUNT; i++)
         gLoadedSaveData.keyItems[i] = gSaveBlock1Ptr->bagPocket_KeyItems[i];
 
+    // load player mods.
+    for (i = 0; i < BAG_MODS_COUNT; i++)
+        gLoadedSaveData.mods[i] = gSaveBlock1Ptr->bagPocket_Mods[i];
+
     // load player pokeballs.
     for (i = 0; i < BAG_POKEBALLS_COUNT; i++)
         gLoadedSaveData.pokeBalls[i] = gSaveBlock1Ptr->bagPocket_PokeBalls[i];
@@ -248,6 +253,10 @@ void SavePlayerBag(void)
     // save player key items.
     for (i = 0; i < BAG_KEYITEMS_COUNT; i++)
         gSaveBlock1Ptr->bagPocket_KeyItems[i] = gLoadedSaveData.keyItems[i];
+
+    // save player mods.
+    for (i = 0; i < BAG_MODS_COUNT; i++)
+        gSaveBlock1Ptr->bagPocket_Mods[i] = gLoadedSaveData.mods[i];
 
     // save player pokeballs.
     for (i = 0; i < BAG_POKEBALLS_COUNT; i++)
