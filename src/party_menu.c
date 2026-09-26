@@ -4788,10 +4788,11 @@ static void Task_AbilityCapsuleChooseAbility(u8 taskId)
     u16 species = GetMonData(mon, MON_DATA_SPECIES);
     u8 abilityNum;
     s8 input;
+    u8 abilityCount = 2;
 
     if (gTasks[taskId].data[0] == 0)
     {
-        SetWindowTemplateFields(&window, 2, 18, 7, 11, 12, 14, 0x2E9);
+        SetWindowTemplateFields(&window, 2, 18, 19 - 2 * abilityCount, 11, 2 * abilityCount, 14, 0x2E9);
         sPartyMenuInternal->windowId[0] = AddWindow(&window);
         DrawStdFrameWithCustomTileAndPalette(sPartyMenuInternal->windowId[0], FALSE, 0x4F, 13);
         AddTextPrinterParameterized4(sPartyMenuInternal->windowId[0], FONT_NORMAL, 8, 1, 0, 0, sFontColorTable[3], 0, gAbilityNames[gSpeciesInfo[species].abilities[0]]);
