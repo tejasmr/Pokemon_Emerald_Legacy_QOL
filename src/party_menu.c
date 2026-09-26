@@ -4758,6 +4758,34 @@ static void Task_EVEditorChooseStat(u8 taskId)
     gTasks[taskId].func = Task_EVEditorChooseStat;
 }
 
+void ItemUseCB_AbilityCapsule(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+    u16 species = GetMonData(mon, MON_DATA_SPECIES);
+    u8 abilityNum = GetMonData(mon, MON_DATA_ABILITY_NUM);
+    u8 newAbilityNum;
+
+    if (GetMonData(mon, MON_DATA_IS_EGG) == TRUE
+     || abilityNum == ABILITY_HIDDEN
+     || gSpeciesInfo[species].abilities[1] == ABILITY_NONE)
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        PlaySE(SE_SELECT);
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = task;
+        return;
+    }
+
+    newAbilityNum = abilityNum == ABILITY_SLOT_1 ? ABILITY_SLOT_2 : ABILITY_SLOT_1;
+    SetMonData(mon, MON_DATA_ABILITY_NUM, &newAbilityNum);
+    gPartyMenuUseExitCallback = TRUE;
+    PlaySE(SE_USE_ITEM);
+    RemoveBagItem(gSpecialVar_ItemId, 1);
+    gTasks[taskId].func = task;
+}
+
+
 static u16 ItemEffectToMonEv(struct Pokemon *mon, u8 effectType)
 {
     switch (effectType)

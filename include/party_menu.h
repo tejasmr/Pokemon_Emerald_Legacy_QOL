@@ -90,6 +90,7 @@ void BufferMoveDeleterNicknameAndMove(void);
 void GetNumMovesSelectedMonHas(void);
 void MoveDeleterChooseMoveToForget(void);
 void ItemUseCB_EVEditor(u8 taskId, TaskFunc task);
+void ItemUseCB_AbilityCapsule(u8 taskId, TaskFunc task);
 void CB2_ReturnToBagMenu(void);
 u8 GetPartyLayoutFromBattleType(void);
 void InitPartyMenu(u8 menuType, u8 layout, u8 partyAction, bool8 keepCursorPos, u8 messageId, TaskFunc task, MainCallback callback);

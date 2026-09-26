@@ -4567,7 +4567,7 @@ const struct Item gItems[] =
 
     [ITEM_ABILITY_CAPSULE] =
     {
-        .name = _("ABILITY CAPSULE"),
+        .name = _("ABILITY CAP"),
         .itemId = ITEM_ABILITY_CAPSULE,
         .price = 0,
         .description = sAbilityCapsuleDesc,

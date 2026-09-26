@@ -248,7 +248,7 @@ void ItemUseOutOfBattle_EvEditor(u8 taskId)
 
 void ItemUseOutOfBattle_AbilityCapsule(u8 taskId)
 {
-    gItemUseCB = ItemUseCB_EVEditor;
+    gItemUseCB = ItemUseCB_AbilityCapsule;
     SetUpItemUseCallback(taskId);
 }
 
