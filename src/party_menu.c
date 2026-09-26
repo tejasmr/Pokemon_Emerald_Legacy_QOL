@@ -4838,10 +4838,11 @@ static void Task_AbilityCapsuleChooseAbility(u8 taskId)
 
 void ItemUseCB_MoveRelearner(u8 taskId, TaskFunc task)
 {
-    ChooseMonForMoveRelearner();
     bool8 isEgg = FALSE;
     bool8 nothingChosen = FALSE;
     bool8 noMoves = FALSE;
+
+    ChooseMonForMoveRelearner();
 
     if (IsSelectedMonEgg2())
     {
