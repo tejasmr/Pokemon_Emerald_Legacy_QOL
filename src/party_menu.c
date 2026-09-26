@@ -4839,8 +4839,30 @@ static void Task_AbilityCapsuleChooseAbility(u8 taskId)
 void ItemUseCB_MoveRelearner(u8 taskId, TaskFunc task)
 {
     ChooseMonForMoveRelearner();
+    bool8 isEgg = FALSE;
+    bool8 nothingChosen = FALSE;
+    bool8 noMoves = FALSE;
 
     if (IsSelectedMonEgg2())
+    {
+        isEgg = TRUE;
+    }
+    else if (gSpecialVar_0x8004 == PARTY_NOTHING_CHOSEN)
+    {
+        nothingChosen = TRUE;
+    }
+    else if (GetNumberOfRelearnableMoves() == 0)
+    {
+        noMoves = TRUE;
+    }
+
+    if (isEgg == FALSE && nothingChose == FALSE && noMoves == FALSE)
+    {
+        TeachMoveRelearnerMove();
+        return;
+    }
+
+    if (isEgg == TRUE)
     {
         gPartyMenuUseExitCallback = FALSE;
         PlaySE(SE_SELECT);
@@ -4850,7 +4872,7 @@ void ItemUseCB_MoveRelearner(u8 taskId, TaskFunc task)
         return;
     }
 
-    if (JOY_NEW(B_BUTTON) || (gSpecialVar_0x8004 == PARTY_NOTHING_CHOSEN))
+    if (nothingChosen == TRUE)
     {
         ClearWindowTilemap(sPartyMenuInternal->windowId[0]);
         PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
@@ -4858,7 +4880,7 @@ void ItemUseCB_MoveRelearner(u8 taskId, TaskFunc task)
         return;
     }
 
-    if (gSpecialVar_0x8005 == 0)
+    if (noMoves == TRUE)
     {
         gPartyMenuUseExitCallback = FALSE;
         PlaySE(SE_SELECT);
@@ -4867,8 +4889,6 @@ void ItemUseCB_MoveRelearner(u8 taskId, TaskFunc task)
         gTasks[taskId].func = Task_ClosePartyMenuAfterText;
         return;
     }
-
-    TeachMoveRelearnerMove();
 }
 
 static u16 ItemEffectToMonEv(struct Pokemon *mon, u8 effectType)
