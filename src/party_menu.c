@@ -4842,6 +4842,7 @@ void ItemUseCB_MoveRelearner(u8 taskId, TaskFunc task)
     bool8 nothingChosen = FALSE;
     bool8 noMoves = FALSE;
 
+    FlagSet(FLAG_EGG_MOVES_TUTOR);
     ChooseMonForMoveRelearner();
 
     if (IsSelectedMonEgg2())
