@@ -1560,3 +1560,7 @@ static const u8 sPortalHealDesc[] = _(
 static const u8 sEvEditorDesc[] = _(
     "A device for editing\n"
     "a POKéMON's EVs.");
+
+static const u8 sAbilityCapsuleDesc[] = _(
+    "A device to switch\n"
+    "a POKéMON's ability.");

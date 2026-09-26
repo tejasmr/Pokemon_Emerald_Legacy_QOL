@@ -63,6 +63,7 @@
 #include "trade.h"
 #include "union_room.h"
 #include "window.h"
+#include "constants/abilities.h"
 #include "constants/battle.h"
 #include "constants/battle_frontier.h"
 #include "constants/field_effects.h"
@@ -482,6 +483,7 @@ static bool8 SetUpFieldMove_Fly(void);
 static bool8 SetUpFieldMove_Waterfall(void);
 static bool8 SetUpFieldMove_Dive(void);
 static void Task_EVEditorChooseStat(u8 taskId);
+static void Task_AbilityCapsuleChooseAbility(u8 taskId);
 
 // static const data
 #include "data/pokemon/tutor_learnsets.h"
@@ -4756,6 +4758,81 @@ static void Task_EVEditorChooseStat(u8 taskId)
     PlaySE(SE_USE_ITEM);
     gTasks[taskId].data[0] = 0;
     gTasks[taskId].func = Task_EVEditorChooseStat;
+}
+
+void ItemUseCB_AbilityCapsule(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+    u16 species = GetMonData(mon, MON_DATA_SPECIES);
+
+    if (GetMonData(mon, MON_DATA_IS_EGG) == TRUE
+     || gSpeciesInfo[species].abilities[0] == ABILITY_NONE
+     || gSpeciesInfo[species].abilities[1] == ABILITY_NONE)
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        PlaySE(SE_SELECT);
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = task;
+        return;
+    }
+
+    gTasks[taskId].data[0] = 0;
+    gTasks[taskId].func = Task_AbilityCapsuleChooseAbility;
+}
+
+static void Task_AbilityCapsuleChooseAbility(u8 taskId)
+{
+    struct WindowTemplate window;
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+    u16 species = GetMonData(mon, MON_DATA_SPECIES);
+    u8 abilityNum;
+    s8 input;
+    u8 abilityCount = 2;
+
+    if (gTasks[taskId].data[0] == 0)
+    {
+        SetWindowTemplateFields(&window, 2, 18, 19 - 2 * abilityCount, 11, 2 * abilityCount, 14, 0x2E9);
+        sPartyMenuInternal->windowId[0] = AddWindow(&window);
+        DrawStdFrameWithCustomTileAndPalette(sPartyMenuInternal->windowId[0], FALSE, 0x4F, 13);
+        AddTextPrinterParameterized4(sPartyMenuInternal->windowId[0], FONT_NORMAL, 8, 1, 0, 0, sFontColorTable[3], 0, gAbilityNames[gSpeciesInfo[species].abilities[0]]);
+        AddTextPrinterParameterized4(sPartyMenuInternal->windowId[0], FONT_NORMAL, 8, 17, 0, 0, sFontColorTable[3], 0, gAbilityNames[gSpeciesInfo[species].abilities[1]]);
+        InitMenuInUpperLeftCorner(sPartyMenuInternal->windowId[0], 2, 0, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].data[0] = 1;
+        return;
+    }
+
+    if (JOY_NEW(B_BUTTON))
+    {
+        ClearWindowTilemap(sPartyMenuInternal->windowId[0]);
+        PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+        gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+        return;
+    }
+
+    input = ProcessMenuInput_other();
+    if (input == MENU_NOTHING_CHOSEN)
+        return;
+
+    abilityNum = input;
+    ClearWindowTilemap(sPartyMenuInternal->windowId[0]);
+    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+
+    if (GetMonData(mon, MON_DATA_ABILITY_NUM) == abilityNum)
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        PlaySE(SE_SELECT);
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+        return;
+    }
+
+    SetMonData(mon, MON_DATA_ABILITY_NUM, &abilityNum);
+    gPartyMenuUseExitCallback = TRUE;
+    PlaySE(SE_USE_ITEM);
+    gTasks[taskId].func = Task_ClosePartyMenuAfterText;
 }
 
 static u16 ItemEffectToMonEv(struct Pokemon *mon, u8 effectType)
