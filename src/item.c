@@ -66,6 +66,9 @@ void SetBagItemsPointers(void)
     gBagPockets[KEYITEMS_POCKET].itemSlots = gSaveBlock1Ptr->bagPocket_KeyItems;
     gBagPockets[KEYITEMS_POCKET].capacity = BAG_KEYITEMS_COUNT;
 
+    gBagPockets[MODS_POCKET].itemSlots = gSaveBlock1Ptr->bagPocket_Mods;
+    gBagPockets[MODS_POCKET].capacity = BAG_MODS_COUNT;
+
     gBagPockets[BALLS_POCKET].itemSlots = gSaveBlock1Ptr->bagPocket_PokeBalls;
     gBagPockets[BALLS_POCKET].capacity = BAG_POKEBALLS_COUNT;
 

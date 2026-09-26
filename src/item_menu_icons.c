@@ -99,6 +99,7 @@ static const union AnimCmd *const sBagSpriteAnimTable[] =
     [POCKET_TM_HM]      = sSpriteAnim_Bag_TMsHMs,
     [POCKET_BERRIES]    = sSpriteAnim_Bag_Berries,
     [POCKET_KEY_ITEMS]  = sSpriteAnim_Bag_KeyItems,
+    [POCKET_MODS]       = sSpriteAnim_Bag_Mods,
 };
 
 static const union AffineAnimCmd sSpriteAffineAnim_BagNormal[] =
