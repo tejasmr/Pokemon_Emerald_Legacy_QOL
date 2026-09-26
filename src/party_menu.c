@@ -4791,7 +4791,7 @@ static void Task_AbilityCapsuleChooseAbility(u8 taskId)
 
     if (gTasks[taskId].data[0] == 0)
     {
-        SetWindowTemplateFields(&window, 2, 20, 7, 9, 12, 14, 0x2E9);
+        SetWindowTemplateFields(&window, 2, 16, 7, 13, 12, 14, 0x2E9);
         sPartyMenuInternal->windowId[0] = AddWindow(&window);
         DrawStdFrameWithCustomTileAndPalette(sPartyMenuInternal->windowId[0], FALSE, 0x4F, 13);
         AddTextPrinterParameterized4(sPartyMenuInternal->windowId[0], FONT_NORMAL, 8, 1, 0, 0, sFontColorTable[3], 0, gAbilityNames[gSpeciesInfo[species].abilities[0]]);
