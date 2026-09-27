@@ -1571,4 +1571,4 @@ static const u8 sMoveRelearnerDesc[] = _(
 
 static const u8 sInfRepelDesc[] = _(
     "Repels wild POKéMON\n"
-    "until turned off.");;
+    "until turned off.");
