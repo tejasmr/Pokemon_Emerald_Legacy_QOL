@@ -3049,7 +3049,7 @@ void BattlePutTextOnWindow(const u8 *text, u8 windowId)
         gTextFlags.canABSpeedUpPrint = 0;
     }
 
-    AddTextPrinter(&printerTemplate, speed, NULL);
+    // AddTextPrinter(&printerTemplate, speed, NULL);
 
     if (copyToVram)
     {
