@@ -3202,4 +3202,7 @@ extern const u8 gText_MoveItemWhere[];
 extern const u8 gText_XsYAnd[];
 extern const u8 gText_XsYWereSwapped[];
 
+// QOL Patch strings
+extern const u8 FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon[];
+
 #endif // GUARD_STRINGS_H
