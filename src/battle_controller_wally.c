@@ -193,7 +193,7 @@ static void WallyHandleActions(void)
         gBattleStruct->wallyWaitFrames = B_WAIT_TIME_VERY_SHORT;
         gBattleStruct->wallyBattleState++;
     case 1:
-        if (--gBattleStruct->wallyWaitFrames == 0)
+        if (--gBattleStruct->wallyWaitFrames <= 0)
         {
             PlaySE(SE_SELECT);
             BtlController_EmitTwoReturnValues(BUFFER_B, B_ACTION_USE_MOVE, 0);
@@ -204,7 +204,7 @@ static void WallyHandleActions(void)
         }
         break;
     case 2:
-        if (--gBattleStruct->wallyWaitFrames == 0)
+        if (--gBattleStruct->wallyWaitFrames <= 0)
         {
             PlaySE(SE_SELECT);
             BtlController_EmitTwoReturnValues(BUFFER_B, B_ACTION_USE_MOVE, 0);
@@ -215,7 +215,7 @@ static void WallyHandleActions(void)
         }
         break;
     case 3:
-        if (--gBattleStruct->wallyWaitFrames == 0)
+        if (--gBattleStruct->wallyWaitFrames <= 0)
         {
             BtlController_EmitTwoReturnValues(BUFFER_B, B_ACTION_WALLY_THROW, 0);
             WallyBufferExecCompleted();
@@ -225,7 +225,7 @@ static void WallyHandleActions(void)
         }
         break;
     case 4:
-        if (--gBattleStruct->wallyWaitFrames == 0)
+        if (--gBattleStruct->wallyWaitFrames <= 0)
         {
             PlaySE(SE_SELECT);
             ActionSelectionDestroyCursorAt(0);
@@ -235,7 +235,7 @@ static void WallyHandleActions(void)
         }
         break;
     case 5:
-        if (--gBattleStruct->wallyWaitFrames == 0)
+        if (--gBattleStruct->wallyWaitFrames <= 0)
         {
             PlaySE(SE_SELECT);
             BtlController_EmitTwoReturnValues(BUFFER_B, B_ACTION_USE_ITEM, 0);
