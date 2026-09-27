@@ -4,6 +4,7 @@ FallarborTown_MoveRelearnersHouse_MapScripts::
 	.byte 0
 
 FallarborTown_MoveRelearnersHouse_EventScript_MoveRelearner::
+	clearflag FLAG_EGG_MOVES_TUTOR
 	lockall
 	applymovement LOCALID_MOVE_RELEARNER, Common_Movement_FacePlayer
 	waitmovement 0
