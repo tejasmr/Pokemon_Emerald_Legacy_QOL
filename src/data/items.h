@@ -4587,7 +4587,7 @@ const struct Item gItems[] =
         .importance = 1,
         .registrability = TRUE,
         .pocket = POCKET_MODS,
-        .type = ITEM_USE_BAG_MENU,
+        .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_MoveRelearner,
     },
 };

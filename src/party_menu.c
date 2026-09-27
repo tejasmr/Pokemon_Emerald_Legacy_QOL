@@ -4842,8 +4842,22 @@ static void Task_AbilityCapsuleChooseAbility(u8 taskId)
 
 void ItemUseCB_MoveRelearner(u8 taskId, TaskFunc task)
 {
-    DebugPrintfLevel(MGBA_LOG_ERROR, "Script Memory Address: %X", (u32)MoveRelearner_EventScript_ChooseMon);
-    ScriptContext_SetupScript(MoveRelearner_EventScript_ChooseMon);
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+
+    if (GetMonData(mon, MON_DATA_IS_EGG) == TRUE || GetNumberOfRelearnableMoves(mon) == 0)
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        PlaySE(SE_SELECT);
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = task;
+        return;
+    }
+
+    gSpecialVar_0x8004 = gPartyMenu.slotId;
+    gPartyMenuUseExitCallback = FALSE;
+    sPartyMenuInternal->exitCallback = CB2_InitLearnMove;
+    Task_ClosePartyMenu(taskId);
 }
 
 static u16 ItemEffectToMonEv(struct Pokemon *mon, u8 effectType)
