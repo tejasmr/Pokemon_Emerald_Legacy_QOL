@@ -14,7 +14,6 @@
 #include "decompress.h"
 #include "easy_chat.h"
 #include "event_data.h"
-#include "event_scripts.h"
 #include "evolution_scene.h"
 #include "field_control_avatar.h"
 #include "field_effect.h"
@@ -75,7 +74,6 @@
 #include "constants/party_menu.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
-#include "gba/isagbprint.h"
 #include "battle_setup.h"
 
 enum {
@@ -235,8 +233,6 @@ EWRAM_DATA u8 gSelectedOrderFromParty[MAX_FRONTIER_PARTY_SIZE] = {0};
 static EWRAM_DATA u16 sPartyMenuItemId = 0;
 static EWRAM_DATA u16 sUnused = 0;
 EWRAM_DATA u8 gBattlePartyCurrentOrder[PARTY_SIZE / 2] = {0}; // bits 0-3 are the current pos of Slot 1, 4-7 are Slot 2, and so on
-
-extern const u8 MoveRelearner_EventScript_ChooseMon[];
 
 // IWRAM common
 void (*gItemUseCB)(u8, TaskFunc);
