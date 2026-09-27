@@ -904,6 +904,27 @@ void ItemUseOutOfBattle_Repel(u8 taskId)
         DisplayItemMessageInBattlePyramid(taskId, gText_RepelEffectsLingered, Task_CloseBattlePyramidBagMessage);
 }
 
+void ItemUseOutOfBattle_InfRepel(u8 taskId)
+{
+    if (FlagGet(FLAG_SYS_INF_REPEL))
+    {
+        FlagClear(FLAG_SYS_INF_REPEL);
+        if (!InBattlePyramid())
+            DisplayItemMessage(taskId, FONT_NORMAL, gText_InfRepelDeactivated, CloseItemMessage);
+        else
+            DisplayItemMessageInBattlePyramid(taskId, gText_InfRepelDeactivated, Task_CloseBattlePyramidBagMessage);
+    }
+    else
+    {
+        FlagSet(FLAG_SYS_INF_REPEL);
+        PlaySE(SE_REPEL);
+        if (!InBattlePyramid())
+            DisplayItemMessage(taskId, FONT_NORMAL, gText_InfRepelActivated, CloseItemMessage);
+        else
+            DisplayItemMessageInBattlePyramid(taskId, gText_InfRepelActivated, Task_CloseBattlePyramidBagMessage);
+    }
+}
+
 static void Task_StartUseRepel(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;

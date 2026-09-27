@@ -1092,6 +1092,8 @@ extern const u8 gText_TMHMContainedVar1[];
 extern const u8 gText_PlayerUsedVar2[];
 extern const u8 gText_PlayerUsedVar2_NoPause[];
 extern const u8 gText_RepelEffectsLingered[];
+extern const u8 gText_InfRepelActivated[];
+extern const u8 gText_InfRepelDeactivated[];
 extern const u8 gText_UsedVar2WildLured[];
 extern const u8 gText_UsedVar2WildRepelled[];
 extern const u8 gText_BoxFull[];
