@@ -1227,7 +1227,7 @@ static void WallyHandleChooseMove(void)
     case 0:
         InitMoveSelectionsVarsAndStrings();
         gBattleStruct->wallyMovesState++;
-        gBattleStruct->wallyMoveFrames = 80;
+        gBattleStruct->wallyMoveFrames = B_WAIT_TIME_VERY_SHORT;
         break;
     case 1:
         if (!IsDma3ManagerBusyWithBgCopy())
