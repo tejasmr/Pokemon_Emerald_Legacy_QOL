@@ -1568,3 +1568,7 @@ static const u8 sAbilityCapsuleDesc[] = _(
 static const u8 sMoveRelearnerDesc[] = _(
     "Use to relearn a\n"
     "POKéMON's moves.");
+
+static const u8 sInfRepelDesc[] = _(
+    "Repels wild POKéMON\n"
+    "until turned off.");;
