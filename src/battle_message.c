@@ -2060,7 +2060,7 @@ void BufferStringBattle(u16 stringID)
             else if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) // interesting, looks like they had something planned for wild double battles
                 stringPtr = sText_TwoWildPkmnAppeared;
             else if (gBattleTypeFlags & BATTLE_TYPE_WALLY_TUTORIAL)
-                stringPtr = sText_WildPkmnAppearedPause;
+                stringPtr = sText_WildPkmnAppeared;
             else
                 stringPtr = sText_WildPkmnAppeared;
         }

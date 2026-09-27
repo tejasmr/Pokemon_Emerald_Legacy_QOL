@@ -190,7 +190,7 @@ static void WallyHandleActions(void)
     switch (gBattleStruct->wallyBattleState)
     {
     case 0:
-        gBattleStruct->wallyWaitFrames = B_WAIT_TIME_LONG;
+        gBattleStruct->wallyWaitFrames = B_WAIT_TIME_VERY_SHORT;
         gBattleStruct->wallyBattleState++;
     case 1:
         if (--gBattleStruct->wallyWaitFrames == 0)
@@ -200,7 +200,7 @@ static void WallyHandleActions(void)
             WallyBufferExecCompleted();
             gBattleStruct->wallyBattleState++;
             gBattleStruct->wallyMovesState = 0;
-            gBattleStruct->wallyWaitFrames = B_WAIT_TIME_LONG;
+            gBattleStruct->wallyWaitFrames = B_WAIT_TIME_VERY_SHORT;
         }
         break;
     case 2:
@@ -211,7 +211,7 @@ static void WallyHandleActions(void)
             WallyBufferExecCompleted();
             gBattleStruct->wallyBattleState++;
             gBattleStruct->wallyMovesState = 0;
-            gBattleStruct->wallyWaitFrames = B_WAIT_TIME_LONG;
+            gBattleStruct->wallyWaitFrames = B_WAIT_TIME_VERY_SHORT;
         }
         break;
     case 3:
@@ -221,7 +221,7 @@ static void WallyHandleActions(void)
             WallyBufferExecCompleted();
             gBattleStruct->wallyBattleState++;
             gBattleStruct->wallyMovesState = 0;
-            gBattleStruct->wallyWaitFrames = B_WAIT_TIME_LONG;
+            gBattleStruct->wallyWaitFrames = B_WAIT_TIME_VERY_SHORT;
         }
         break;
     case 4:
@@ -230,7 +230,7 @@ static void WallyHandleActions(void)
             PlaySE(SE_SELECT);
             ActionSelectionDestroyCursorAt(0);
             ActionSelectionCreateCursorAt(1, 0);
-            gBattleStruct->wallyWaitFrames = B_WAIT_TIME_LONG;
+            gBattleStruct->wallyWaitFrames = B_WAIT_TIME_VERY_SHORT;
             gBattleStruct->wallyBattleState++;
         }
         break;
