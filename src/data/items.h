@@ -4577,4 +4577,17 @@ const struct Item gItems[] =
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_AbilityCapsule,
     },
+
+    [ITEM_MOVE_RELEARNER] =
+    {
+        .name = _("MOVE RELEARN"),
+        .itemId = ITEM_MOVE_RELEARNER,
+        .price = 0,
+        .description = sMoveRelearnerDesc,
+        .importance = 1,
+        .registrability = TRUE,
+        .pocket = POCKET_MODS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_MoveRelearner,
+    },
 };

@@ -39,6 +39,7 @@
 #include "menu_helpers.h"
 #include "menu_specialized.h"
 #include "metatile_behavior.h"
+#include "move_relearner.h"
 #include "overworld.h"
 #include "palette.h"
 #include "party_menu.h"
@@ -4833,6 +4834,26 @@ static void Task_AbilityCapsuleChooseAbility(u8 taskId)
     gPartyMenuUseExitCallback = TRUE;
     PlaySE(SE_USE_ITEM);
     gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+}
+
+void ItemUseCB_MoveRelearner(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+
+    if (GetMonData(mon, MON_DATA_IS_EGG) == TRUE || GetNumberOfRelearnableMoves(mon) == 0)
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        PlaySE(SE_SELECT);
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = task;
+        return;
+    }
+
+    gSpecialVar_0x8004 = gPartyMenu.slotId;
+    gPartyMenuUseExitCallback = FALSE;
+    sPartyMenuInternal->exitCallback = CB2_InitLearnMove;
+    Task_ClosePartyMenu(taskId);
 }
 
 static u16 ItemEffectToMonEv(struct Pokemon *mon, u8 effectType)

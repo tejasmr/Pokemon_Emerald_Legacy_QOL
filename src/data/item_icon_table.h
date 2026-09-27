@@ -404,6 +404,8 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_PORTA_HEAL] = {gItemIcon_LargePotion, gItemIconPalette_FullRestore},
     [ITEM_EV_EDITOR] = {gItemIcon_BeadMail, gItemIconPalette_BeadMail},
     [ITEM_ABILITY_CAPSULE] = {gItemIcon_PokeblockCase, gItemIconPalette_PokeblockCase},
+    [ITEM_MOVE_RELEARNER] = {gItemIcon_TM, gItemIconPalette_WaterTMHM},
+
     // Return to field arrow
     [ITEMS_COUNT] = {gItemIcon_ReturnToFieldArrow, gItemIconPalette_ReturnToFieldArrow},
 };

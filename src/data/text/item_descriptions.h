@@ -1564,3 +1564,7 @@ static const u8 sEvEditorDesc[] = _(
 static const u8 sAbilityCapsuleDesc[] = _(
     "A device to switch\n"
     "a POKéMON's ability.");
+
+static const u8 sMoveRelearnerDesc[] = _(
+    "Use to relearn a\n"
+    "POKéMON's moves.");
