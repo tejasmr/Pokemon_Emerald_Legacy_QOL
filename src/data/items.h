@@ -4590,4 +4590,17 @@ const struct Item gItems[] =
         .type = ITEM_USE_PARTY_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_MoveRelearner,
     },
+
+    [ITEM_INF_REPEL] =
+    {
+        .name = _("INF REPEL"),
+        .itemId = ITEM_INF_REPEL,
+        .price = 0,
+        .description = sInfRepelDesc,
+        .importance = 1,
+        .registrability = TRUE,
+        .pocket = POCKET_MODS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_InfRepel,
+    },
 };

@@ -401,10 +401,12 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     // Emerald-only key items
     [ITEM_MAGMA_EMBLEM] = {gItemIcon_MagmaEmblem, gItemIconPalette_MagmaEmblem},
     [ITEM_OLD_SEA_MAP] = {gItemIcon_OldSeaMap, gItemIconPalette_OldSeaMap},
+    // Mods
     [ITEM_PORTA_HEAL] = {gItemIcon_LargePotion, gItemIconPalette_FullRestore},
     [ITEM_EV_EDITOR] = {gItemIcon_BeadMail, gItemIconPalette_BeadMail},
     [ITEM_ABILITY_CAPSULE] = {gItemIcon_PokeblockCase, gItemIconPalette_PokeblockCase},
     [ITEM_MOVE_RELEARNER] = {gItemIcon_TM, gItemIconPalette_WaterTMHM},
+    [ITEM_INF_REPEL] = {gItemIcon_Repel, gItemIconPalette_MaxRepel},
 
     // Return to field arrow
     [ITEMS_COUNT] = {gItemIcon_ReturnToFieldArrow, gItemIconPalette_ReturnToFieldArrow},

@@ -258,6 +258,12 @@ void ItemUseOutOfBattle_MoveRelearner(u8 taskId)
     SetUpItemUseCallback(taskId);
 }
 
+void ItemUseOutOfBattle_InfRepel(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_InfRepel;
+    SetUpItemUseCallback(taskId);
+}
+
 static void ItemUseOnFieldCB_Bike(u8 taskId)
 {
     if (ItemId_GetSecondaryId(gSpecialVar_ItemId) == MACH_BIKE)
@@ -902,6 +908,27 @@ void ItemUseOutOfBattle_Repel(u8 taskId)
         DisplayItemMessage(taskId, FONT_NORMAL, gText_RepelEffectsLingered, CloseItemMessage);
     else
         DisplayItemMessageInBattlePyramid(taskId, gText_RepelEffectsLingered, Task_CloseBattlePyramidBagMessage);
+}
+
+void ItemUseOutOfBattle_InfRepel(u8 taskId)
+{
+    if (FlagGet(FLAG_SYS_INF_REPEL))
+    {
+        FlagClear(FLAG_SYS_INF_REPEL);
+        if (!InBattlePyramid())
+            DisplayItemMessage(taskId, FONT_NORMAL, gText_InfRepelDeactivated, CloseItemMessage);
+        else
+            DisplayItemMessageInBattlePyramid(taskId, gText_InfRepelDeactivated, Task_CloseBattlePyramidBagMessage);
+    }
+    else
+    {
+        FlagSet(FLAG_SYS_INF_REPEL);
+        PlaySE(SE_REPEL);
+        if (!InBattlePyramid())
+            DisplayItemMessage(taskId, FONT_NORMAL, gText_InfRepelActivated, CloseItemMessage);
+        else
+            DisplayItemMessageInBattlePyramid(taskId, gText_InfRepelActivated, Task_CloseBattlePyramidBagMessage);
+    }
 }
 
 static void Task_StartUseRepel(u8 taskId)

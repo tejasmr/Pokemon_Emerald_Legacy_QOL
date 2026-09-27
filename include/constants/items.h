@@ -420,8 +420,9 @@
 #define ITEM_EV_EDITOR 378
 #define ITEM_ABILITY_CAPSULE 379
 #define ITEM_MOVE_RELEARNER 380
+#define ITEM_INF_REPEL 381
 
-#define ITEMS_COUNT 381
+#define ITEMS_COUNT 382
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations
 // Its icon is defined at ITEMS_COUNT as the "return to field" arrow
