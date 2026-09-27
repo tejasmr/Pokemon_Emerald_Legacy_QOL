@@ -236,6 +236,8 @@ static EWRAM_DATA u16 sPartyMenuItemId = 0;
 static EWRAM_DATA u16 sUnused = 0;
 EWRAM_DATA u8 gBattlePartyCurrentOrder[PARTY_SIZE / 2] = {0}; // bits 0-3 are the current pos of Slot 1, 4-7 are Slot 2, and so on
 
+extern const u8 MoveRelearner_EventScript_ChooseMon[];
+
 // IWRAM common
 void (*gItemUseCB)(u8, TaskFunc);
 
@@ -4840,7 +4842,7 @@ static void Task_AbilityCapsuleChooseAbility(u8 taskId)
 
 void ItemUseCB_MoveRelearner(u8 taskId, TaskFunc task)
 {
-    DebugPrintfLevel(MGBA_LOG_ERROR, MoveRelearner_EventScript_ChooseMon);
+    DebugPrintfLevel(MGBA_LOG_ERROR, "Script: %s", MoveRelearner_EventScript_ChooseMon);
     // RunScriptImmediately(MoveRelearner_EventScript_ChooseMon);
 }
 
