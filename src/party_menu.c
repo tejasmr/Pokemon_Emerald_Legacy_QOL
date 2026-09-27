@@ -75,6 +75,7 @@
 #include "constants/party_menu.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
+#include "gba/isagbprint.h"
 #include "battle_setup.h"
 
 enum {
@@ -4839,7 +4840,8 @@ static void Task_AbilityCapsuleChooseAbility(u8 taskId)
 
 void ItemUseCB_MoveRelearner(u8 taskId, TaskFunc task)
 {
-    RunScriptImmediately(MoveRelearner_EventScript_ChooseMon);
+    DebugPrintfLevel(MGBA_LOG_ERROR, MoveRelearner_EventScript_ChooseMon);
+    // RunScriptImmediately(MoveRelearner_EventScript_ChooseMon);
 }
 
 static u16 ItemEffectToMonEv(struct Pokemon *mon, u8 effectType)
