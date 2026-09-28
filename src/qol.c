@@ -607,9 +607,9 @@ static void DrawHeaderWindow(void)
 {
     s32 width;
     FillWindowPixelBuffer(QOL_WIN_HEADER, PIXEL_FILL(1));
-    AddTextPrinterParameterized(QOL_WIN_HEADER, QOL_FONT_ID, sText_Header, 4, 1, TEXT_SPEED_FF, NULL);
+    AddTextPrinterParameterized(QOL_WIN_HEADER, QOL_FONT_ID, sText_Header, 4, 1, TEXT_SKIP_DRAW, NULL);
     width = GetStringWidth(QOL_FONT_ID, sText_Version, GetFontAttribute(QOL_FONT_ID, FONTATTR_LETTER_SPACING));
-    AddTextPrinterParameterized(QOL_WIN_HEADER, QOL_FONT_ID, sText_Version, 204 - width, 1, TEXT_SPEED_FF, NULL);
+    AddTextPrinterParameterized(QOL_WIN_HEADER, QOL_FONT_ID, sText_Version, 204 - width, 1, TEXT_SKIP_DRAW, NULL);
     CopyWindowToVram(QOL_WIN_HEADER, COPYWIN_FULL);
 }
 
@@ -630,21 +630,21 @@ static void DrawPageOptions(u8 page)
             const u8 *choiceStr = sQolOptions[optIdx].choices[choice];
             s32 choiceWidth = GetStringWidth(QOL_FONT_ID, choiceStr, GetFontAttribute(QOL_FONT_ID, FONTATTR_LETTER_SPACING));
 
-            AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sQolOptions[optIdx].name, 4, i * 16 + 1, TEXT_SPEED_FF, NULL);
+            AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sQolOptions[optIdx].name, 4, i * 16 + 1, TEXT_SKIP_DRAW, NULL);
 
-            AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_LeftArrow, 140, i * 16 + 1, TEXT_SPEED_FF, NULL);
-            AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, choiceStr, 175 - (choiceWidth / 2), i * 16 + 1, TEXT_SPEED_FF, NULL);
-            AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_RightArrow, 202, i * 16 + 1, TEXT_SPEED_FF, NULL);
+            AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_LeftArrow, 140, i * 16 + 1, TEXT_SKIP_DRAW, NULL);
+            AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, choiceStr, 175 - (choiceWidth / 2), i * 16 + 1, TEXT_SKIP_DRAW, NULL);
+            AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_RightArrow, 202, i * 16 + 1, TEXT_SKIP_DRAW, NULL);
         }
     }
 
     // Fixed bottom options (PAGE & START GAME)
-    AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_Page, 4, QOL_OPTIONS_PER_PAGE * 16 + 1, TEXT_SPEED_FF, NULL);
-    AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_LeftArrow, 140, QOL_OPTIONS_PER_PAGE * 16 + 1, TEXT_SPEED_FF, NULL);
-    AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sChoices_Page[page - 1], 165, QOL_OPTIONS_PER_PAGE * 16 + 1, TEXT_SPEED_FF, NULL);
-    AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_RightArrow, 202, QOL_OPTIONS_PER_PAGE * 16 + 1, TEXT_SPEED_FF, NULL);
+    AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_Page, 4, QOL_OPTIONS_PER_PAGE * 16 + 1, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_LeftArrow, 140, QOL_OPTIONS_PER_PAGE * 16 + 1, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sChoices_Page[page - 1], 165, QOL_OPTIONS_PER_PAGE * 16 + 1, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_RightArrow, 202, QOL_OPTIONS_PER_PAGE * 16 + 1, TEXT_SKIP_DRAW, NULL);
 
-    AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_StartGame, 4, (QOL_OPTIONS_PER_PAGE + 1) * 16 + 1, TEXT_SPEED_FF, NULL);
+    AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_StartGame, 4, (QOL_OPTIONS_PER_PAGE + 1) * 16 + 1, TEXT_SKIP_DRAW, NULL);
 
     CopyWindowToVram(QOL_WIN_OPTIONS, COPYWIN_FULL);
 }
@@ -653,7 +653,7 @@ static void DrawTooltip(u8 taskId, const u8 *str)
 {
     DrawStdWindowFrame(QOL_WIN_TOOLTIP, FALSE);
     FillWindowPixelBuffer(QOL_WIN_TOOLTIP, PIXEL_FILL(1));
-    AddTextPrinterParameterized(QOL_WIN_TOOLTIP, QOL_FONT_ID, str, 0, 1, TEXT_SPEED_FF, NULL);
+    AddTextPrinterParameterized(QOL_WIN_TOOLTIP, QOL_FONT_ID, str, 0, 1, TEXT_SKIP_DRAW, NULL);
     CopyWindowToVram(QOL_WIN_TOOLTIP, COPYWIN_FULL);
     sLocalQolConfig.tooltipActive = TRUE;
 }
