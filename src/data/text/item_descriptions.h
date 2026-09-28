@@ -1572,3 +1572,7 @@ static const u8 sMoveRelearnerDesc[] = _(
 static const u8 sInfRepelDesc[] = _(
     "Repels wild POKéMON\n"
     "until turned off.");
+
+static const u8 sPortaFlyDesc[] = _(
+    "Fly to any visited\n"
+    "town or city.");
