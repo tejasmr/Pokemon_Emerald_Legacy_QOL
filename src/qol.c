@@ -467,24 +467,29 @@ static void SaveQolOptions(void)
 
 extern const struct BgTemplate sMainMenuBgTemplates[];
 extern void Task_NewGameBirchSpeech_Init(u8 taskId);
-extern void CB2_InitMainMenu(void);
-
 static void Task_QolMenuFadeOut(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
+        FreeAllWindowBuffers();
+        SetGpuReg(REG_OFFSET_DISPCNT, 0);
+        SetGpuReg(REG_OFFSET_BG2CNT, 0);
+        SetGpuReg(REG_OFFSET_BG1CNT, 0);
+        SetGpuReg(REG_OFFSET_BG0CNT, 0);
+        SetGpuReg(REG_OFFSET_BG2HOFS, 0);
+        SetGpuReg(REG_OFFSET_BG2VOFS, 0);
+        SetGpuReg(REG_OFFSET_BG1HOFS, 0);
+        SetGpuReg(REG_OFFSET_BG1VOFS, 0);
+        SetGpuReg(REG_OFFSET_BG0HOFS, 0);
+        SetGpuReg(REG_OFFSET_BG0VOFS, 0);
         DmaClearLarge16(3, (void *)(VRAM), VRAM_SIZE, 0x1000);
         DmaClear32(3, OAM, OAM_SIZE);
         DmaClear16(3, PLTT, PLTT_SIZE);
         gPlttBufferUnfaded[0] = 0;
         gPlttBufferFaded[0] = 0;
-        DestroyTask(taskId);
-        FreeAllWindowBuffers();
-        SetGpuReg(REG_OFFSET_DISPCNT, 0);
         ResetBgsAndClearDma3BusyFlags(0);
-        InitBgsFromTemplates(0, sMainMenuBgTemplates, 2);
-        SetMainCallback2(CB2_InitMainMenu);
-        gTasks[sQolTaskId].func = Task_NewGameBirchSpeech_Init;
+        InitBgsFromTemplates(0, sMainMenuBgTemplates, ARRAY_COUNT(sMainMenuBgTemplates));
+        gTasks[taskId].func = Task_NewGameBirchSpeech_Init;
     }
 }
 
