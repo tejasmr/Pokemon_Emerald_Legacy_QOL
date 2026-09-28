@@ -23,7 +23,7 @@ enum
     QOL_WIN_YESNO,
 };
 
-const struct BgTemplate sQolMenuBgTemplates[] =
+static const struct BgTemplate sQolMenuBgTemplates[] =
 {
     {
         .bg = 1,
@@ -54,14 +54,49 @@ const struct BgTemplate sQolMenuBgTemplates[] =
     }
 };
 
-const struct WindowTemplate sQolMenuWinTemplates[] =
+static const struct WindowTemplate sQolMenuWinTemplates[] =
 {
-    {1, 2, 1, 0x1A, 2, 1, 2},
-    {0, 2, 5, 0x1A, 14, 1, 0x36},
-    {2, 2, 15, 0x1A, 4, 15, 427},
-    {2, 23, 9, 4, 4, 15, 531},
+    [QOL_WIN_HEADER] = {
+        .bg = 1,
+        .tilemapLeft = 2,
+        .tilemapTop = 1,
+        .width = 26,
+        .height = 2,
+        .paletteNum = 1,
+        .baseBlock = 2
+    },
+    [QOL_WIN_OPTIONS] = {
+        .bg = 0,
+        .tilemapLeft = 2,
+        .tilemapTop = 5,
+        .width = 26,
+        .height = 14,
+        .paletteNum = 1,
+        .baseBlock = 0x36
+    },
+    [QOL_WIN_TOOLTIP] = {
+        .bg = 2,
+        .tilemapLeft = 2,
+        .tilemapTop = 15,
+        .width = 26,
+        .height = 4,
+        .paletteNum = 15,
+        .baseBlock = 427
+    },
+    [QOL_WIN_YESNO] = {
+        .bg = 2,
+        .tilemapLeft = 23,
+        .tilemapTop = 9,
+        .width = 4,
+        .height = 4,
+        .paletteNum = 15,
+        .baseBlock = 531
+    },
     DUMMY_WIN_TEMPLATE
 };
+
+static const u16 sQolMenuBg_Pal[] = {RGB(17, 18, 31)};
+static const u16 sQolMenuText_Pal[] = INCBIN_U16("graphics/interface/option_menu_text.gbapal");
 
 /* ----------------------------------------------- */
 /* QOL MENU TEXT (Header & System Text)            */
@@ -165,8 +200,6 @@ static const u8 *const sChoices_Fanfares[]      = { sText_Skip, sText_Vanilla };
 
 static const u8 *const sChoices_FastHealing[]   = { sText_Fast, sText_Vanilla };
 static const u8 *const sChoices_WallyTutorial[] = { sText_Short, sText_Vanilla };
-static const u8 sChoices_EarlyRun_On[]          = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}ON");
-static const u8 sChoices_EarlyRun_Off[]         = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}OFF");
 static const u8 *const sChoices_EarlyRun[]      = { sText_On, sText_Off };
 static const u8 *const sChoices_InfiniteTms[]   = { sText_On, sText_Off };
 static const u8 *const sChoices_ModItems[]      = { sText_On, sText_Off };
@@ -310,19 +343,7 @@ void CB2_InitQolMenu(void)
         break;
     case 1:
     {
-        u8 *addr = (u8 *)VRAM;
-        u32 size = 0x18000;
-        while (1)
-        {
-            DmaFill16(3, 0, addr, 0x1000);
-            addr += 0x1000;
-            size -= 0x1000;
-            if (size <= 0x1000)
-            {
-                DmaFill16(3, 0, addr, size);
-                break;
-            }
-        }
+        DmaClearLarge16(3, (void *)(VRAM), VRAM_SIZE, 0x1000);
         DmaClear32(3, OAM, OAM_SIZE);
         DmaClear16(3, PLTT, PLTT_SIZE);
         CpuFill16(0, (void *)(BG_PLTT), BG_PLTT_SIZE);
@@ -340,9 +361,9 @@ void CB2_InitQolMenu(void)
         DeactivateAllTextPrinters();
         SetGpuReg(REG_OFFSET_WIN0H, 0);
         SetGpuReg(REG_OFFSET_WIN0V, 0);
-        SetGpuReg(REG_OFFSET_WININ, 5);
-        SetGpuReg(REG_OFFSET_WINOUT, 39);
-        SetGpuReg(REG_OFFSET_BLDCNT, 193);
+        SetGpuReg(REG_OFFSET_WININ, WININ_WIN0_BG0);
+        SetGpuReg(REG_OFFSET_WINOUT, WINOUT_WIN01_BG0 | WINOUT_WIN01_BG1 | WINOUT_WIN01_CLR);
+        SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG0 | BLDCNT_EFFECT_DARKEN);
         SetGpuReg(REG_OFFSET_BLDALPHA, 0);
         SetGpuReg(REG_OFFSET_BLDY, 4);
         SetGpuReg(REG_OFFSET_DISPCNT, DISPCNT_WIN0_ON | DISPCNT_OBJ_ON | DISPCNT_OBJ_1D_MAP);
@@ -360,16 +381,21 @@ void CB2_InitQolMenu(void)
         gMain.state++;
         break;
     case 3:
-        LoadUserWindowBorderGfx(QOL_WIN_HEADER, 0x1D5, BG_PLTT_ID(13));
-        LoadUserWindowBorderGfx(QOL_WIN_OPTIONS, 0x1D5, BG_PLTT_ID(13));
-        LoadUserWindowBorderGfx(QOL_WIN_TOOLTIP, 0x1D5, BG_PLTT_ID(13));
-        LoadStdWindowGfx(QOL_WIN_HEADER, 0x1DF, BG_PLTT_ID(14));
-        LoadStdWindowGfx(QOL_WIN_OPTIONS, 0x1DF, BG_PLTT_ID(14));
-        LoadStdWindowGfx(QOL_WIN_TOOLTIP, 0x1DF, BG_PLTT_ID(14));
+        LoadBgTiles(1, GetWindowFrameTilesPal(gSaveBlock2Ptr->optionsWindowFrameType)->tiles, 0x120, 0x1A2);
         gMain.state++;
         break;
     case 4:
+        LoadPalette(sQolMenuBg_Pal, BG_PLTT_ID(0), sizeof(sQolMenuBg_Pal));
+        LoadPalette(GetWindowFrameTilesPal(gSaveBlock2Ptr->optionsWindowFrameType)->pal, BG_PLTT_ID(7), PLTT_SIZE_4BPP);
+        LoadPalette(sQolMenuText_Pal, BG_PLTT_ID(1), sizeof(sQolMenuText_Pal));
+        LoadUserWindowBorderGfx(QOL_WIN_TOOLTIP, 0x1D5, BG_PLTT_ID(13));
+        LoadPalette(GetOverworldTextboxPalettePtr(), BG_PLTT_ID(14), PLTT_SIZE_4BPP);
+        gMain.state++;
+        break;
+    case 5:
+        PutWindowTilemap(QOL_WIN_HEADER);
         DrawHeaderWindow();
+        PutWindowTilemap(QOL_WIN_OPTIONS);
         ApplyPreset(sPresetDefault);
         sLocalQolConfig.pageNum = 1;
         sLocalQolConfig.pageIndex = 0;
@@ -380,7 +406,7 @@ void CB2_InitQolMenu(void)
         HighlightOptionMenuItem(0);
         gMain.state++;
         break;
-    case 5:
+    case 6:
         BeginNormalPaletteFade(PALETTES_ALL, 0, 0x10, 0, RGB_BLACK);
         SetVBlankCallback(VblankCB_QolMenu);
         SetMainCallback2(CB2_QolMenu);
@@ -415,8 +441,8 @@ static void Task_QolMenuFadeIn(u8 taskId)
 
 static void HighlightOptionMenuItem(u8 index)
 {
-    SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(16, 224));
-    SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE_(index * 16 + 40, index * 16 + 56));
+    SetGpuReg(REG_OFFSET_WIN0H, WIN_RANGE(16, DISPLAY_WIDTH - 16));
+    SetGpuReg(REG_OFFSET_WIN0V, WIN_RANGE(index * 16 + 40, index * 16 + 56));
 }
 
 static void SaveQolOptions(void)
@@ -446,19 +472,7 @@ static void Task_QolMenuFadeOut(u8 taskId)
 {
     if (!gPaletteFade.active)
     {
-        u8 *addr = (u8 *)VRAM;
-        u32 size = 0x18000;
-        while (1)
-        {
-            DmaFill16(3, 0, addr, 0x1000);
-            addr += 0x1000;
-            size -= 0x1000;
-            if (size <= 0x1000)
-            {
-                DmaFill16(3, 0, addr, size);
-                break;
-            }
-        }
+        DmaClearLarge16(3, (void *)(VRAM), VRAM_SIZE, 0x1000);
         DmaClear32(3, OAM, OAM_SIZE);
         DmaClear16(3, PLTT, PLTT_SIZE);
         gPlttBufferUnfaded[0] = 0;
