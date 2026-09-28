@@ -321,7 +321,9 @@ void RunTextPrinters(void)
 {
     int i;
     u16 temp;
-    bool32 isInstantText = (gSaveBlock2Ptr->optionsTextSpeed == OPTIONS_TEXT_SPEED_INST);
+    bool32 isInstantText = (gSaveBlock2Ptr->optionsTextSpeed == OPTIONS_TEXT_SPEED_INST)
+                        || CheckQolOption(QOL_INSTANT_TEXT, QOL_TEXT_ON)
+                        || (CheckQolOption(QOL_INSTANT_TEXT, QOL_TEXT_HOLD_A) && (JOY_HELD(A_BUTTON | B_BUTTON)));
 
     do {
         if (!gDisableTextPrinters)

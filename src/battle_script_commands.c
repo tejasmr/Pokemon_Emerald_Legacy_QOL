@@ -3417,7 +3417,7 @@ static void Cmd_getexp(void)
                     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
 
-                    if (FlagGet(FLAG_HARD) || FlagGet(FLAG_NUZLOCKE))
+                    if (CheckQolOption(QOL_EXP_MULTIPLIER, QOL_EXP_TRIPLE) || FlagGet(FLAG_HARD) || FlagGet(FLAG_NUZLOCKE))
                         gBattleMoveDamage *= 3;
 
                     if (IsTradedMon(&gPlayerParty[gBattleStruct->expGetterMonId]))
@@ -9990,7 +9990,8 @@ static void Cmd_handleballthrow(void)
 
             for (shakes = 0; shakes < BALL_3_SHAKES_SUCCESS && Random() < odds; shakes++);
 
-            shakes = BALL_3_SHAKES_SUCCESS; // why calculate the shakes before that check?
+            if (CheckQolOption(QOL_CATCH_RATE, QOL_CATCH_100) || gLastUsedItem == ITEM_MASTER_BALL)
+                shakes = BALL_3_SHAKES_SUCCESS;
 
             BtlController_EmitBallThrowAnim(BUFFER_A, shakes);
             MarkBattlerForControllerExec(gActiveBattler);

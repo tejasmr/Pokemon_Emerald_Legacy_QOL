@@ -2279,10 +2279,17 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         personality = fixedPersonality;
     else
     {
-        preferredNature = GetSpeciesPreferredNature(species);
-        personality = Random32();
-        while (GetNatureFromPersonality(personality) != preferredNature)
+        if (CheckQolOption(QOL_PREFER_NATURE, QOL_NATURE_ON))
+        {
+            preferredNature = GetSpeciesPreferredNature(species);
             personality = Random32();
+            while (GetNatureFromPersonality(personality) != preferredNature)
+                personality = Random32();
+        }
+        else
+        {
+            personality = Random32();
+        }
     }
 
 SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
@@ -2381,23 +2388,36 @@ SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
     else
     {
         u32 iv;
-        value = MAX_IV_MASK;
 
-        iv = value & MAX_IV_MASK;
-        SetBoxMonData(boxMon, MON_DATA_HP_IV, &iv);
-        iv = (value & (MAX_IV_MASK));
-        SetBoxMonData(boxMon, MON_DATA_ATK_IV, &iv);
-        iv = (value & (MAX_IV_MASK));
-        SetBoxMonData(boxMon, MON_DATA_DEF_IV, &iv);
+        if (CheckQolOption(QOL_PERFECT_IVS, QOL_IVS_MAX))
+        {
+            value = MAX_IV_MASK;
+            iv = value & MAX_IV_MASK;
+            SetBoxMonData(boxMon, MON_DATA_HP_IV, &iv);
+            SetBoxMonData(boxMon, MON_DATA_ATK_IV, &iv);
+            SetBoxMonData(boxMon, MON_DATA_DEF_IV, &iv);
+            SetBoxMonData(boxMon, MON_DATA_SPEED_IV, &iv);
+            SetBoxMonData(boxMon, MON_DATA_SPATK_IV, &iv);
+            SetBoxMonData(boxMon, MON_DATA_SPDEF_IV, &iv);
+        }
+        else
+        {
+            value = Random();
+            iv = value & MAX_IV_MASK;
+            SetBoxMonData(boxMon, MON_DATA_HP_IV, &iv);
+            iv = (value & (MAX_IV_MASK << 5)) >> 5;
+            SetBoxMonData(boxMon, MON_DATA_ATK_IV, &iv);
+            iv = (value & (MAX_IV_MASK << 10)) >> 10;
+            SetBoxMonData(boxMon, MON_DATA_DEF_IV, &iv);
 
-        value = MAX_IV_MASK;
-
-        iv = value & MAX_IV_MASK;
-        SetBoxMonData(boxMon, MON_DATA_SPEED_IV, &iv);
-        iv = (value & (MAX_IV_MASK));
-        SetBoxMonData(boxMon, MON_DATA_SPATK_IV, &iv);
-        iv = (value & (MAX_IV_MASK));
-        SetBoxMonData(boxMon, MON_DATA_SPDEF_IV, &iv);
+            value = Random();
+            iv = value & MAX_IV_MASK;
+            SetBoxMonData(boxMon, MON_DATA_SPEED_IV, &iv);
+            iv = (value & (MAX_IV_MASK << 5)) >> 5;
+            SetBoxMonData(boxMon, MON_DATA_SPATK_IV, &iv);
+            iv = (value & (MAX_IV_MASK << 10)) >> 10;
+            SetBoxMonData(boxMon, MON_DATA_SPDEF_IV, &iv);
+        }
     }
 
     if (gSpeciesInfo[species].abilities[1])
