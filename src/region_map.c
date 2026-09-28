@@ -68,6 +68,12 @@ struct MultiNameFlyDest
 };
 
 static EWRAM_DATA struct RegionMap *sRegionMap = NULL;
+static EWRAM_DATA MainCallback sFlyMapCancelCallback = NULL;
+
+void SetFlyMapCancelCallback(MainCallback callback)
+{
+    sFlyMapCancelCallback = callback;
+}
 
 static EWRAM_DATA struct {
     void (*callback)(void);
@@ -2013,8 +2019,12 @@ static void CB_ExitFlyMap(void)
             }
             else
             {
-                SetMainCallback2(CB2_ReturnToPartyMenuFromFlyMap);
+                if (sFlyMapCancelCallback != NULL)
+                    SetMainCallback2(sFlyMapCancelCallback);
+                else
+                    SetMainCallback2(CB2_ReturnToPartyMenuFromFlyMap);
             }
+            sFlyMapCancelCallback = NULL;
             TRY_FREE_AND_SET_NULL(sFlyMap);
             FreeAllWindowBuffers();
         }

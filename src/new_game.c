@@ -214,6 +214,7 @@ void NewGameInitData(void)
     AddBagItem(ITEM_ABILITY_CAPSULE, 1);
     AddBagItem(ITEM_MOVE_RELEARNER, 1);
     AddBagItem(ITEM_INF_REPEL, 1);
+    AddBagItem(ITEM_PORTA_FLY, 1);
     FlagSet(FLAG_RECEIVED_RUNNING_SHOES);
     FlagSet(FLAG_SYS_B_DASH);
 }

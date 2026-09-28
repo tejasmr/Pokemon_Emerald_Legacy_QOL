@@ -4603,4 +4603,17 @@ const struct Item gItems[] =
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_InfRepel,
     },
+
+    [ITEM_PORTA_FLY] =
+    {
+        .name = _("PORTA FLY"),
+        .itemId = ITEM_PORTA_FLY,
+        .price = 0,
+        .description = sPortaFlyDesc,
+        .importance = 1,
+        .registrability = TRUE,
+        .pocket = POCKET_MODS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_PortaFly,
+    },
 };

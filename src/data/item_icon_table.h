@@ -407,6 +407,7 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_ABILITY_CAPSULE] = {gItemIcon_PokeblockCase, gItemIconPalette_PokeblockCase},
     [ITEM_MOVE_RELEARNER] = {gItemIcon_TM, gItemIconPalette_WaterTMHM},
     [ITEM_INF_REPEL] = {gItemIcon_Repel, gItemIconPalette_MaxRepel},
+    [ITEM_PORTA_FLY] = {gItemIcon_HM, gItemIconPalette_FlyingTMHM},
 
     // Return to field arrow
     [ITEMS_COUNT] = {gItemIcon_ReturnToFieldArrow, gItemIconPalette_ReturnToFieldArrow},

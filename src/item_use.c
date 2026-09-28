@@ -30,6 +30,7 @@
 #include "party_menu.h"
 #include "pokeblock.h"
 #include "pokemon.h"
+#include "region_map.h"
 #include "script.h"
 #include "script_pokemon_util.h"
 #include "sound.h"
@@ -56,6 +57,7 @@ static u8 GetDirectionToHiddenItem(s16, s16);
 static void PlayerFaceHiddenItem(u8);
 static void CheckForHiddenItemsInMapConnection(u8);
 static void Task_OpenRegisteredPokeblockCase(u8);
+static void Task_OpenRegisteredFlyMap(u8);
 static void ItemUseOnFieldCB_Bike(u8);
 static void ItemUseOnFieldCB_Rod(u8);
 static void ItemUseOnFieldCB_Itemfinder(u8);
@@ -256,6 +258,37 @@ void ItemUseOutOfBattle_MoveRelearner(u8 taskId)
 {
     gItemUseCB = ItemUseCB_MoveRelearner;
     SetUpItemUseCallback(taskId);
+}
+
+static void Task_OpenRegisteredFlyMap(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        CleanupOverworldWindowsAndTilemaps();
+        SetMainCallback2(CB2_OpenFlyMap);
+        DestroyTask(taskId);
+    }
+}
+
+void ItemUseOutOfBattle_PortaFly(u8 taskId)
+{
+    if (MenuHelpers_IsLinkActive() == TRUE || InUnionRoom() == TRUE || InBattlePyramid() || !Overworld_MapTypeAllowsTeleportAndFly(gMapHeader.mapType))
+    {
+        DisplayDadsAdviceCannotUseItemMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem);
+    }
+    else if (gTasks[taskId].tUsingRegisteredKeyItem != TRUE)
+    {
+        SetFlyMapCancelCallback(CB2_ReturnToBagMenuPocket);
+        gBagMenu->newScreenCallback = CB2_OpenFlyMap;
+        Task_FadeAndCloseBagMenu(taskId);
+    }
+    else
+    {
+        SetFlyMapCancelCallback(CB2_ReturnToField);
+        gFieldCallback = FieldCB_ReturnToFieldNoScript;
+        FadeScreen(FADE_TO_BLACK, 0);
+        gTasks[taskId].func = Task_OpenRegisteredFlyMap;
+    }
 }
 
 static void ItemUseOnFieldCB_Bike(u8 taskId)
