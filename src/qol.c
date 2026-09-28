@@ -14,6 +14,7 @@
 #include "bg.h"
 #include "scanline_effect.h"
 #include "text_window.h"
+#include "main_menu.h"
 
 enum
 {
