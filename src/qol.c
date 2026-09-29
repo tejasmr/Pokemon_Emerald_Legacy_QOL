@@ -157,6 +157,7 @@ static const u8 sOption_PreferNature[]  = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}PR
 
 static const u8 sOption_Page[]          = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}PAGE");
 static const u8 sOption_StartGame[]     = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}START GAME");
+static const u8 sOption_SaveExit[]      = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}SAVE & EXIT");
 
 static const u8 sOption_LeftArrow[]     = _("{COLOR RED}{SHADOW LIGHT_RED}{LEFT_ARROW}");
 static const u8 sOption_RightArrow[]    = _("{COLOR RED}{SHADOW LIGHT_RED}{RIGHT_ARROW}");
@@ -184,6 +185,7 @@ static const u8 sTooltip_PerfectIvs[]     = _("MAX 31: All caught and hatched Po
 static const u8 sTooltip_PreferNature[]   = _("ON: Pokémon automatically receive optimal\nnature (Adamant/Modest/etc.)\nOFF: Standard random natures.");
 static const u8 sTooltip_Page[]           = _("Switch between QOL configuration pages.\nPress LEFT/RIGHT or L/R triggers to flip\npages.");
 static const u8 sTooltip_StartGame[]      = _("Save configured Quality of Life options\nand proceed to begin your adventure!");
+static const u8 sTooltip_SaveExit[]       = _("Save configured Quality of Life options\nand return to the game.");
 
 /* ----------------------------------------------- */
 /* OPTION DEFINITION STRUCTS                       */
@@ -307,6 +309,7 @@ static void HideTooltip(void);
 static void HighlightOptionMenuItem(u8 index);
 static const u8 *GetCurrentOptionTooltip(void);
 static void UpdateTooltipIfActive(u8 taskId);
+static void LoadQolOptions(void);
 
 static u8 GetPageOptionTrueIndex(u8 pos, u8 page)
 {
@@ -333,6 +336,7 @@ static void ApplyPreset(const u8 *preset)
 
 void Task_InitQolMenu(u8 taskId)
 {
+    gMain.savedCallback = NULL;
     SetMainCallback2(CB2_InitQolMenu);
     DestroyTask(taskId);
 }
@@ -402,7 +406,10 @@ void CB2_InitQolMenu(void)
         PutWindowTilemap(QOL_WIN_HEADER);
         DrawHeaderWindow();
         PutWindowTilemap(QOL_WIN_OPTIONS);
-        ApplyPreset(sPresetDefault);
+        if (gMain.savedCallback != NULL)
+            LoadQolOptions();
+        else
+            ApplyPreset(sPresetDefault);
         sLocalQolConfig.pageNum = 1;
         sLocalQolConfig.pageIndex = 0;
         sLocalQolConfig.trueIndex = 0;
@@ -475,24 +482,32 @@ static void Task_QolMenuFadeOut(u8 taskId)
     if (!gPaletteFade.active)
     {
         FreeAllWindowBuffers();
-        SetGpuReg(REG_OFFSET_DISPCNT, 0);
-        SetGpuReg(REG_OFFSET_BG2CNT, 0);
-        SetGpuReg(REG_OFFSET_BG1CNT, 0);
-        SetGpuReg(REG_OFFSET_BG0CNT, 0);
-        SetGpuReg(REG_OFFSET_BG2HOFS, 0);
-        SetGpuReg(REG_OFFSET_BG2VOFS, 0);
-        SetGpuReg(REG_OFFSET_BG1HOFS, 0);
-        SetGpuReg(REG_OFFSET_BG1VOFS, 0);
-        SetGpuReg(REG_OFFSET_BG0HOFS, 0);
-        SetGpuReg(REG_OFFSET_BG0VOFS, 0);
-        DmaClearLarge16(3, (void *)(VRAM), VRAM_SIZE, 0x1000);
-        DmaClear32(3, OAM, OAM_SIZE);
-        DmaClear16(3, PLTT, PLTT_SIZE);
-        gPlttBufferUnfaded[0] = 0;
-        gPlttBufferFaded[0] = 0;
-        ResetBgsAndClearDma3BusyFlags(0);
-        InitBgsFromTemplates(0, sMainMenuBgTemplates, 2);
-        gTasks[taskId].func = Task_NewGameBirchSpeech_Init;
+        if (gMain.savedCallback != NULL)
+        {
+            DestroyTask(taskId);
+            SetMainCallback2(gMain.savedCallback);
+        }
+        else
+        {
+            SetGpuReg(REG_OFFSET_DISPCNT, 0);
+            SetGpuReg(REG_OFFSET_BG2CNT, 0);
+            SetGpuReg(REG_OFFSET_BG1CNT, 0);
+            SetGpuReg(REG_OFFSET_BG0CNT, 0);
+            SetGpuReg(REG_OFFSET_BG2HOFS, 0);
+            SetGpuReg(REG_OFFSET_BG2VOFS, 0);
+            SetGpuReg(REG_OFFSET_BG1HOFS, 0);
+            SetGpuReg(REG_OFFSET_BG1VOFS, 0);
+            SetGpuReg(REG_OFFSET_BG0HOFS, 0);
+            SetGpuReg(REG_OFFSET_BG0VOFS, 0);
+            DmaClearLarge16(3, (void *)(VRAM), VRAM_SIZE, 0x1000);
+            DmaClear32(3, OAM, OAM_SIZE);
+            DmaClear16(3, PLTT, PLTT_SIZE);
+            gPlttBufferUnfaded[0] = 0;
+            gPlttBufferFaded[0] = 0;
+            ResetBgsAndClearDma3BusyFlags(0);
+            InitBgsFromTemplates(0, sMainMenuBgTemplates, 2);
+            gTasks[taskId].func = Task_NewGameBirchSpeech_Init;
+        }
     }
 }
 
@@ -526,6 +541,14 @@ static void Task_QolMenuProcessInput(u8 taskId)
         {
             HideTooltip();
             PlaySE(SE_SELECT);
+        }
+        else if (gMain.savedCallback != NULL)
+        {
+            SaveQolOptions();
+            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 0x10, RGB_BLACK);
+            gTasks[taskId].func = Task_QolMenuFadeOut;
+            PlaySE(SE_SELECT);
+            return;
         }
     }
     else if (gMain.newKeys & SELECT_BUTTON)
@@ -670,6 +693,7 @@ static void DrawPageOptions(u8 page)
     u8 startIdx = (page - 1) * QOL_OPTIONS_PER_PAGE;
     u8 count = QOL_OPTIONS_PER_PAGE;
     s32 pageWidth;
+    const u8 *bottomOptionStr;
 
     FillWindowPixelBuffer(QOL_WIN_OPTIONS, PIXEL_FILL(1));
 
@@ -697,7 +721,8 @@ static void DrawPageOptions(u8 page)
     AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sChoices_Page[page - 1], QOL_CHOICE_CENTER_X - (pageWidth / 2), QOL_OPTIONS_PER_PAGE * 16 + 1, TEXT_SKIP_DRAW, NULL);
     AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_RightArrow, QOL_CHOICE_RIGHT_ARROW_X, QOL_OPTIONS_PER_PAGE * 16 + 1, TEXT_SKIP_DRAW, NULL);
 
-    AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_StartGame, 4, (QOL_OPTIONS_PER_PAGE + 1) * 16 + 1, TEXT_SKIP_DRAW, NULL);
+    bottomOptionStr = (gMain.savedCallback != NULL) ? sOption_SaveExit : sOption_StartGame;
+    AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, bottomOptionStr, 4, (QOL_OPTIONS_PER_PAGE + 1) * 16 + 1, TEXT_SKIP_DRAW, NULL);
 
     CopyWindowToVram(QOL_WIN_OPTIONS, COPYWIN_FULL);
 }
@@ -726,7 +751,7 @@ static const u8 *GetCurrentOptionTooltip(void)
     else if (sLocalQolConfig.trueIndex == QOL_PAGE)
         return sTooltip_Page;
     else if (sLocalQolConfig.trueIndex == QOL_START_GAME)
-        return sTooltip_StartGame;
+        return (gMain.savedCallback != NULL) ? sTooltip_SaveExit : sTooltip_StartGame;
     return sTooltip_Explanation;
 }
 
@@ -740,6 +765,25 @@ static void UpdateTooltipIfActive(u8 taskId)
         else
             HideTooltip();
     }
+}
+
+static void LoadQolOptions(void)
+{
+    sLocalQolConfig.optionConfig[QOL_PRESET]          = gSaveBlock2Ptr->qolConfig.preset;
+    sLocalQolConfig.optionConfig[QOL_HOLD_A]          = gSaveBlock2Ptr->qolConfig.holdA;
+    sLocalQolConfig.optionConfig[QOL_BATTLE_SPEED]    = gSaveBlock2Ptr->qolConfig.battleSpeed;
+    sLocalQolConfig.optionConfig[QOL_BATTLE_ANIMS]    = gSaveBlock2Ptr->qolConfig.battleAnims;
+    sLocalQolConfig.optionConfig[QOL_FANFARES]        = gSaveBlock2Ptr->qolConfig.fanfares;
+    sLocalQolConfig.optionConfig[QOL_FAST_HEALING]    = gSaveBlock2Ptr->qolConfig.fastHealing;
+    sLocalQolConfig.optionConfig[QOL_WALLY_TUTORIAL]  = gSaveBlock2Ptr->qolConfig.wallyTutorial;
+    sLocalQolConfig.optionConfig[QOL_EARLY_RUN]       = gSaveBlock2Ptr->qolConfig.earlyRun;
+    sLocalQolConfig.optionConfig[QOL_INFINITE_TMS]    = gSaveBlock2Ptr->qolConfig.infiniteTms;
+    sLocalQolConfig.optionConfig[QOL_MOD_ITEMS]       = gSaveBlock2Ptr->qolConfig.modItems;
+    sLocalQolConfig.optionConfig[QOL_EXP_MULTIPLIER]  = gSaveBlock2Ptr->qolConfig.expMultiplier;
+    sLocalQolConfig.optionConfig[QOL_CATCH_RATE]      = gSaveBlock2Ptr->qolConfig.catchRate;
+    sLocalQolConfig.optionConfig[QOL_SHINY_RATE]      = gSaveBlock2Ptr->qolConfig.shinyRate;
+    sLocalQolConfig.optionConfig[QOL_PERFECT_IVS]     = gSaveBlock2Ptr->qolConfig.perfectIvs;
+    sLocalQolConfig.optionConfig[QOL_PREFER_NATURE]   = gSaveBlock2Ptr->qolConfig.preferNature;
 }
 
 bool8 CheckQolOption(u8 option, u8 selection)
