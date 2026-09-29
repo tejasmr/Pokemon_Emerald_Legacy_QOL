@@ -4479,3 +4479,9 @@ bool8 IsQolFastHealingEnabled(void)
     return CheckQolOption(QOL_FAST_HEALING, QOL_HEALING_FAST);
 }
 
+bool8 IsQolWallyTutorialSkipped(void)
+{
+    return CheckQolOption(QOL_WALLY_TUTORIAL, QOL_WALLY_SKIP);
+}
+
+

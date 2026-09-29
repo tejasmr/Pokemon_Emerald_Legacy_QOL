@@ -88,6 +88,7 @@ enum
 // Wally Tutorial
 enum
 {
+    QOL_WALLY_SKIP,
     QOL_WALLY_SHORT,
     QOL_WALLY_VANILLA
 };
@@ -157,7 +158,7 @@ struct QolSaveOptions
     u8 battleAnims:1;
     u8 fanfares:1;
     u8 fastHealing:1;
-    u8 wallyTutorial:1;
+    u8 wallyTutorial:2;
     u8 earlyRun:1;
     u8 infiniteTms:1;
     u8 modItems:1;
