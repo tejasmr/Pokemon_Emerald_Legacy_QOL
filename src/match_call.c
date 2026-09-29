@@ -1333,7 +1333,7 @@ static bool32 MatchCall_PrintIntro(u8 taskId)
 static bool32 MatchCall_PrintMessage(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
-    if (!RunMatchCallTextPrinter(tWindowId) && !IsSEPlaying() && (JOY_NEW(A_BUTTON | B_BUTTON) || JOY_HELD(A_BUTTON | B_BUTTON)))
+    if (!RunMatchCallTextPrinter(tWindowId) && !IsSEPlaying() && (JOY_NEW(A_BUTTON | B_BUTTON) || (JOY_HELD(A_BUTTON | B_BUTTON) && CheckQolOption(QOL_HOLD_A, QOL_HOLD_A_YES))))
     {
         FillWindowPixelBuffer(tWindowId, PIXEL_FILL(8));
         CopyWindowToVram(tWindowId, COPYWIN_GFX);
@@ -1426,7 +1426,7 @@ static void InitMatchCallTextPrinter(int windowId, const u8 *str)
 
 static bool32 RunMatchCallTextPrinter(int windowId)
 {
-    if (JOY_HELD(A_BUTTON))
+    if ((JOY_NEW(A_BUTTON | B_BUTTON) || (JOY_HELD(A_BUTTON | B_BUTTON) && CheckQolOption(QOL_HOLD_A, QOL_HOLD_A_YES))))
         gTextFlags.canABSpeedUpPrint = TRUE;
     else
         gTextFlags.canABSpeedUpPrint = FALSE;
