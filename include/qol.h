@@ -12,7 +12,7 @@ enum QolOption
 {
     // Page 1: Game Pacing
     QOL_PRESET,
-    QOL_INSTANT_TEXT,
+    QOL_HOLD_A,
     QOL_BATTLE_SPEED,
     QOL_BATTLE_ANIMS,
     QOL_FANFARES,
@@ -50,12 +50,11 @@ enum
     QOL_PRESET_CUSTOM
 };
 
-// Instant Text
+// Hold A
 enum
 {
-    QOL_TEXT_ON,
-    QOL_TEXT_HOLD_A,
-    QOL_TEXT_OFF
+    QOL_HOLD_A_YES,
+    QOL_HOLD_A_NO
 };
 
 // Battle Speed
@@ -154,7 +153,7 @@ enum
 struct QolSaveOptions
 {
     u8 preset:2;
-    u8 instantText:2;
+    u8 holdA:1;
     u8 battleSpeed:2;
     u8 battleAnims:1;
     u8 fanfares:1;

@@ -113,8 +113,9 @@ static const u8 sText_Vanilla[]  = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}VANILLA")
 static const u8 sText_Custom[]   = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}CUSTOM");
 
 static const u8 sText_On[]       = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}ON");
-static const u8 sText_HoldA[]    = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}HOLD A");
 static const u8 sText_Off[]      = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}OFF");
+static const u8 sText_Yes[]      = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}YES");
+static const u8 sText_No[]       = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}NO");
 
 static const u8 sText_Fast[]     = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}FAST");
 static const u8 sText_Short[]    = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}SHORT");
@@ -137,7 +138,7 @@ static const u8 sText_Page3[]    = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}3/3");
 /* QOL MENU TEXT (Option Names)                    */
 /* ----------------------------------------------- */
 static const u8 sOption_Preset[]        = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}PRESET");
-static const u8 sOption_InstantText[]   = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}INSTANT TEXT");
+static const u8 sOption_HoldA[]         = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}HOLD A BUTTON");
 static const u8 sOption_BattleSpeed[]   = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}BATTLE SPEED");
 static const u8 sOption_BattleAnims[]   = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}BATTLE ANIMS");
 static const u8 sOption_Fanfares[]      = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}FANFARES");
@@ -165,7 +166,7 @@ static const u8 sOption_RightArrow[]    = _("{COLOR RED}{SHADOW LIGHT_RED}{RIGHT
 /* ----------------------------------------------- */
 static const u8 sTooltip_Explanation[]    = _("Configure Quality of Life options.\nPress LEFT/RIGHT to change values.\nPress SELECT for option explanation.\nSelect START GAME when ready.");
 static const u8 sTooltip_Preset[]         = _("Quickly select between preset configurations.\nDEFAULT: All QOL features enabled.\nVANILLA: Original Emerald mechanics.\nCUSTOM: Customized settings.");
-static const u8 sTooltip_InstantText[]    = _("ON: Text prints instantly.\nHOLD A: Instant text when holding A.\nOFF: Standard text speed.");
+static const u8 sTooltip_HoldA[]          = _("YES: Holding A accelerates text printing\ninstantly.\nNO: Text prints at standard option speed.");
 static const u8 sTooltip_BattleSpeed[]    = _("FAST: Quick intro & send-out animations.\nVANILLA: Standard battle speed.\nOFF: Battle scenes disabled.");
 static const u8 sTooltip_BattleAnims[]    = _("SHORT: Skip unnecessary stat drop &\nlearning animations.\nVANILLA: Standard animation flow.");
 static const u8 sTooltip_Fanfares[]       = _("SKIP: Silence level-up, item, and badge\nfanfares for faster pacing.\nVANILLA: Play all standard fanfares.");
@@ -194,7 +195,7 @@ struct QolOptionData
 };
 
 static const u8 *const sChoices_Preset[]        = { sText_Default, sText_Vanilla, sText_Custom };
-static const u8 *const sChoices_InstantText[]   = { sText_On, sText_HoldA, sText_Off };
+static const u8 *const sChoices_HoldA[]         = { sText_Yes, sText_No };
 static const u8 *const sChoices_BattleSpeed[]   = { sText_Fast, sText_Vanilla, sText_Off };
 static const u8 *const sChoices_BattleAnims[]   = { sText_Short, sText_Vanilla };
 static const u8 *const sChoices_Fanfares[]      = { sText_Skip, sText_Vanilla };
@@ -216,7 +217,7 @@ static const u8 *const sChoices_Page[]          = { sText_Page1, sText_Page2, sT
 static const struct QolOptionData sQolOptions[CURRENT_QOL_OPTIONS_NUM + 1] =
 {
     [QOL_PRESET]         = { sOption_Preset,         sChoices_Preset,        3, sTooltip_Preset },
-    [QOL_INSTANT_TEXT]   = { sOption_InstantText,    sChoices_InstantText,   3, sTooltip_InstantText },
+    [QOL_HOLD_A]         = { sOption_HoldA,          sChoices_HoldA,         2, sTooltip_HoldA },
     [QOL_BATTLE_SPEED]   = { sOption_BattleSpeed,    sChoices_BattleSpeed,   3, sTooltip_BattleSpeed },
     [QOL_BATTLE_ANIMS]   = { sOption_BattleAnims,    sChoices_BattleAnims,   2, sTooltip_BattleAnims },
     [QOL_FANFARES]       = { sOption_Fanfares,       sChoices_Fanfares,      2, sTooltip_Fanfares },
@@ -242,7 +243,7 @@ static const struct QolOptionData sQolOptions[CURRENT_QOL_OPTIONS_NUM + 1] =
 static const u8 sPresetDefault[CURRENT_QOL_OPTIONS_NUM] =
 {
     [QOL_PRESET]         = QOL_PRESET_DEFAULT,
-    [QOL_INSTANT_TEXT]   = QOL_TEXT_ON,
+    [QOL_HOLD_A]         = QOL_HOLD_A_YES,
     [QOL_BATTLE_SPEED]   = QOL_BATTLE_SPEED_FAST,
     [QOL_BATTLE_ANIMS]   = QOL_ANIMS_SHORT,
     [QOL_FANFARES]       = QOL_FANFARES_SKIP,
@@ -261,7 +262,7 @@ static const u8 sPresetDefault[CURRENT_QOL_OPTIONS_NUM] =
 static const u8 sPresetVanilla[CURRENT_QOL_OPTIONS_NUM] =
 {
     [QOL_PRESET]         = QOL_PRESET_VANILLA,
-    [QOL_INSTANT_TEXT]   = QOL_TEXT_OFF,
+    [QOL_HOLD_A]         = QOL_HOLD_A_NO,
     [QOL_BATTLE_SPEED]   = QOL_BATTLE_SPEED_VANILLA,
     [QOL_BATTLE_ANIMS]   = QOL_ANIMS_VANILLA,
     [QOL_FANFARES]       = QOL_FANFARES_VANILLA,
@@ -449,7 +450,7 @@ static void HighlightOptionMenuItem(u8 index)
 static void SaveQolOptions(void)
 {
     gSaveBlock2Ptr->qolConfig.preset         = sLocalQolConfig.optionConfig[QOL_PRESET];
-    gSaveBlock2Ptr->qolConfig.instantText    = sLocalQolConfig.optionConfig[QOL_INSTANT_TEXT];
+    gSaveBlock2Ptr->qolConfig.holdA          = sLocalQolConfig.optionConfig[QOL_HOLD_A];
     gSaveBlock2Ptr->qolConfig.battleSpeed    = sLocalQolConfig.optionConfig[QOL_BATTLE_SPEED];
     gSaveBlock2Ptr->qolConfig.battleAnims    = sLocalQolConfig.optionConfig[QOL_BATTLE_ANIMS];
     gSaveBlock2Ptr->qolConfig.fanfares       = sLocalQolConfig.optionConfig[QOL_FANFARES];
@@ -690,8 +691,8 @@ bool8 CheckQolOption(u8 option, u8 selection)
     {
     case QOL_PRESET:
         return gSaveBlock2Ptr->qolConfig.preset == selection;
-    case QOL_INSTANT_TEXT:
-        return gSaveBlock2Ptr->qolConfig.instantText == selection;
+    case QOL_HOLD_A:
+        return gSaveBlock2Ptr->qolConfig.holdA == selection;
     case QOL_BATTLE_SPEED:
         return gSaveBlock2Ptr->qolConfig.battleSpeed == selection;
     case QOL_BATTLE_ANIMS:
@@ -732,8 +733,8 @@ u8 GetQolOption(u8 option)
     {
     case QOL_PRESET:
         return gSaveBlock2Ptr->qolConfig.preset;
-    case QOL_INSTANT_TEXT:
-        return gSaveBlock2Ptr->qolConfig.instantText;
+    case QOL_HOLD_A:
+        return gSaveBlock2Ptr->qolConfig.holdA;
     case QOL_BATTLE_SPEED:
         return gSaveBlock2Ptr->qolConfig.battleSpeed;
     case QOL_BATTLE_ANIMS:
