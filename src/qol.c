@@ -617,11 +617,16 @@ static void DrawHeaderWindow(void)
     CopyWindowToVram(QOL_WIN_HEADER, COPYWIN_FULL);
 }
 
+#define QOL_CHOICE_LEFT_ARROW_X  108
+#define QOL_CHOICE_RIGHT_ARROW_X 200
+#define QOL_CHOICE_CENTER_X      ((QOL_CHOICE_LEFT_ARROW_X + QOL_CHOICE_RIGHT_ARROW_X) / 2)
+
 static void DrawPageOptions(u8 page)
 {
     u8 i;
     u8 startIdx = (page - 1) * QOL_OPTIONS_PER_PAGE;
     u8 count = QOL_OPTIONS_PER_PAGE;
+    s32 pageWidth;
 
     FillWindowPixelBuffer(QOL_WIN_OPTIONS, PIXEL_FILL(1));
 
@@ -636,17 +641,18 @@ static void DrawPageOptions(u8 page)
 
             AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sQolOptions[optIdx].name, 4, i * 16 + 1, TEXT_SKIP_DRAW, NULL);
 
-            AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_LeftArrow, 140, i * 16 + 1, TEXT_SKIP_DRAW, NULL);
-            AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, choiceStr, 175 - (choiceWidth / 2), i * 16 + 1, TEXT_SKIP_DRAW, NULL);
-            AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_RightArrow, 202, i * 16 + 1, TEXT_SKIP_DRAW, NULL);
+            AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_LeftArrow, QOL_CHOICE_LEFT_ARROW_X, i * 16 + 1, TEXT_SKIP_DRAW, NULL);
+            AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, choiceStr, QOL_CHOICE_CENTER_X - (choiceWidth / 2), i * 16 + 1, TEXT_SKIP_DRAW, NULL);
+            AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_RightArrow, QOL_CHOICE_RIGHT_ARROW_X, i * 16 + 1, TEXT_SKIP_DRAW, NULL);
         }
     }
 
     // Fixed bottom options (PAGE & START GAME)
+    pageWidth = GetStringWidth(QOL_FONT_ID, sChoices_Page[page - 1], GetFontAttribute(QOL_FONT_ID, FONTATTR_LETTER_SPACING));
     AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_Page, 4, QOL_OPTIONS_PER_PAGE * 16 + 1, TEXT_SKIP_DRAW, NULL);
-    AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_LeftArrow, 140, QOL_OPTIONS_PER_PAGE * 16 + 1, TEXT_SKIP_DRAW, NULL);
-    AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sChoices_Page[page - 1], 165, QOL_OPTIONS_PER_PAGE * 16 + 1, TEXT_SKIP_DRAW, NULL);
-    AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_RightArrow, 202, QOL_OPTIONS_PER_PAGE * 16 + 1, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_LeftArrow, QOL_CHOICE_LEFT_ARROW_X, QOL_OPTIONS_PER_PAGE * 16 + 1, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sChoices_Page[page - 1], QOL_CHOICE_CENTER_X - (pageWidth / 2), QOL_OPTIONS_PER_PAGE * 16 + 1, TEXT_SKIP_DRAW, NULL);
+    AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_RightArrow, QOL_CHOICE_RIGHT_ARROW_X, QOL_OPTIONS_PER_PAGE * 16 + 1, TEXT_SKIP_DRAW, NULL);
 
     AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_StartGame, 4, (QOL_OPTIONS_PER_PAGE + 1) * 16 + 1, TEXT_SKIP_DRAW, NULL);
 
