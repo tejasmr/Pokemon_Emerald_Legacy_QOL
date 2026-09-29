@@ -544,3 +544,5 @@ gSpecials::
 	def_special CheckGotAllKantoStarters
 	def_special UpdateGymLeaderRematch
 	def_special IsQolFastHealingEnabled
+	def_special IsQolWallyTutorialSkipped
+

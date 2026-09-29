@@ -186,6 +186,8 @@ PetalburgCity_Gym_EventScript_BeginWallyTutorial::
 	call_if_eq VAR_0x8008, 1, PetalburgCity_Gym_EventScript_WallyFaceDown
 	call_if_eq VAR_0x8008, 2, PetalburgCity_Gym_EventScript_WallyFacePlayer
 	call_if_eq VAR_0x8008, 3, PetalburgCity_Gym_EventScript_WallyFacePlayer
+	specialvar VAR_RESULT, IsQolWallyTutorialSkipped
+	goto_if_eq VAR_RESULT, TRUE, PetalburgCity_Gym_EventScript_WallySkipTutorial
 	msgbox PetalburgCity_Gym_Text_WouldYouReallyComeWithMe, MSGBOX_DEFAULT
 	closemessage
 	setflag FLAG_DONT_TRANSITION_MUSIC
@@ -204,6 +206,28 @@ PetalburgCity_Gym_EventScript_BeginWallyTutorial::
 	special InitBirchState
 	warp MAP_PETALBURG_CITY, 15, 8
 	waitstate
+	release
+	end
+
+PetalburgCity_Gym_EventScript_WallySkipTutorial::
+	msgbox PetalburgCity_Gym_Text_WallyThankYouBye, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_WALLY, PetalburgCity_Gym_Movement_WallyExitGym
+	waitmovement 0
+	playse SE_EXIT
+	removeobject LOCALID_WALLY
+	setflag FLAG_HIDE_PETALBURG_CITY_WALLY
+	setflag FLAG_HIDE_PETALBURG_CITY_WALLYS_MOM
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL
+	special InitBirchState
+	setvar VAR_PETALBURG_CITY_STATE, 3
+	delay 5
+	call_if_eq VAR_0x8008, 0, PetalburgCity_Gym_EventScript_NormanAddressPlayerSouth
+	call_if_eq VAR_0x8008, 1, PetalburgCity_Gym_EventScript_NormanAddressPlayerNorth
+	call_if_eq VAR_0x8008, 2, PetalburgCity_Gym_EventScript_NormanAddressPlayerWest
+	call_if_eq VAR_0x8008, 3, PetalburgCity_Gym_EventScript_NormanAddressPlayerEast
+	msgbox PetalburgCity_Gym_Text_DadGoCollectBadges, MSGBOX_DEFAULT
+	setvar VAR_PETALBURG_GYM_STATE, 2
 	release
 	end
 

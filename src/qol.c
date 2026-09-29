@@ -172,7 +172,7 @@ static const u8 sTooltip_BattleAnims[]    = _("SHORT: Skip unnecessary stat drop
 static const u8 sTooltip_Fanfares[]       = _("SKIP: Silence level-up, item, and badge\nfanfares for faster pacing.\nVANILLA: Play all standard fanfares.");
 
 static const u8 sTooltip_FastHealing[]    = _("FAST: Quick Poké Center healing without\nlengthy Nurse Joy dialogues.\nVANILLA: Standard healing sequence.");
-static const u8 sTooltip_WallyTutorial[]  = _("SHORT: Faster Wally catching tutorial.\nVANILLA: Original tutorial pacing.");
+static const u8 sTooltip_WallyTutorial[]  = _("SKIP: Completely skip catching tutorial.\nSHORT: Faster in-battle pacing only.\nVANILLA: Original tutorial pacing.");
 static const u8 sTooltip_EarlyRun[]       = _("ON: Start game with Running Shoes &\nB-Button Dash enabled.\nOFF: Receive shoes normally.");
 static const u8 sTooltip_InfiniteTms[]    = _("ON: TMs are reusable and not consumed.\nOFF: TMs are single use.");
 static const u8 sTooltip_ModItems[]       = _("ON: Receive Porta Heal, EV Editor, Porta\nFly, etc., after choosing starter.\nOFF: Do not receive mod items.");
@@ -201,7 +201,7 @@ static const u8 *const sChoices_BattleAnims[]   = { sText_Short, sText_Vanilla }
 static const u8 *const sChoices_Fanfares[]      = { sText_Skip, sText_Vanilla };
 
 static const u8 *const sChoices_FastHealing[]   = { sText_Fast, sText_Vanilla };
-static const u8 *const sChoices_WallyTutorial[] = { sText_Short, sText_Vanilla };
+static const u8 *const sChoices_WallyTutorial[] = { sText_Skip, sText_Short, sText_Vanilla };
 static const u8 *const sChoices_EarlyRun[]      = { sText_On, sText_Off };
 static const u8 *const sChoices_InfiniteTms[]   = { sText_On, sText_Off };
 static const u8 *const sChoices_ModItems[]      = { sText_On, sText_Off };
@@ -223,7 +223,7 @@ static const struct QolOptionData sQolOptions[CURRENT_QOL_OPTIONS_NUM + 1] =
     [QOL_FANFARES]       = { sOption_Fanfares,       sChoices_Fanfares,      2, sTooltip_Fanfares },
 
     [QOL_FAST_HEALING]   = { sOption_FastHealing,    sChoices_FastHealing,   2, sTooltip_FastHealing },
-    [QOL_WALLY_TUTORIAL] = { sOption_WallyTutorial,  sChoices_WallyTutorial, 2, sTooltip_WallyTutorial },
+    [QOL_WALLY_TUTORIAL] = { sOption_WallyTutorial,  sChoices_WallyTutorial, 3, sTooltip_WallyTutorial },
     [QOL_EARLY_RUN]      = { sOption_EarlyRun,       sChoices_EarlyRun,      2, sTooltip_EarlyRun },
     [QOL_INFINITE_TMS]   = { sOption_InfiniteTms,    sChoices_InfiniteTms,   2, sTooltip_InfiniteTms },
     [QOL_MOD_ITEMS]      = { sOption_ModItems,       sChoices_ModItems,      2, sTooltip_ModItems },
@@ -248,7 +248,7 @@ static const u8 sPresetDefault[CURRENT_QOL_OPTIONS_NUM] =
     [QOL_BATTLE_ANIMS]   = QOL_ANIMS_SHORT,
     [QOL_FANFARES]       = QOL_FANFARES_SKIP,
     [QOL_FAST_HEALING]   = QOL_HEALING_FAST,
-    [QOL_WALLY_TUTORIAL] = QOL_WALLY_SHORT,
+    [QOL_WALLY_TUTORIAL] = QOL_WALLY_SKIP,
     [QOL_EARLY_RUN]      = QOL_EARLY_RUN_ON,
     [QOL_INFINITE_TMS]   = QOL_INFINITE_TMS_ON,
     [QOL_MOD_ITEMS]      = QOL_MOD_ITEMS_ON,
