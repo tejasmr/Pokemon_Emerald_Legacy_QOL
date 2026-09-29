@@ -21,6 +21,7 @@
 #include "constants/moves.h"
 #include "constants/songs.h"
 #include "constants/rgb.h"
+#include "qol.h"
 
 // iwram
 u32 gMonShrinkDuration;
@@ -2228,8 +2229,8 @@ void TryShinyAnimation(u8 battler, struct Pokemon *mon)
     if (IsBattlerSpriteVisible(battler))
     {
         shinyValue = GET_SHINY_VALUE(otId, personality);
-        if (shinyValue < SHINY_ODDS)
-            isShiny = FALSE;
+        if (shinyValue < SHINY_ODDS && !CheckQolOption(QOL_BATTLE_ANIMS, QOL_ANIMS_SHORT))
+            isShiny = TRUE;
 
         if (isShiny)
         {

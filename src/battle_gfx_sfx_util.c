@@ -23,6 +23,7 @@
 #include "palette.h"
 #include "contest.h"
 #include "constants/songs.h"
+#include "qol.h"
 #include "constants/rgb.h"
 #include "constants/battle_palace.h"
 
@@ -377,7 +378,7 @@ void SpriteCB_TrainerSlideIn(struct Sprite *sprite)
 {
     if (!(gIntroSlideFlags & 1))
     {
-        sprite->x2 += (sprite->sSpeedX * 2);
+        sprite->x2 += CheckQolOption(QOL_BATTLE_SPEED, QOL_BATTLE_SPEED_FAST) ? (sprite->sSpeedX * 2) : sprite->sSpeedX;
         if (sprite->x2 == 0)
         {
             if (sprite->y2 != 0)

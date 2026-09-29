@@ -463,6 +463,11 @@ static void SaveQolOptions(void)
     gSaveBlock2Ptr->qolConfig.shinyRate      = sLocalQolConfig.optionConfig[QOL_SHINY_RATE];
     gSaveBlock2Ptr->qolConfig.perfectIvs     = sLocalQolConfig.optionConfig[QOL_PERFECT_IVS];
     gSaveBlock2Ptr->qolConfig.preferNature   = sLocalQolConfig.optionConfig[QOL_PREFER_NATURE];
+
+    if (sLocalQolConfig.optionConfig[QOL_BATTLE_SPEED] == QOL_BATTLE_SPEED_OFF)
+        gSaveBlock2Ptr->optionsBattleSceneOff = TRUE;
+    else
+        gSaveBlock2Ptr->optionsBattleSceneOff = FALSE;
 }
 
 static void Task_QolMenuFadeOut(u8 taskId)

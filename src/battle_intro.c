@@ -10,6 +10,7 @@
 #include "task.h"
 #include "trig.h"
 #include "constants/trainers.h"
+#include "qol.h"
 
 static EWRAM_DATA u16 sBgCnt = 0;
 
@@ -154,14 +155,15 @@ static void BattleIntroSlideEnd(u8 taskId)
 static void BattleIntroSlide1(u8 taskId)
 {
     int i;
+    bool32 fast = CheckQolOption(QOL_BATTLE_SPEED, QOL_BATTLE_SPEED_FAST);
 
-    gBattle_BG1_X += 12;
+    gBattle_BG1_X += (fast ? 12 : 6);
     switch (gTasks[taskId].tState)
     {
     case 0:
         if (gBattleTypeFlags & BATTLE_TYPE_LINK)
         {
-            gTasks[taskId].data[2] = 8;
+            gTasks[taskId].data[2] = (fast ? 8 : 16);
             gTasks[taskId].tState++;
         }
         else
@@ -178,7 +180,7 @@ static void BattleIntroSlide1(u8 taskId)
         }
         break;
     case 2:
-        gBattle_WIN0V -= 0x1FE;
+        gBattle_WIN0V -= (fast ? 0x1FE : 0xFF);
         if ((gBattle_WIN0V & 0xFF00) == 0x3000)
         {
             gTasks[taskId].tState++;
@@ -197,12 +199,12 @@ static void BattleIntroSlide1(u8 taskId)
             if (gTasks[taskId].tTerrain == BATTLE_TERRAIN_LONG_GRASS)
             {
                 if (gBattle_BG1_Y != (u16)(-80))
-                    gBattle_BG1_Y -= 4;
+                    gBattle_BG1_Y -= (fast ? 4 : 2);
             }
             else
             {
                 if (gBattle_BG1_Y != (u16)(-56))
-                    gBattle_BG1_Y -= 2;
+                    gBattle_BG1_Y -= (fast ? 2 : 1);
             }
         }
 
@@ -210,7 +212,7 @@ static void BattleIntroSlide1(u8 taskId)
             gBattle_WIN0V -= 0x3FC;
 
         if (gTasks[taskId].data[2])
-            gTasks[taskId].data[2] -= 4;
+            gTasks[taskId].data[2] -= (fast ? 4 : 2);
 
         // Scanline settings have already been set in CB2_InitBattleInternal()
         for (i = 0; i < DISPLAY_HEIGHT / 2; i++)
@@ -239,15 +241,16 @@ static void BattleIntroSlide1(u8 taskId)
 static void BattleIntroSlide2(u8 taskId)
 {
     int i;
+    bool32 fast = CheckQolOption(QOL_BATTLE_SPEED, QOL_BATTLE_SPEED_FAST);
 
     switch (gTasks[taskId].tTerrain)
     {
     case BATTLE_TERRAIN_SAND:
     case BATTLE_TERRAIN_WATER:
-        gBattle_BG1_X += 16;
+        gBattle_BG1_X += (fast ? 16 : 8);
         break;
     case BATTLE_TERRAIN_UNDERWATER:
-        gBattle_BG1_X += 12;
+        gBattle_BG1_X += (fast ? 12 : 6);
         break;
     }
 
@@ -269,7 +272,7 @@ static void BattleIntroSlide2(u8 taskId)
         gTasks[taskId].data[4] = 16;
         if (gBattleTypeFlags & BATTLE_TYPE_LINK)
         {
-            gTasks[taskId].data[2] = 8;
+            gTasks[taskId].data[2] = (fast ? 8 : 16);
             gTasks[taskId].tState++;
         }
         else
@@ -286,12 +289,12 @@ static void BattleIntroSlide2(u8 taskId)
         }
         break;
     case 2:
-        gBattle_WIN0V -= 0x1FE;
+        gBattle_WIN0V -= (fast ? 0x1FE : 0xFF);
         if ((gBattle_WIN0V & 0xFF00) == 0x3000)
         {
             gTasks[taskId].tState++;
             gTasks[taskId].data[2] = DISPLAY_WIDTH;
-            gTasks[taskId].data[3] = 16;
+            gTasks[taskId].data[3] = (fast ? 16 : 32);
             gTasks[taskId].data[5] = 1;
             gIntroSlideFlags &= ~1;
         }
@@ -311,7 +314,7 @@ static void BattleIntroSlide2(u8 taskId)
             if ((gTasks[taskId].data[4] & 0x1F) && --gTasks[taskId].data[5] == 0)
             {
                 gTasks[taskId].data[4] += 0xFF;
-                gTasks[taskId].data[5] = 2;
+                gTasks[taskId].data[5] = (fast ? 2 : 4);
             }
         }
 
@@ -319,7 +322,7 @@ static void BattleIntroSlide2(u8 taskId)
             gBattle_WIN0V -= 0x3FC;
 
         if (gTasks[taskId].data[2])
-            gTasks[taskId].data[2] -= 4;
+            gTasks[taskId].data[2] -= (fast ? 4 : 2);
 
         // Scanline settings have already been set in CB2_InitBattleInternal()
         for (i = 0; i < DISPLAY_HEIGHT / 2; i++)
@@ -351,8 +354,9 @@ static void BattleIntroSlide2(u8 taskId)
 static void BattleIntroSlide3(u8 taskId)
 {
     int i;
+    bool32 fast = CheckQolOption(QOL_BATTLE_SPEED, QOL_BATTLE_SPEED_FAST);
 
-    gBattle_BG1_X += 16;
+    gBattle_BG1_X += (fast ? 16 : 8);
     switch (gTasks[taskId].tState)
     {
     case 0:
@@ -362,7 +366,7 @@ static void BattleIntroSlide3(u8 taskId)
         gTasks[taskId].data[4] = BLDALPHA_BLEND(8, 8);
         if (gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK))
         {
-            gTasks[taskId].data[2] = 8;
+            gTasks[taskId].data[2] = (fast ? 8 : 16);
             gTasks[taskId].tState++;
         }
         else
@@ -379,12 +383,12 @@ static void BattleIntroSlide3(u8 taskId)
         }
         break;
     case 2:
-        gBattle_WIN0V -= 0x1FE;
+        gBattle_WIN0V -= (fast ? 0x1FE : 0xFF);
         if ((gBattle_WIN0V & 0xFF00) == 0x3000)
         {
             gTasks[taskId].tState++;
             gTasks[taskId].data[2] = DISPLAY_WIDTH;
-            gTasks[taskId].data[3] = 16;
+            gTasks[taskId].data[3] = (fast ? 16 : 32);
             gTasks[taskId].data[5] = 1;
             gIntroSlideFlags &= ~1;
         }
@@ -392,14 +396,19 @@ static void BattleIntroSlide3(u8 taskId)
     case 3:
         if (gTasks[taskId].data[3])
         {
-            gTasks[taskId].data[3]--;
+            if (--gTasks[taskId].data[3] == 0)
+            {
+                SetGpuReg(REG_OFFSET_BLDCNT, BLDCNT_TGT1_BG1 | BLDCNT_EFFECT_BLEND | BLDCNT_TGT2_BG3 | BLDCNT_TGT2_OBJ);
+                SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(14, 2));
+                SetGpuReg(REG_OFFSET_BLDY, 0);
+            }
         }
         else
         {
             if ((gTasks[taskId].data[4] & 0xF) && --gTasks[taskId].data[5] == 0)
             {
                 gTasks[taskId].data[4] += 0xFF;
-                gTasks[taskId].data[5] = 3;
+                gTasks[taskId].data[5] = (fast ? 3 : 6);
             }
         }
 
@@ -407,7 +416,7 @@ static void BattleIntroSlide3(u8 taskId)
             gBattle_WIN0V -= 0x3FC;
 
         if (gTasks[taskId].data[2])
-            gTasks[taskId].data[2] -= 4;
+            gTasks[taskId].data[2] -= (fast ? 4 : 2);
 
         // Scanline settings have already been set in CB2_InitBattleInternal()
         for (i = 0; i < DISPLAY_HEIGHT / 2; i++)
@@ -433,7 +442,7 @@ static void BattleIntroSlide3(u8 taskId)
     }
 
     if (gTasks[taskId].tState != 4)
-        SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(gTasks[taskId].data[4], 0));
+        SetGpuReg(REG_OFFSET_BLDALPHA, BLDALPHA_BLEND(gTasks[taskId].data[4] >> 8, gTasks[taskId].data[4] & 0xFF));
 }
 
 static void BattleIntroSlideLink(u8 taskId)

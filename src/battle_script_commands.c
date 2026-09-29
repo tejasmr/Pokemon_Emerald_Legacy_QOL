@@ -2706,6 +2706,13 @@ void SetMoveEffect(bool8 primary, u8 certain)
                 {
                     gBattlescriptCurrInstr++;
                 }
+                else
+                {
+                    gBattleScripting.animArg1 = gBattleCommunication[MOVE_EFFECT_BYTE] & ~(MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN);
+                    gBattleScripting.animArg2 = 0;
+                    BattleScriptPush(gBattlescriptCurrInstr + 1);
+                    gBattlescriptCurrInstr = BattleScript_StatUp;
+                }
                 break;
             case MOVE_EFFECT_ATK_MINUS_1:
             case MOVE_EFFECT_DEF_MINUS_1:
@@ -2719,6 +2726,13 @@ void SetMoveEffect(bool8 primary, u8 certain)
                                     affectsUser, 0))
                 {
                     gBattlescriptCurrInstr++;
+                }
+                else
+                {
+                    gBattleScripting.animArg1 = gBattleCommunication[MOVE_EFFECT_BYTE] & ~(MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN);
+                    gBattleScripting.animArg2 = 0;
+                    BattleScriptPush(gBattlescriptCurrInstr + 1);
+                    gBattlescriptCurrInstr = BattleScript_StatDown;
                 }
                 break;
             case MOVE_EFFECT_ATK_PLUS_2:
@@ -2734,6 +2748,13 @@ void SetMoveEffect(bool8 primary, u8 certain)
                 {
                     gBattlescriptCurrInstr++;
                 }
+                else
+                {
+                    gBattleScripting.animArg1 = gBattleCommunication[MOVE_EFFECT_BYTE] & ~(MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN);
+                    gBattleScripting.animArg2 = 0;
+                    BattleScriptPush(gBattlescriptCurrInstr + 1);
+                    gBattlescriptCurrInstr = BattleScript_StatUp;
+                }
                 break;
             case MOVE_EFFECT_ATK_MINUS_2:
             case MOVE_EFFECT_DEF_MINUS_2:
@@ -2747,6 +2768,13 @@ void SetMoveEffect(bool8 primary, u8 certain)
                                     affectsUser, 0))
                 {
                     gBattlescriptCurrInstr++;
+                }
+                else
+                {
+                    gBattleScripting.animArg1 = gBattleCommunication[MOVE_EFFECT_BYTE] & ~(MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN);
+                    gBattleScripting.animArg2 = 0;
+                    BattleScriptPush(gBattlescriptCurrInstr + 1);
+                    gBattlescriptCurrInstr = BattleScript_StatDown;
                 }
                 break;
             case MOVE_EFFECT_RECHARGE:
@@ -4051,6 +4079,8 @@ static void Cmd_playanimation(void)
 
     if (gBattlescriptCurrInstr[2] == B_ANIM_STATS_CHANGE)
     {
+        if (!CheckQolOption(QOL_BATTLE_ANIMS, QOL_ANIMS_SHORT))
+            BtlController_EmitBattleAnimation(BUFFER_A, gBattlescriptCurrInstr[2], *argumentPtr);
         MarkBattlerForControllerExec(gActiveBattler);
         gBattlescriptCurrInstr += 7;
     }
@@ -4099,6 +4129,8 @@ static void Cmd_playanimation_var(void)
 
     if (*animationIdPtr == B_ANIM_STATS_CHANGE)
     {
+        if (!CheckQolOption(QOL_BATTLE_ANIMS, QOL_ANIMS_SHORT))
+            BtlController_EmitBattleAnimation(BUFFER_A, *animationIdPtr, *argumentPtr);
         MarkBattlerForControllerExec(gActiveBattler);
         gBattlescriptCurrInstr += 10;
     }
@@ -4245,6 +4277,8 @@ static void Cmd_playstatchangeanimation(void)
     }
     else if (changeableStatsCount != 0 && !gBattleScripting.statAnimPlayed)
     {
+        if (!CheckQolOption(QOL_BATTLE_ANIMS, QOL_ANIMS_SHORT))
+            BtlController_EmitBattleAnimation(BUFFER_A, B_ANIM_STATS_CHANGE, statAnimId);
         MarkBattlerForControllerExec(gActiveBattler);
         if (gBattlescriptCurrInstr[3] & STAT_CHANGE_MULTIPLE_STATS && changeableStatsCount > 1)
             gBattleScripting.statAnimPlayed = TRUE;

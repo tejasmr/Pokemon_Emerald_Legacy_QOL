@@ -14,6 +14,7 @@
 #include "util.h"
 #include "data.h"
 #include "constants/songs.h"
+#include "qol.h"
 
 static void Task_DoPokeballSendOutAnim(u8 taskId);
 static void SpriteCB_PlayerMonSendOut_1(struct Sprite *sprite);
@@ -991,7 +992,7 @@ static void SpriteCB_ReleaseMon2FromBall(struct Sprite *sprite)
 static void SpriteCB_OpponentMonSendOut(struct Sprite *sprite)
 {
     sprite->data[0]++;
-    if (sprite->data[0] > 3)
+    if (sprite->data[0] > (CheckQolOption(QOL_BATTLE_SPEED, QOL_BATTLE_SPEED_FAST) ? 3 : 15))
     {
         sprite->data[0] = 0;
         if (IsDoubleBattle() && gBattleSpritesDataPtr->animationData->introAnimActive
