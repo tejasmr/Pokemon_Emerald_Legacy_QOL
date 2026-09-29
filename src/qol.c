@@ -182,6 +182,8 @@ static const u8 sTooltip_CatchRate[]      = _("100%: All Poké Balls have guaran
 static const u8 sTooltip_ShinyRate[]      = _("ALL: All wild & starter Pokémon shiny.\nSTARTER: Starter Pokémon is shiny.\nVANILLA: 1/8192 shiny odds.");
 static const u8 sTooltip_PerfectIvs[]     = _("MAX 31: All caught and hatched Pokémon\nhave 31 IVs across all stats.\nRANDOM: Standard random IVs.");
 static const u8 sTooltip_PreferNature[]   = _("ON: Pokémon automatically receive optimal\nnature (Adamant/Modest/etc.)\nOFF: Standard random natures.");
+static const u8 sTooltip_Page[]           = _("Switch between QOL configuration pages.\nPress LEFT/RIGHT or L/R triggers to flip\npages.");
+static const u8 sTooltip_StartGame[]      = _("Save configured Quality of Life options\nand proceed to begin your adventure!");
 
 /* ----------------------------------------------- */
 /* OPTION DEFINITION STRUCTS                       */
@@ -234,7 +236,7 @@ static const struct QolOptionData sQolOptions[CURRENT_QOL_OPTIONS_NUM + 1] =
     [QOL_PERFECT_IVS]    = { sOption_PerfectIvs,     sChoices_PerfectIvs,    2, sTooltip_PerfectIvs },
     [QOL_PREFER_NATURE]  = { sOption_PreferNature,   sChoices_PreferNature,  2, sTooltip_PreferNature },
 
-    [QOL_PAGE]           = { sOption_Page,           sChoices_Page,          3, NULL },
+    [QOL_PAGE]           = { sOption_Page,           sChoices_Page,          3, sTooltip_Page },
 };
 
 /* ----------------------------------------------- */
@@ -303,6 +305,8 @@ static void DrawPageOptions(u8 page);
 static void DrawTooltip(u8 taskId, const u8 *str);
 static void HideTooltip(void);
 static void HighlightOptionMenuItem(u8 index);
+static const u8 *GetCurrentOptionTooltip(void);
+static void UpdateTooltipIfActive(u8 taskId);
 
 static u8 GetPageOptionTrueIndex(u8 pos, u8 page)
 {
@@ -516,15 +520,50 @@ static void Task_QolMenuProcessInput(u8 taskId)
             PlaySE(SE_SELECT);
         }
     }
+    else if (gMain.newKeys & B_BUTTON)
+    {
+        if (sLocalQolConfig.tooltipActive)
+        {
+            HideTooltip();
+            PlaySE(SE_SELECT);
+        }
+    }
     else if (gMain.newKeys & SELECT_BUTTON)
     {
-        if (sLocalQolConfig.trueIndex < CURRENT_QOL_OPTIONS_NUM && sQolOptions[sLocalQolConfig.trueIndex].tooltip != NULL)
+        if (sLocalQolConfig.tooltipActive)
         {
-            if (sLocalQolConfig.tooltipActive)
-                HideTooltip();
-            else
-                DrawTooltip(taskId, sQolOptions[sLocalQolConfig.trueIndex].tooltip);
+            HideTooltip();
+            PlaySE(SE_SELECT);
         }
+        else
+        {
+            const u8 *str = GetCurrentOptionTooltip();
+            if (str != NULL)
+            {
+                DrawTooltip(taskId, str);
+                PlaySE(SE_SELECT);
+            }
+        }
+    }
+    else if (gMain.newKeys & (L_BUTTON | R_BUTTON))
+    {
+        bool8 isR = (gMain.newKeys & R_BUTTON) != 0;
+
+        if (isR)
+            sLocalQolConfig.pageNum = (sLocalQolConfig.pageNum % QOL_MAX_PAGES) + 1;
+        else
+            sLocalQolConfig.pageNum = (sLocalQolConfig.pageNum == 1) ? QOL_MAX_PAGES : sLocalQolConfig.pageNum - 1;
+
+        if (sLocalQolConfig.pageIndex < QOL_OPTIONS_PER_PAGE)
+        {
+            sLocalQolConfig.trueIndex = (sLocalQolConfig.pageNum - 1) * QOL_OPTIONS_PER_PAGE + sLocalQolConfig.pageIndex;
+            if (sLocalQolConfig.trueIndex >= CURRENT_QOL_OPTIONS_NUM)
+                sLocalQolConfig.trueIndex = CURRENT_QOL_OPTIONS_NUM - 1;
+        }
+
+        DrawPageOptions(sLocalQolConfig.pageNum);
+        UpdateTooltipIfActive(taskId);
+        PlaySE(SE_SELECT);
     }
     else if (gMain.newKeys & DPAD_UP)
     {
@@ -543,6 +582,7 @@ static void Task_QolMenuProcessInput(u8 taskId)
             sLocalQolConfig.pageIndex = sLocalQolConfig.trueIndex % QOL_OPTIONS_PER_PAGE;
 
         HighlightOptionMenuItem(sLocalQolConfig.pageIndex);
+        UpdateTooltipIfActive(taskId);
         PlaySE(SE_SELECT);
     }
     else if (gMain.newKeys & DPAD_DOWN)
@@ -562,6 +602,7 @@ static void Task_QolMenuProcessInput(u8 taskId)
             sLocalQolConfig.pageIndex = sLocalQolConfig.trueIndex % QOL_OPTIONS_PER_PAGE;
 
         HighlightOptionMenuItem(sLocalQolConfig.pageIndex);
+        UpdateTooltipIfActive(taskId);
         PlaySE(SE_SELECT);
     }
     else if (gMain.newKeys & (DPAD_LEFT | DPAD_RIGHT))
@@ -603,6 +644,7 @@ static void Task_QolMenuProcessInput(u8 taskId)
                 sLocalQolConfig.pageNum = (sLocalQolConfig.pageNum == 1) ? QOL_MAX_PAGES : sLocalQolConfig.pageNum - 1;
 
             DrawPageOptions(sLocalQolConfig.pageNum);
+            UpdateTooltipIfActive(taskId);
             PlaySE(SE_SELECT);
         }
     }
@@ -675,6 +717,29 @@ static void HideTooltip(void)
     ClearWindowTilemap(QOL_WIN_TOOLTIP);
     CopyWindowToVram(QOL_WIN_TOOLTIP, COPYWIN_FULL);
     sLocalQolConfig.tooltipActive = FALSE;
+}
+
+static const u8 *GetCurrentOptionTooltip(void)
+{
+    if (sLocalQolConfig.trueIndex < CURRENT_QOL_OPTIONS_NUM)
+        return sQolOptions[sLocalQolConfig.trueIndex].tooltip;
+    else if (sLocalQolConfig.trueIndex == QOL_PAGE)
+        return sTooltip_Page;
+    else if (sLocalQolConfig.trueIndex == QOL_START_GAME)
+        return sTooltip_StartGame;
+    return sTooltip_Explanation;
+}
+
+static void UpdateTooltipIfActive(u8 taskId)
+{
+    if (sLocalQolConfig.tooltipActive)
+    {
+        const u8 *str = GetCurrentOptionTooltip();
+        if (str != NULL)
+            DrawTooltip(taskId, str);
+        else
+            HideTooltip();
+    }
 }
 
 bool8 CheckQolOption(u8 option, u8 selection)
