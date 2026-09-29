@@ -48,6 +48,7 @@
 #include "constants/trainers.h"
 #include "constants/union_room.h"
 #include "daycare.h"
+#include "qol.h"
 
 #define DAY_EVO_HOUR_BEGIN       12
 #define DAY_EVO_HOUR_END         HOURS_PER_DAY
@@ -2317,6 +2318,14 @@ SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
         case OT_ID_PRESET:
         {
             value = fixedOtId;
+            if (FlagGet(FLAG_SHINY_CREATION) || CheckQolOption(QOL_SHINY_RATE, QOL_SHINY_ALL))
+            {
+                u8 nature = personality % NUM_NATURES;  // keep current nature
+                do {
+                    personality = Random32();
+                    personality = ((((Random() % SHINY_ODDS) ^ (HIHALF(value) ^ LOHALF(value))) ^ LOHALF(personality)) << 16) | LOHALF(personality);
+                } while (nature != GetNatureFromPersonality(personality));
+            }
         }
         break;
 
@@ -2327,7 +2336,7 @@ SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
                  | (gSaveBlock2Ptr->playerTrainerId[2] << 16)
                  | (gSaveBlock2Ptr->playerTrainerId[3] << 24);
 
-            if (FlagGet(FLAG_SHINY_CREATION))
+            if (FlagGet(FLAG_SHINY_CREATION) || CheckQolOption(QOL_SHINY_RATE, QOL_SHINY_ALL))
             {
                 u8 nature = personality % NUM_NATURES;  // keep current nature
                 do {
