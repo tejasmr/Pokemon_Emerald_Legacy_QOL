@@ -27,6 +27,7 @@
 #include "text.h"
 #include "util.h"
 #include "window.h"
+#include "qol.h"
 #include "constants/battle_anim.h"
 #include "constants/items.h"
 #include "constants/moves.h"
@@ -1862,7 +1863,7 @@ static void OpponentHandleIntroTrainerBallThrow(void)
 
     SetSpritePrimaryCoordsFromSecondaryCoords(&gSprites[gBattlerSpriteIds[gActiveBattler]]);
 
-    gSprites[gBattlerSpriteIds[gActiveBattler]].data[0] = 18;
+    gSprites[gBattlerSpriteIds[gActiveBattler]].data[0] = CheckQolOption(QOL_BATTLE_SPEED, QOL_BATTLE_SPEED_FAST) ? 18 : 35;
     gSprites[gBattlerSpriteIds[gActiveBattler]].data[2] = 280;
     gSprites[gBattlerSpriteIds[gActiveBattler]].data[4] = gSprites[gBattlerSpriteIds[gActiveBattler]].y;
     gSprites[gBattlerSpriteIds[gActiveBattler]].callback = StartAnimLinearTranslation;

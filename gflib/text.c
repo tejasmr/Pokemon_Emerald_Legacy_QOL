@@ -321,7 +321,8 @@ void RunTextPrinters(void)
 {
     int i;
     u16 temp;
-    bool32 isInstantText = (gSaveBlock2Ptr->optionsTextSpeed == OPTIONS_TEXT_SPEED_INST);
+    bool32 isInstantText = (gSaveBlock2Ptr->optionsTextSpeed == OPTIONS_TEXT_SPEED_INST)
+                        || (CheckQolOption(QOL_HOLD_A, QOL_HOLD_A_YES) && (JOY_HELD(A_BUTTON | B_BUTTON)));
 
     do {
         if (!gDisableTextPrinters)
@@ -888,7 +889,7 @@ bool16 TextPrinterWaitWithDownArrow(struct TextPrinter *textPrinter)
     else
     {
         TextPrinterDrawDownArrow(textPrinter);
-        if ((JOY_HELD(A_BUTTON | B_BUTTON) && 1) || JOY_NEW(A_BUTTON | B_BUTTON))
+        if ((JOY_HELD(A_BUTTON | B_BUTTON) && CheckQolOption(QOL_HOLD_A, QOL_HOLD_A_YES)) || JOY_NEW(A_BUTTON | B_BUTTON))
         {
             result = TRUE;
             PlaySE(SE_SELECT);
@@ -906,7 +907,7 @@ bool16 TextPrinterWait(struct TextPrinter *textPrinter)
     }
     else
     {
-        if ((JOY_HELD(A_BUTTON | B_BUTTON) && 1) || JOY_NEW(A_BUTTON | B_BUTTON))
+        if ((JOY_HELD(A_BUTTON | B_BUTTON) && CheckQolOption(QOL_HOLD_A, QOL_HOLD_A_YES)) || JOY_NEW(A_BUTTON | B_BUTTON))
         {
             result = TRUE;
             PlaySE(SE_SELECT);

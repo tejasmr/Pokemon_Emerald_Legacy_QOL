@@ -3,5 +3,8 @@
 
 void CB2_InitMainMenu(void);
 void CreateYesNoMenuParameterized(u8 x, u8 y, u16 baseTileNum, u16 baseBlock, u8 yesNoPalNum, u8 winPalNum);
+extern const struct BgTemplate sMainMenuBgTemplates[];
+void Task_NewGameBirchSpeech_Init(u8 taskId);
 
 #endif // GUARD_MAIN_MENU_H
+

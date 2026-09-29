@@ -23,6 +23,7 @@
 #include "text.h"
 #include "util.h"
 #include "window.h"
+#include "qol.h"
 #include "constants/battle_anim.h"
 #include "constants/songs.h"
 #include "constants/trainers.h"
@@ -1782,7 +1783,7 @@ static void PlayerPartnerHandleIntroTrainerBallThrow(void)
 
     SetSpritePrimaryCoordsFromSecondaryCoords(&gSprites[gBattlerSpriteIds[gActiveBattler]]);
 
-    gSprites[gBattlerSpriteIds[gActiveBattler]].data[0] = 25;
+    gSprites[gBattlerSpriteIds[gActiveBattler]].data[0] = CheckQolOption(QOL_BATTLE_SPEED, QOL_BATTLE_SPEED_FAST) ? 25 : 50;
     gSprites[gBattlerSpriteIds[gActiveBattler]].data[2] = -40;
     gSprites[gBattlerSpriteIds[gActiveBattler]].data[4] = gSprites[gBattlerSpriteIds[gActiveBattler]].y;
     gSprites[gBattlerSpriteIds[gActiveBattler]].callback = StartAnimLinearTranslation;
@@ -1818,7 +1819,7 @@ static void PlayerPartnerHandleIntroTrainerBallThrow(void)
 
 static void Task_StartSendOutAnim(u8 taskId)
 {
-    if (gTasks[taskId].data[1] < 1)
+    if (gTasks[taskId].data[1] < (CheckQolOption(QOL_BATTLE_SPEED, QOL_BATTLE_SPEED_FAST) ? 1 : 24))
     {
         gTasks[taskId].data[1]++;
     }

@@ -33,6 +33,7 @@
 #include "party_menu.h"
 #include "pokeball.h"
 #include "pokedex.h"
+#include "qol.h"
 #include "pokemon.h"
 #include "random.h"
 #include "recorded_battle.h"
@@ -2721,7 +2722,7 @@ static void SpriteCB_MoveWildMonToRight(struct Sprite *sprite)
 {
     if ((gIntroSlideFlags & 1) == 0)
     {
-        sprite->x2 += 4;
+        sprite->x2 += CheckQolOption(QOL_BATTLE_SPEED, QOL_BATTLE_SPEED_FAST) ? 4 : 2;
         if (sprite->x2 == 0)
         {
             sprite->callback = SpriteCB_WildMonShowHealthbox;

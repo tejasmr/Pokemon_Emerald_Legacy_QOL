@@ -7,6 +7,7 @@
 #include "pokemon.h"
 #include "constants/songs.h"
 #include "task.h"
+#include "qol.h"
 
 struct Fanfare
 {
@@ -179,6 +180,11 @@ bool8 IsNotWaitingForBGMStop(void)
 void PlayFanfareByFanfareNum(u8 fanfareNum)
 {
     u16 songNum;
+    if (CheckQolOption(QOL_FANFARES, QOL_FANFARES_SKIP))
+    {
+        sFanfareCounter = 0;
+        return;
+    }
     m4aMPlayStop(&gMPlayInfo_BGM);
     songNum = sFanfares[fanfareNum].songNum;
     sFanfareCounter = sFanfares[fanfareNum].duration;
@@ -187,6 +193,8 @@ void PlayFanfareByFanfareNum(u8 fanfareNum)
 
 bool8 WaitFanfare(bool8 stop)
 {
+    if (CheckQolOption(QOL_FANFARES, QOL_FANFARES_SKIP))
+        return TRUE;
     if (sFanfareCounter)
     {
         sFanfareCounter--;
@@ -212,6 +220,11 @@ void StopFanfareByFanfareNum(u8 fanfareNum)
 void PlayFanfare(u16 songNum)
 {
     s32 i;
+    if (CheckQolOption(QOL_FANFARES, QOL_FANFARES_SKIP))
+    {
+        sFanfareCounter = 0;
+        return;
+    }
     for (i = 0; (u32)i < ARRAY_COUNT(sFanfares); i++)
     {
         if (sFanfares[i].songNum == songNum)
@@ -230,6 +243,8 @@ void PlayFanfare(u16 songNum)
 
 bool8 IsFanfareTaskInactive(void)
 {
+    if (CheckQolOption(QOL_FANFARES, QOL_FANFARES_SKIP))
+        return TRUE;
     if (FuncIsActiveTask(Task_Fanfare) == TRUE)
         return FALSE;
     return TRUE;

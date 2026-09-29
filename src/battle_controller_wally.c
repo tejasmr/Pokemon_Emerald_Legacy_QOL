@@ -185,12 +185,17 @@ static void WallyBufferRunCommand(void)
     }
 }
 
+static u8 GetWallyWaitTime(void)
+{
+    return CheckQolOption(QOL_WALLY_TUTORIAL, QOL_WALLY_SHORT) ? B_WAIT_TIME_VERY_SHORT : B_WAIT_TIME_LONG;
+}
+
 static void WallyHandleActions(void)
 {
     switch (gBattleStruct->wallyBattleState)
     {
     case 0:
-        gBattleStruct->wallyWaitFrames = B_WAIT_TIME_VERY_SHORT;
+        gBattleStruct->wallyWaitFrames = GetWallyWaitTime();
         gBattleStruct->wallyBattleState++;
     case 1:
         if (--gBattleStruct->wallyWaitFrames <= 0)
@@ -200,7 +205,7 @@ static void WallyHandleActions(void)
             WallyBufferExecCompleted();
             gBattleStruct->wallyBattleState++;
             gBattleStruct->wallyMovesState = 0;
-            gBattleStruct->wallyWaitFrames = B_WAIT_TIME_VERY_SHORT;
+            gBattleStruct->wallyWaitFrames = GetWallyWaitTime();
         }
         break;
     case 2:
@@ -211,7 +216,7 @@ static void WallyHandleActions(void)
             WallyBufferExecCompleted();
             gBattleStruct->wallyBattleState++;
             gBattleStruct->wallyMovesState = 0;
-            gBattleStruct->wallyWaitFrames = B_WAIT_TIME_VERY_SHORT;
+            gBattleStruct->wallyWaitFrames = GetWallyWaitTime();
         }
         break;
     case 3:
@@ -221,7 +226,7 @@ static void WallyHandleActions(void)
             WallyBufferExecCompleted();
             gBattleStruct->wallyBattleState++;
             gBattleStruct->wallyMovesState = 0;
-            gBattleStruct->wallyWaitFrames = B_WAIT_TIME_VERY_SHORT;
+            gBattleStruct->wallyWaitFrames = GetWallyWaitTime();
         }
         break;
     case 4:
@@ -230,7 +235,7 @@ static void WallyHandleActions(void)
             PlaySE(SE_SELECT);
             ActionSelectionDestroyCursorAt(0);
             ActionSelectionCreateCursorAt(1, 0);
-            gBattleStruct->wallyWaitFrames = B_WAIT_TIME_VERY_SHORT;
+            gBattleStruct->wallyWaitFrames = GetWallyWaitTime();
             gBattleStruct->wallyBattleState++;
         }
         break;
@@ -1227,7 +1232,7 @@ static void WallyHandleChooseMove(void)
     case 0:
         InitMoveSelectionsVarsAndStrings();
         gBattleStruct->wallyMovesState++;
-        gBattleStruct->wallyMoveFrames = B_WAIT_TIME_VERY_SHORT;
+        gBattleStruct->wallyMoveFrames = CheckQolOption(QOL_WALLY_TUTORIAL, QOL_WALLY_SHORT) ? B_WAIT_TIME_VERY_SHORT : 80;
         break;
     case 1:
         if (!IsDma3ManagerBusyWithBgCopy())
@@ -1435,7 +1440,7 @@ static void WallyHandleIntroTrainerBallThrow(void)
 
     SetSpritePrimaryCoordsFromSecondaryCoords(&gSprites[gBattlerSpriteIds[gActiveBattler]]);
 
-    gSprites[gBattlerSpriteIds[gActiveBattler]].data[0] = 25;
+    gSprites[gBattlerSpriteIds[gActiveBattler]].data[0] = CheckQolOption(QOL_BATTLE_SPEED, QOL_BATTLE_SPEED_FAST) ? 25 : 50;
     gSprites[gBattlerSpriteIds[gActiveBattler]].data[2] = -40;
     gSprites[gBattlerSpriteIds[gActiveBattler]].data[4] = gSprites[gBattlerSpriteIds[gActiveBattler]].y;
     gSprites[gBattlerSpriteIds[gActiveBattler]].callback = StartAnimLinearTranslation;
@@ -1487,7 +1492,7 @@ static void StartSendOutAnim(u8 battlerId)
 
 static void Task_StartSendOutAnim(u8 taskId)
 {
-    if (gTasks[taskId].data[1] < 1)
+    if (gTasks[taskId].data[1] < (CheckQolOption(QOL_BATTLE_SPEED, QOL_BATTLE_SPEED_FAST) ? 1 : 31))
     {
         gTasks[taskId].data[1]++;
     }

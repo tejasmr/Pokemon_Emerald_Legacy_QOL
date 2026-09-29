@@ -578,7 +578,10 @@ static u8 PickWildMonNature(u16 species)
         return GetMonData(&gPlayerParty[0], MON_DATA_PERSONALITY) % NUM_NATURES;
     }
 
-    return GetSpeciesPreferredNature(species);
+    if (CheckQolOption(QOL_PREFER_NATURE, QOL_NATURE_ON))
+        return GetSpeciesPreferredNature(species);
+
+    return Random() % NUM_NATURES;
 }
 
 static void CreateWildMon(u16 species, u8 level)
@@ -586,7 +589,10 @@ static void CreateWildMon(u16 species, u8 level)
     bool32 checkCuteCharm;
 
     ZeroEnemyPartyMons();
-    FlagSet(FLAG_SHINY_CREATION);
+    if (CheckQolOption(QOL_SHINY_RATE, QOL_SHINY_ALL))
+        FlagSet(FLAG_SHINY_CREATION);
+    else
+        FlagClear(FLAG_SHINY_CREATION);
     checkCuteCharm = TRUE;
 
     switch (gSpeciesInfo[species].genderRatio)

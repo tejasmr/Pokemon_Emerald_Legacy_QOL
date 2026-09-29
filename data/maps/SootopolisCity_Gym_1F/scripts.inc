@@ -112,6 +112,7 @@ SootopolisCity_Gym_1F_EventScript_Wallace::
 SootopolisCity_Gym_1F_EventScript_WallaceDefeated::
 	message SootopolisCity_Gym_1F_Text_ReceivedRainBadgeWallace
 	waitmessage
+	call Common_EventScript_PlayGymBadgeFanfare
 	msgbox SootopolisCity_Gym_1F_Text_ExplainRainBadgeTakeThis, MSGBOX_DEFAULT
 	setflag FLAG_DEFEATED_SOOTOPOLIS_GYM
 	setflag FLAG_BADGE08_GET
