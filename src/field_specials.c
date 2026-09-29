@@ -45,6 +45,7 @@
 #include "tv.h"
 #include "wallclock.h"
 #include "window.h"
+#include "qol.h"
 #include "constants/battle_frontier.h"
 #include "constants/battle_pyramid.h"
 #include "constants/battle_tower.h"
@@ -4472,3 +4473,9 @@ void CheckGotAllKantoStarters(void)
         return;
     }
 }
+
+bool8 IsQolFastHealingEnabled(void)
+{
+    return CheckQolOption(QOL_FAST_HEALING, QOL_HEALING_FAST);
+}
+

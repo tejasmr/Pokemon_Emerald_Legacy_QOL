@@ -5,13 +5,22 @@ Common_EventScript_PkmnCenterNurse::
 	specialvar VAR_RESULT, CountPlayerTrainerStars
 	goto_if_eq VAR_RESULT, 4, EventScript_PkmnCenterNurse_GoldCard
 
-	goto_if_set FLAG_DONE_POKECENTER_FIRST_USE, Common_EventScript_PkmnCenterNurse_Continue
+	specialvar VAR_RESULT, IsQolFastHealingEnabled
+	goto_if_eq VAR_RESULT, TRUE, EventScript_PkmnCenterNurse_FastHeal
+
 	msgbox gText_WouldYouLikeToRestYourPkmn, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, EventScript_PkmnCenterNurse_Goodbye
-	setflag FLAG_DONE_POKECENTER_FIRST_USE
 	goto_if_eq VAR_RESULT, YES, EventScript_PkmnCenterNurse_HealPkmn
-Common_EventScript_PkmnCenterNurse_Continue::
-	goto EventScript_PkmnCenterNurse_HealPkmn
+	goto_if_eq VAR_RESULT, NO, EventScript_PkmnCenterNurse_Goodbye
+	end
+
+EventScript_PkmnCenterNurse_FastHeal::
+	incrementgamestat GAME_STAT_USED_POKECENTER
+	special HealPlayerParty
+	message gText_RestoredPkmnToFullHealth
+	waitmessage
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceDown
+	waitmovement 0
+	release
 	end
 
 EventScript_PkmnCenterNurse_Goodbye::
@@ -38,6 +47,12 @@ EventScript_PkmnCenterNurse_IllTakeYourPkmn2::
 	return
 
 EventScript_PkmnCenterNurse_TakeAndHealPkmn::
+	applymovement VAR_0x800B, Common_Movement_WalkInPlaceFasterLeft
+	waitmovement 0
+	dofieldeffect FLDEFF_POKECENTER_HEAL
+	waitfieldeffect FLDEFF_POKECENTER_HEAL
+	applymovement VAR_0x800B, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
 	special HealPlayerParty
 	return
 
@@ -55,6 +70,8 @@ EventScript_PkmnCenterNurse_ReturnPkmn::
 	goto_if_eq VAR_0x8004, 1, EventScript_PkmnCenterNurse_ReturnPkmn2
 	message gText_RestoredPkmnToFullHealth
 	waitmessage
+	applymovement VAR_0x800B, Movement_PkmnCenterNurse_Bow
+	waitmovement 0
 	message gText_WeHopeToSeeYouAgain
 	goto EventScript_PkmnCenterNurse_PlayerTurn
 	return
