@@ -465,8 +465,6 @@ static void SaveQolOptions(void)
     gSaveBlock2Ptr->qolConfig.preferNature   = sLocalQolConfig.optionConfig[QOL_PREFER_NATURE];
 }
 
-extern const struct BgTemplate sMainMenuBgTemplates[];
-extern void Task_NewGameBirchSpeech_Init(u8 taskId);
 static void Task_QolMenuFadeOut(u8 taskId)
 {
     if (!gPaletteFade.active)
@@ -488,7 +486,7 @@ static void Task_QolMenuFadeOut(u8 taskId)
         gPlttBufferUnfaded[0] = 0;
         gPlttBufferFaded[0] = 0;
         ResetBgsAndClearDma3BusyFlags(0);
-        InitBgsFromTemplates(0, sMainMenuBgTemplates, ARRAY_COUNT(sMainMenuBgTemplates));
+        InitBgsFromTemplates(0, sMainMenuBgTemplates, 2);
         gTasks[taskId].func = Task_NewGameBirchSpeech_Init;
     }
 }
