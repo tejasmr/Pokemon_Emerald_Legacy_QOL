@@ -168,7 +168,7 @@ static const u8 sTooltip_Explanation[]    = _("Configure Quality of Life options
 static const u8 sTooltip_Preset[]         = _("Quickly select between preset configurations.\nDEFAULT: All QOL features enabled.\nVANILLA: Original Emerald mechanics.\nCUSTOM: Customized settings.");
 static const u8 sTooltip_HoldA[]          = _("YES: Holding A accelerates text printing\ninstantly.\nNO: Text prints at standard option speed.");
 static const u8 sTooltip_BattleSpeed[]    = _("FAST: Quick intro & send-out animations.\nVANILLA: Standard battle speed.");
-static const u8 sTooltip_BattleAnims[]    = _("SHORT: Skip unnecessary stat drop &\nlearning animations.\nVANILLA: Standard animation flow.");
+static const u8 sTooltip_BattleAnims[]    = _("SHORT: Skip stat change & shiny sparkle\nentry animations.\nVANILLA: Standard animation flow.");
 static const u8 sTooltip_Fanfares[]       = _("SKIP: Silence level-up, item, and badge\nfanfares for faster pacing.\nVANILLA: Play all standard fanfares.");
 
 static const u8 sTooltip_FastHealing[]    = _("FAST: Quick Poké Center healing without\nlengthy Nurse Joy dialogues.\nVANILLA: Standard healing sequence.");
