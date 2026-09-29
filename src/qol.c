@@ -167,7 +167,7 @@ static const u8 sOption_RightArrow[]    = _("{COLOR RED}{SHADOW LIGHT_RED}{RIGHT
 static const u8 sTooltip_Explanation[]    = _("Configure Quality of Life options.\nPress LEFT/RIGHT to change values.\nPress SELECT for option explanation.\nSelect START GAME when ready.");
 static const u8 sTooltip_Preset[]         = _("Quickly select between preset configurations.\nDEFAULT: All QOL features enabled.\nVANILLA: Original Emerald mechanics.\nCUSTOM: Customized settings.");
 static const u8 sTooltip_HoldA[]          = _("YES: Holding A accelerates text printing\ninstantly.\nNO: Text prints at standard option speed.");
-static const u8 sTooltip_BattleSpeed[]    = _("FAST: Quick intro & send-out animations.\nVANILLA: Standard battle speed.\nOFF: Battle scenes disabled.");
+static const u8 sTooltip_BattleSpeed[]    = _("FAST: Quick intro & send-out animations.\nVANILLA: Standard battle speed.");
 static const u8 sTooltip_BattleAnims[]    = _("SHORT: Skip unnecessary stat drop &\nlearning animations.\nVANILLA: Standard animation flow.");
 static const u8 sTooltip_Fanfares[]       = _("SKIP: Silence level-up, item, and badge\nfanfares for faster pacing.\nVANILLA: Play all standard fanfares.");
 
@@ -196,7 +196,7 @@ struct QolOptionData
 
 static const u8 *const sChoices_Preset[]        = { sText_Default, sText_Vanilla, sText_Custom };
 static const u8 *const sChoices_HoldA[]         = { sText_Yes, sText_No };
-static const u8 *const sChoices_BattleSpeed[]   = { sText_Fast, sText_Vanilla, sText_Off };
+static const u8 *const sChoices_BattleSpeed[]   = { sText_Fast, sText_Vanilla };
 static const u8 *const sChoices_BattleAnims[]   = { sText_Short, sText_Vanilla };
 static const u8 *const sChoices_Fanfares[]      = { sText_Skip, sText_Vanilla };
 
@@ -218,7 +218,7 @@ static const struct QolOptionData sQolOptions[CURRENT_QOL_OPTIONS_NUM + 1] =
 {
     [QOL_PRESET]         = { sOption_Preset,         sChoices_Preset,        3, sTooltip_Preset },
     [QOL_HOLD_A]         = { sOption_HoldA,          sChoices_HoldA,         2, sTooltip_HoldA },
-    [QOL_BATTLE_SPEED]   = { sOption_BattleSpeed,    sChoices_BattleSpeed,   3, sTooltip_BattleSpeed },
+    [QOL_BATTLE_SPEED]   = { sOption_BattleSpeed,    sChoices_BattleSpeed,   2, sTooltip_BattleSpeed },
     [QOL_BATTLE_ANIMS]   = { sOption_BattleAnims,    sChoices_BattleAnims,   2, sTooltip_BattleAnims },
     [QOL_FANFARES]       = { sOption_Fanfares,       sChoices_Fanfares,      2, sTooltip_Fanfares },
 
@@ -464,11 +464,6 @@ static void SaveQolOptions(void)
     gSaveBlock2Ptr->qolConfig.shinyRate      = sLocalQolConfig.optionConfig[QOL_SHINY_RATE];
     gSaveBlock2Ptr->qolConfig.perfectIvs     = sLocalQolConfig.optionConfig[QOL_PERFECT_IVS];
     gSaveBlock2Ptr->qolConfig.preferNature   = sLocalQolConfig.optionConfig[QOL_PREFER_NATURE];
-
-    if (sLocalQolConfig.optionConfig[QOL_BATTLE_SPEED] == QOL_BATTLE_SPEED_OFF)
-        gSaveBlock2Ptr->optionsBattleSceneOff = TRUE;
-    else
-        gSaveBlock2Ptr->optionsBattleSceneOff = FALSE;
 }
 
 static void Task_QolMenuFadeOut(u8 taskId)

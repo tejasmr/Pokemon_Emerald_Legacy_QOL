@@ -61,8 +61,7 @@ enum
 enum
 {
     QOL_BATTLE_SPEED_FAST,
-    QOL_BATTLE_SPEED_VANILLA,
-    QOL_BATTLE_SPEED_OFF
+    QOL_BATTLE_SPEED_VANILLA
 };
 
 // Battle Animations
@@ -154,7 +153,7 @@ struct QolSaveOptions
 {
     u8 preset:2;
     u8 holdA:1;
-    u8 battleSpeed:2;
+    u8 battleSpeed:1;
     u8 battleAnims:1;
     u8 fanfares:1;
     u8 fastHealing:1;
