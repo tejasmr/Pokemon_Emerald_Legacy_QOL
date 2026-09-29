@@ -693,6 +693,7 @@ static void DrawPageOptions(u8 page)
     u8 startIdx = (page - 1) * QOL_OPTIONS_PER_PAGE;
     u8 count = QOL_OPTIONS_PER_PAGE;
     s32 pageWidth;
+    const u8 *bottomOptionStr;
 
     FillWindowPixelBuffer(QOL_WIN_OPTIONS, PIXEL_FILL(1));
 
@@ -720,7 +721,7 @@ static void DrawPageOptions(u8 page)
     AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sChoices_Page[page - 1], QOL_CHOICE_CENTER_X - (pageWidth / 2), QOL_OPTIONS_PER_PAGE * 16 + 1, TEXT_SKIP_DRAW, NULL);
     AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, sOption_RightArrow, QOL_CHOICE_RIGHT_ARROW_X, QOL_OPTIONS_PER_PAGE * 16 + 1, TEXT_SKIP_DRAW, NULL);
 
-    const u8 *bottomOptionStr = (gMain.savedCallback != NULL) ? sOption_SaveExit : sOption_StartGame;
+    bottomOptionStr = (gMain.savedCallback != NULL) ? sOption_SaveExit : sOption_StartGame;
     AddTextPrinterParameterized(QOL_WIN_OPTIONS, QOL_FONT_ID, bottomOptionStr, 4, (QOL_OPTIONS_PER_PAGE + 1) * 16 + 1, TEXT_SKIP_DRAW, NULL);
 
     CopyWindowToVram(QOL_WIN_OPTIONS, COPYWIN_FULL);
