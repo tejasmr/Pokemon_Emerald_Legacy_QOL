@@ -1,5 +1,6 @@
 #include "global.h"
 #include "pokemon.h"
+#include "qol.h"
 #include "battle.h"
 #include "daycare.h"
 #include "string_util.h"
@@ -952,7 +953,7 @@ static void SetInitialEggData(struct Pokemon *mon, u16 species, struct DayCare *
         }
     }
 
-    if (!hasEverstone)
+    if (!hasEverstone && CheckQolOption(QOL_PREFER_NATURE, QOL_NATURE_ON))
         personality = (personality / NUM_NATURES) * NUM_NATURES + GetSpeciesPreferredNature(species);
 
     CreateMon(mon, species, EGG_HATCH_LEVEL, USE_RANDOM_IVS, TRUE, personality, OT_ID_PLAYER_ID, 0);
