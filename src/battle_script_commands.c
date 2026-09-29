@@ -3445,7 +3445,7 @@ static void Cmd_getexp(void)
                     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
 
-                    if (CheckQolOption(QOL_EXP_MULTIPLIER, QOL_EXP_TRIPLE) || FlagGet(FLAG_HARD) || FlagGet(FLAG_NUZLOCKE))
+                    if (CheckQolOption(QOL_EXP_MULTIPLIER, QOL_EXP_TRIPLE))
                         gBattleMoveDamage *= 3;
 
                     if (IsTradedMon(&gPlayerParty[gBattleStruct->expGetterMonId]))
