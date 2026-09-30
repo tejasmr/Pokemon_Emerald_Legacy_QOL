@@ -2398,6 +2398,8 @@ void DoWallyTutorialBagMenu(void)
     GoToBagMenu(ITEMMENULOCATION_WALLY, ITEMS_POCKET, CB2_SetUpReshowBattleScreenAfterMenu2);
 }
 
+#define tTimer data[8]
+
 static void Task_WallyTutorialBagMenu(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
