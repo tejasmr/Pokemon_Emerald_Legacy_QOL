@@ -488,6 +488,7 @@ MauvilleCity_EventScript_RegisterWallyCall::
 	pokenavcall MauvilleCity_Text_WallyPokenavCall
 	waitmessage
 	delay 5
+	playfanfare MUS_REGISTER_MATCH_CALL
 	msgbox MauvilleCity_Text_RegisteredWally, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage

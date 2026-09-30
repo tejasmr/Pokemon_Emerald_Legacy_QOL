@@ -1162,6 +1162,7 @@ ContestHall_EventScript_ReceiveContestRibbon::
 	setflag FLAG_SYS_RIBBON_GET
 	lockall
 	msgbox ContestHall_Text_ConferRibbonAsPrize, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
 	msgbox ContestHall_Text_ReceivedRibbon, MSGBOX_DEFAULT
 	waitfanfare
 	special BufferContestWinnerMonName

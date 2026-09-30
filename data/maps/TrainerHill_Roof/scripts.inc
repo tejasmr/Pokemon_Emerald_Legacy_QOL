@@ -25,6 +25,7 @@ TrainerHill_Roof_EventScript_DoneSnorlax::
 	case 2, TrainerHill_Roof_EventScript_CheckFinalTime
 TrainerHill_Roof_EventScript_ReceivePrize::
 	msgbox TrainerHill_Roof_Text_HaveTheMostMarvelousGift, MSGBOX_DEFAULT
+	playfanfare MUS_LEVEL_UP
 	message gText_ObtainedTheItem
 	waitfanfare
 	waitmessage
@@ -95,6 +96,7 @@ TrainerHill_Roof_EventScript_SendSnorlaxToPC::
 	end
 
 TrainerHill_Roof_EventScript_ReceivedSnorlaxFanfare::
+	playfanfare MUS_OBTAIN_ITEM
 	message TrainerHill_Roof_Text_PlayerReceivedSnorlax
 	waitmessage
 	waitfanfare

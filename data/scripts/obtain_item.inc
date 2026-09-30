@@ -100,6 +100,7 @@ EventScript_ObtainDecorationMessage::
 	return
 
 EventScript_ObtainedDecor::
+	playfanfare MUS_OBTAIN_ITEM
 	message gText_ObtainedTheDecor
 	waitfanfare
 	msgbox gText_TheDecorWasTransferredToThePC, MSGBOX_DEFAULT

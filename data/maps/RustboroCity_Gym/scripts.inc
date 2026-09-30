@@ -62,6 +62,7 @@ RustboroCity_Gym_EventScript_RoxanneRematchContinue::
 	end
 RustboroCity_Gym_EventScript_GiveRematchReward::
 	msgbox RustboroCity_Gym_Text_RoxanneGiveRematchReward, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
 	giveitem ITEM_OLD_AMBER, 1
 	waitfanfare
 	goto_if_eq VAR_RESULT, FALSE, RustboroCity_Gym_EventScript_NoRoom
@@ -148,6 +149,7 @@ RustboroCity_Gym_EventScript_RegisterRoxanne::
 	pokenavcall RustboroCity_Gym_Text_RoxanneRegisterCall
 	waitmessage
 	delay 5
+	playfanfare MUS_REGISTER_MATCH_CALL
 	msgbox RustboroCity_Gym_Text_RegisteredRoxanne, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage

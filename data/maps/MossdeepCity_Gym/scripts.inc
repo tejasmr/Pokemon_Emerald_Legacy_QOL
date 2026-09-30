@@ -96,6 +96,7 @@ MossdeepCity_Gym_EventScript_TateAndLizaDefeated::
 	call MossdeepCity_Gym_EventScript_GiveCalmMind
 	closemessage
 	delay 5
+	playfanfare MUS_REGISTER_MATCH_CALL
 	msgbox MossdeepCity_Gym_Text_RegisteredTateAndLiza, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage
@@ -132,6 +133,7 @@ MossdeepCity_Gym_EventScript_TateAndLizaRematchContinue::
 	end
 MossdeepCity_Gym_EventScript_GiveRematchReward::
 	msgbox MossdeepCity_Gym_Text_TateAndLizaGiveRematchReward, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
 	giveitem ITEM_KINGS_ROCK, 1
 	waitfanfare
 	goto_if_eq VAR_RESULT, FALSE, MossdeepCity_Gym_EventScript_NoRoom
