@@ -481,6 +481,15 @@ static void SaveQolOptions(void)
 
     if (gMain.savedCallback != NULL)
     {
+        if (VarGet(VAR_LITTLEROOT_TOWN_STATE) < 4)
+        {
+            if (sLocalQolConfig.optionConfig[QOL_EARLY_RUN] == QOL_EARLY_RUN_OFF)
+            {
+                FlagClear(FLAG_SYS_B_DASH);
+                FlagClear(FLAG_RECEIVED_RUNNING_SHOES);
+            }
+        }
+
         if (sLocalQolConfig.optionConfig[QOL_MOD_ITEMS] == QOL_MOD_ITEMS_OFF)
         {
             if (gSaveBlock1Ptr->registeredItem >= ITEM_PORTA_HEAL && gSaveBlock1Ptr->registeredItem <= ITEM_PORTA_FLY)
