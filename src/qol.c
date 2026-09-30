@@ -16,6 +16,7 @@
 #include "text_window.h"
 #include "main_menu.h"
 #include "item.h"
+#include "event_data.h"
 #include "constants/items.h"
 
 enum
@@ -486,7 +487,7 @@ static void SaveQolOptions(void)
                 gSaveBlock1Ptr->registeredItem = ITEM_NONE;
             ClearItemSlots(gSaveBlock1Ptr->bagPocket_Mods, BAG_MODS_COUNT);
         }
-        else if (sLocalQolConfig.optionConfig[QOL_MOD_ITEMS] == QOL_MOD_ITEMS_ON)
+        else if (sLocalQolConfig.optionConfig[QOL_MOD_ITEMS] == QOL_MOD_ITEMS_ON && FlagGet(FLAG_SYS_POKEMON_GET))
         {
             if (CheckBagHasItem(ITEM_PORTA_HEAL, 1) == FALSE)
                 AddBagItem(ITEM_PORTA_HEAL, 1);
