@@ -13,6 +13,7 @@ SurfPichu_GiveIfPossible:
 	vmessage sText_MysteryGiftEgg
 	waitmessage
 	waitbuttonpress
+	playfanfare MUS_OBTAIN_ITEM
 	waitfanfare
 	release
 	end

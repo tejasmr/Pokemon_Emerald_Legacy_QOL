@@ -846,6 +846,7 @@ RustboroCity_EventScript_MayEncounter::
 	msgbox RustboroCity_Text_MayHiLetsRegister, MSGBOX_DEFAULT
 	closemessage
 	delay 5
+	playfanfare MUS_REGISTER_MATCH_CALL
 	msgbox RustboroCity_Text_RegisteredMay, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage
@@ -916,6 +917,7 @@ RustboroCity_EventScript_BrendanEncounter::
 	msgbox RustboroCity_Text_BrendanHiLetsRegister, MSGBOX_DEFAULT
 	closemessage
 	delay 5
+	playfanfare MUS_REGISTER_MATCH_CALL
 	msgbox RustboroCity_Text_RegisteredBrendan, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage

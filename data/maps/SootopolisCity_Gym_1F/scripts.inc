@@ -169,12 +169,14 @@ SootopolisCity_Gym_1F_EventScript_JuanRematchContinue::
 	end
 SootopolisCity_Gym_1F_EventScript_GiveRematchReward::
 	msgbox SootopolisCity_Gym_1F_Text_JuanGiveRematchReward, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
 	giveitem ITEM_DRAGON_SCALE, 1
 	waitfanfare
 	goto_if_eq VAR_RESULT, FALSE, SootopolisCity_Gym_1F_EventScript_NoRoom
 	msgbox SootopolisCity_Gym_1F_Text_GaveReward, MSGBOX_DEFAULT
 	closemessage
 	setflag FLAG_GOT_JUAN_REMATCH_REWARD
+	playfanfare MUS_REGISTER_MATCH_CALL
 	msgbox SootopolisCity_Gym_1F_Text_RegisteredJuan, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage

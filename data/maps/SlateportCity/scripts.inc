@@ -96,6 +96,7 @@ SlateportCity_EventScript_ScottScene::
 	msgbox SlateportCity_Text_LetsRegisterEachOther, MSGBOX_DEFAULT
 	closemessage
 	delay 5
+	playfanfare MUS_REGISTER_MATCH_CALL
 	msgbox SlateportCity_Text_RegisteredScott, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage
@@ -173,6 +174,7 @@ SlateportCity_EventScript_EffortRibbonWoman::
 	specialvar VAR_RESULT, Special_AreLeadMonEVsMaxedOut
 	call_if_eq VAR_RESULT, FALSE, SlateportCity_EventScript_MonEVsNotMaxed
 	msgbox SlateportCity_Text_PleaseGiveItThisEffortRibbon, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
 	message SlateportCity_Text_ReceivedEffortRibbon
 	waitfanfare
 	msgbox SlateportCity_Text_PutEffortRibbonOnMon, MSGBOX_DEFAULT
