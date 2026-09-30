@@ -492,8 +492,8 @@ u8 AddStartMenuWindow(u8 numActions)
 {
     if (sStartMenuWindowId == WINDOW_NONE)
     {
-        u8 top = (numActions > 8) ? 0 : 1;
-        sStartMenuWindowId = AddWindowParameterized(0, 22, top, 7, (numActions * 2) + 2, 15, 0x139);
+        u8 height = (numActions >= 9) ? 18 : (numActions * 2) + 2;
+        sStartMenuWindowId = AddWindowParameterized(0, 22, 1, 7, height, 15, 0x139);
     }
     return sStartMenuWindowId;
 }
