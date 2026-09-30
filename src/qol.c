@@ -15,6 +15,8 @@
 #include "scanline_effect.h"
 #include "text_window.h"
 #include "main_menu.h"
+#include "item.h"
+#include "constants/items.h"
 
 enum
 {
@@ -475,6 +477,31 @@ static void SaveQolOptions(void)
     gSaveBlock2Ptr->qolConfig.shinyRate      = sLocalQolConfig.optionConfig[QOL_SHINY_RATE];
     gSaveBlock2Ptr->qolConfig.perfectIvs     = sLocalQolConfig.optionConfig[QOL_PERFECT_IVS];
     gSaveBlock2Ptr->qolConfig.preferNature   = sLocalQolConfig.optionConfig[QOL_PREFER_NATURE];
+
+    if (gMain.savedCallback != NULL)
+    {
+        if (sLocalQolConfig.optionConfig[QOL_MOD_ITEMS] == QOL_MOD_ITEMS_OFF)
+        {
+            if (gSaveBlock1Ptr->registeredItem >= ITEM_PORTA_HEAL && gSaveBlock1Ptr->registeredItem <= ITEM_PORTA_FLY)
+                gSaveBlock1Ptr->registeredItem = ITEM_NONE;
+            ClearItemSlots(gSaveBlock1Ptr->bagPocket_Mods, BAG_MODS_COUNT);
+        }
+        else if (sLocalQolConfig.optionConfig[QOL_MOD_ITEMS] == QOL_MOD_ITEMS_ON)
+        {
+            if (CheckBagHasItem(ITEM_PORTA_HEAL, 1) == FALSE)
+                AddBagItem(ITEM_PORTA_HEAL, 1);
+            if (CheckBagHasItem(ITEM_EV_EDITOR, 1) == FALSE)
+                AddBagItem(ITEM_EV_EDITOR, 1);
+            if (CheckBagHasItem(ITEM_ABILITY_CAPSULE, 1) == FALSE)
+                AddBagItem(ITEM_ABILITY_CAPSULE, 1);
+            if (CheckBagHasItem(ITEM_MOVE_RELEARNER, 1) == FALSE)
+                AddBagItem(ITEM_MOVE_RELEARNER, 1);
+            if (CheckBagHasItem(ITEM_INF_REPEL, 1) == FALSE)
+                AddBagItem(ITEM_INF_REPEL, 1);
+            if (CheckBagHasItem(ITEM_PORTA_FLY, 1) == FALSE)
+                AddBagItem(ITEM_PORTA_FLY, 1);
+        }
+    }
 }
 
 static void Task_QolMenuFadeOut(u8 taskId)

@@ -51,6 +51,14 @@
 #include "constants/items.h"
 #include "constants/rgb.h"
 #include "constants/songs.h"
+#include "qol.h"
+
+static u8 GetBagPocketsCount(void)
+{
+    if (CheckQolOption(QOL_MOD_ITEMS, QOL_MOD_ITEMS_ON))
+        return POCKETS_COUNT;
+    return MODS_POCKET;
+}
 
 #define TAG_POCKET_SCROLL_ARROW 110
 #define TAG_BAG_SCROLL_ARROW    111
@@ -651,7 +659,9 @@ void GoToBagMenu(u8 location, u8 pocket, void ( *exitCallback)())
             gBagPosition.location = location;
         if (exitCallback)
             gBagPosition.exitCallback = exitCallback;
-        if (pocket < POCKETS_COUNT)
+        if (gBagPosition.pocket >= GetBagPocketsCount())
+            gBagPosition.pocket = ITEMS_POCKET;
+        if (pocket < GetBagPocketsCount())
             gBagPosition.pocket = pocket;
         if (gBagPosition.location == ITEMMENULOCATION_BERRY_TREE ||
             gBagPosition.location == ITEMMENULOCATION_BERRY_BLENDER_CRUSH)
@@ -749,6 +759,8 @@ static bool8 SetupBagMenu(void)
         gMain.state++;
         break;
     case 10:
+        if (gBagPosition.pocket >= GetBagPocketsCount())
+            gBagPosition.pocket = ITEMS_POCKET;
         UpdatePocketItemLists();
         InitPocketListPositions();
         InitPocketScrollPositions();
@@ -1352,10 +1364,11 @@ static u8 GetSwitchBagPocketDirection(void)
 
 static void ChangeBagPocketId(u8 *bagPocketId, s8 deltaBagPocketId)
 {
-    if (deltaBagPocketId == MENU_CURSOR_DELTA_RIGHT && *bagPocketId == POCKETS_COUNT - 1)
+    u8 count = GetBagPocketsCount();
+    if (deltaBagPocketId == MENU_CURSOR_DELTA_RIGHT && *bagPocketId == count - 1)
         *bagPocketId = 0;
     else if (deltaBagPocketId == MENU_CURSOR_DELTA_LEFT && *bagPocketId == 0)
-        *bagPocketId = POCKETS_COUNT - 1;
+        *bagPocketId = count - 1;
     else
         *bagPocketId += deltaBagPocketId;
 }
@@ -1456,6 +1469,8 @@ static void DrawItemListBgRow(u8 y)
 
 static void DrawPocketIndicatorSquare(u8 x, bool8 isCurrentPocket)
 {
+    if (x >= GetBagPocketsCount())
+        return;
     if (!isCurrentPocket)
         FillBgTilemapBufferRect_Palette0(2, 0x1017, x + 5, 3, 1, 1);
     else
