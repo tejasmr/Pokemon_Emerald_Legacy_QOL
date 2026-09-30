@@ -14,7 +14,7 @@ enum QolOption
     QOL_PRESET,
     QOL_HOLD_A,
     QOL_BATTLE_SPEED,
-    QOL_BATTLE_ANIMS,
+    QOL_QUICK_ANIMS,
     QOL_FANFARES,
 
     // Page 2: Convenience & Items
@@ -64,7 +64,7 @@ enum
     QOL_BATTLE_SPEED_VANILLA
 };
 
-// Battle Animations
+// Quick Animations
 enum
 {
     QOL_ANIMS_SHORT,
@@ -155,7 +155,7 @@ struct QolSaveOptions
     u8 preset:2;
     u8 holdA:1;
     u8 battleSpeed:1;
-    u8 battleAnims:1;
+    u8 quickAnims:1;
     u8 fanfares:1;
     u8 fastHealing:1;
     u8 wallyTutorial:2;
