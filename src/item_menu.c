@@ -2399,38 +2399,39 @@ void DoWallyTutorialBagMenu(void)
 }
 
 #define tTimer data[8]
-#define WALLY_BAG_DELAY 1 // The number of frames between each action Wally takes in the bag
 
 static void Task_WallyTutorialBagMenu(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
+    u16 delay = CheckQolOption(QOL_WALLY_TUTORIAL, QOL_WALLY_SHORT) ? 1 : 102;
 
     if (!gPaletteFade.active)
     {
-        switch (tTimer)
+        if (tTimer == delay * 1)
         {
-        case WALLY_BAG_DELAY * 1:
             PlaySE(SE_SELECT);
             SwitchBagPocket(taskId, MENU_CURSOR_DELTA_RIGHT, FALSE);
             tTimer++;
-            break;
-        case WALLY_BAG_DELAY * 2:
+        }
+        else if (tTimer == delay * 2)
+        {
             PlaySE(SE_SELECT);
             BagMenu_PrintCursor(tListTaskId, COLORID_GRAY_CURSOR);
             gSpecialVar_ItemId = ITEM_POKE_BALL;
             OpenContextMenu(taskId);
             tTimer++;
-            break;
-        case WALLY_BAG_DELAY * 3:
+        }
+        else if (tTimer == delay * 3)
+        {
             PlaySE(SE_SELECT);
             RemoveContextWindow();
             DestroyListMenuTask(tListTaskId, 0, 0);
             RestoreBagAfterWallyTutorial();
             Task_FadeAndCloseBagMenu(taskId);
-            break;
-        default:
+        }
+        else
+        {
             tTimer++;
-            break;
         }
     }
 }
