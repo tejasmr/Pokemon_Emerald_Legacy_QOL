@@ -40,9 +40,21 @@ Route101_EventScript_StartBirchRescue::
 	waitmovement 0
 	msgbox Route101_Text_PleaseHelp, MSGBOX_DEFAULT
 	closemessage
-	setvar VAR_ROUTE101_STATE, 2
-	releaseall
+	getplayerxy VAR_TEMP_0, VAR_TEMP_1
+	call_if_eq VAR_TEMP_0, 10, Route101_EventScript_PlayerApproachBag10
+	call_if_eq VAR_TEMP_0, 11, Route101_EventScript_PlayerApproachBag11
+	goto Route101_EventScript_BirchsBag
 	end
+
+Route101_EventScript_PlayerApproachBag10::
+	applymovement OBJ_EVENT_ID_PLAYER, Route101_Movement_PlayerApproachBag10
+	waitmovement 0
+	return
+
+Route101_EventScript_PlayerApproachBag11::
+	applymovement OBJ_EVENT_ID_PLAYER, Route101_Movement_PlayerApproachBag11
+	waitmovement 0
+	return
 
 Route101_EventScript_PreventExitSouth::
 	lockall
@@ -139,6 +151,21 @@ Route101_Movement_EnterScene:
 	walk_fast_up
 	walk_fast_up
 	walk_fast_up
+	walk_fast_up
+	walk_in_place_faster_left
+	step_end
+
+Route101_Movement_PlayerApproachBag10:
+	walk_fast_left
+	walk_fast_left
+	walk_fast_up
+	walk_in_place_faster_left
+	step_end
+
+Route101_Movement_PlayerApproachBag11:
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
 	walk_fast_up
 	walk_in_place_faster_left
 	step_end
