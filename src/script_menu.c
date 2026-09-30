@@ -686,7 +686,7 @@ bool16 ScriptMenu_CreateStartMenuForPokenavTutorial(void)
 
 static void CreateStartMenuForPokenavTutorial(void)
 {
-    u8 windowId = CreateWindowFromRect(21, 0, 7, 18);
+    u8 windowId = CreateWindowFromRect(21, 0, 7, 20);
     SetStandardWindowBorderStyle(windowId, FALSE);
     AddTextPrinterParameterized(windowId, FONT_NORMAL, gText_MenuOptionPokedex, 8, 9, TEXT_SKIP_DRAW, NULL);
     AddTextPrinterParameterized(windowId, FONT_NORMAL, gText_MenuOptionPokemon, 8, 25, TEXT_SKIP_DRAW, NULL);
