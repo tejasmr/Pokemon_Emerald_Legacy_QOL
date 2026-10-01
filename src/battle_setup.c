@@ -915,6 +915,7 @@ static void CB2_GiveStarter(void)
         AddBagItem(ITEM_MOVE_RELEARNER, 1);
         AddBagItem(ITEM_INF_REPEL, 1);
         AddBagItem(ITEM_PORTA_FLY, 1);
+        AddBagItem(ITEM_PORTA_PC, 1);
     }
     ResetTasks();
     PlayBattleBGM();

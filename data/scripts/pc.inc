@@ -113,3 +113,58 @@ EventScript_AccessHallOfFame_PlayerRoom::
 	waitstate
 	goto EventScript_AccessPC_PlayerRoom
 	end
+
+EventScript_PortaPC::
+	lockall
+	playse SE_PC_ON
+	msgbox Text_BootUpPC, MSGBOX_DEFAULT
+	goto EventScript_PortaPCMainMenu
+	end
+
+EventScript_PortaPCMainMenu::
+	message gText_WhichPCShouldBeAccessed
+	waitmessage
+	special ScriptMenu_CreatePCMultichoice
+	waitstate
+	goto EventScript_AccessPortaPC
+	end
+
+EventScript_AccessPortaPC::
+	switch VAR_RESULT
+	case 0, EventScript_AccessPortaPCPokemonStorage
+	case 1, EventScript_AccessPortaPCPlayersPC
+	case 2, EventScript_AccessPortaPCHallOfFame
+	case 3, EventScript_TurnOffPortaPC
+	case MULTI_B_PRESSED, EventScript_TurnOffPortaPC
+	end
+
+EventScript_AccessPortaPCPlayersPC::
+	playse SE_PC_LOGIN
+	msgbox gText_AccessedPlayersPC, MSGBOX_DEFAULT
+	special PlayerPC
+	waitstate
+	goto EventScript_PortaPCMainMenu
+	end
+
+EventScript_AccessPortaPCPokemonStorage::
+	playse SE_PC_LOGIN
+	call_if_unset FLAG_SYS_PC_LANETTE, EventScript_AccessSomeonesPC
+	call_if_set FLAG_SYS_PC_LANETTE, EventScript_AccessLanettesPC
+	msgbox gText_StorageSystemOpened, MSGBOX_DEFAULT
+	special ShowPokemonStorageSystemPC
+	waitstate
+	goto EventScript_PortaPCMainMenu
+	end
+
+EventScript_TurnOffPortaPC::
+	playse SE_PC_OFF
+	releaseall
+	end
+
+EventScript_AccessPortaPCHallOfFame::
+	goto_if_unset FLAG_SYS_GAME_CLEAR, EventScript_TurnOffPortaPC
+	playse SE_PC_LOGIN
+	special AccessHallOfFamePC
+	waitstate
+	goto EventScript_AccessPortaPC
+	end

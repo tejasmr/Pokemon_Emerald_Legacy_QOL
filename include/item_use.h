@@ -9,6 +9,7 @@ void ItemUseOutOfBattle_AbilityCapsule(u8);
 void ItemUseOutOfBattle_MoveRelearner(u8);
 void ItemUseOutOfBattle_InfRepel(u8);
 void ItemUseOutOfBattle_PortaFly(u8);
+void ItemUseOutOfBattle_PortaPC(u8);
 void ItemUseOutOfBattle_Rod(u8);
 void ItemUseOutOfBattle_Itemfinder(u8);
 void ItemUseOutOfBattle_PokeblockCase(u8);
