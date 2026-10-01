@@ -1341,6 +1341,10 @@ static void CB2_EndTrainerBattle(void)
                 RegisterTrainerInMatchCall();
                 SetBattledTrainersFlags();
             }
+            else
+            {
+                SetTrainerSightDisabledTimer(600);
+            }
         }
     }
 }
@@ -1363,6 +1367,10 @@ static void CB2_EndRematchBattle(void)
             RegisterTrainerInMatchCall();
             SetBattledTrainersFlags();
             HandleRematchVarsOnBattleEnd();
+        }
+        else
+        {
+            SetTrainerSightDisabledTimer(600);
         }
     }
 }

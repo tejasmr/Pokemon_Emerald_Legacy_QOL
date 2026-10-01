@@ -202,10 +202,23 @@ static const struct SpriteTemplate sSpriteTemplate_HeartIcon =
     .callback = SpriteCB_TrainerIcons
 };
 
+EWRAM_DATA static u16 sTrainerSightDisabledTimer = 0;
+
+void SetTrainerSightDisabledTimer(u16 frames)
+{
+    sTrainerSightDisabledTimer = frames;
+}
+
 // code
 bool8 CheckForTrainersWantingBattle(void)
 {
     u8 i;
+
+    if (sTrainerSightDisabledTimer != 0)
+    {
+        sTrainerSightDisabledTimer--;
+        return FALSE;
+    }
 
     gNoOfApproachingTrainers = 0;
     gApproachingTrainerId = 0;
