@@ -29,6 +29,7 @@
 #include "trig.h"
 #include "trade.h"
 #include "util.h"
+#include "qol.h"
 #include "constants/battle_string_ids.h"
 #include "constants/songs.h"
 #include "constants/rgb.h"
