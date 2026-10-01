@@ -22,6 +22,7 @@
 #include "metatile_behavior.h"
 #include "palette.h"
 #include "overworld.h"
+#include "qol.h"
 #include "scanline_effect.h"
 #include "script.h"
 #include "sound.h"
@@ -696,7 +697,10 @@ static void Task_DoDoorWarp(u8 taskId)
             objEventId = GetObjectEventIdByLocalIdAndMap(OBJ_EVENT_ID_PLAYER, 0, 0);
             ObjectEventClearHeldMovementIfActive(&gObjectEvents[objEventId]);
             objEventId = GetObjectEventIdByLocalIdAndMap(OBJ_EVENT_ID_PLAYER, 0, 0);
-            ObjectEventSetHeldMovement(&gObjectEvents[objEventId], MOVEMENT_ACTION_WALK_NORMAL_UP);
+            u8 movementAction = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT)
+                ? MOVEMENT_ACTION_WALK_FAST_UP
+                : MOVEMENT_ACTION_WALK_NORMAL_UP;
+            ObjectEventSetHeldMovement(&gObjectEvents[objEventId], movementAction);
             task->tState = 2;
         }
         break;
