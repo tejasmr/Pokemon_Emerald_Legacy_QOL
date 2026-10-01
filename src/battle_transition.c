@@ -20,6 +20,7 @@
 #include "task.h"
 #include "trig.h"
 #include "util.h"
+#include "qol.h"
 #include "constants/field_effects.h"
 #include "constants/songs.h"
 #include "constants/trainers.h"
@@ -94,6 +95,7 @@ static bool8 Transition_WaitForMain(struct Task *);
 
 static void LaunchBattleTransitionTask(u8);
 static void Task_BattleTransition(u8);
+static void Task_QuickFadeToBlack(u8);
 static void Task_Intro(u8);
 static void Task_Blur(u8);
 static void Task_Swirl(u8);
@@ -1103,7 +1105,10 @@ static bool8 Transition_WaitForIntro(struct Task *task)
 
 static bool8 Transition_StartMain(struct Task *task)
 {
-    CreateTask(sTasks_Main[task->tTransitionId], 0);
+    if (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+        CreateTask(Task_QuickFadeToBlack, 0);
+    else
+        CreateTask(sTasks_Main[task->tTransitionId], 0);
     task->tState++;
     return FALSE;
 }
@@ -1111,20 +1116,49 @@ static bool8 Transition_StartMain(struct Task *task)
 static bool8 Transition_WaitForMain(struct Task *task)
 {
     task->tTransitionDone = FALSE;
-    if (FindTaskIdByFunc(sTasks_Main[task->tTransitionId]) == TASK_NONE)
-        task->tTransitionDone = TRUE;
+    if (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+    {
+        if (FindTaskIdByFunc(Task_QuickFadeToBlack) == TASK_NONE)
+            task->tTransitionDone = TRUE;
+    }
+    else
+    {
+        if (FindTaskIdByFunc(sTasks_Main[task->tTransitionId]) == TASK_NONE)
+            task->tTransitionDone = TRUE;
+    }
     return FALSE;
 }
 
 #undef tTransitionId
 #undef tTransitionDone
 
+static void Task_QuickFadeToBlack(u8 taskId)
+{
+    switch (gTasks[taskId].tState)
+    {
+    case 0:
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+        gTasks[taskId].tState++;
+        break;
+    case 1:
+        if (!gPaletteFade.active)
+        {
+            FadeScreenBlack();
+            DestroyTask(taskId);
+        }
+        break;
+    }
+}
+
 static void Task_Intro(u8 taskId)
 {
     if (gTasks[taskId].tState == 0)
     {
         gTasks[taskId].tState++;
-        CreateIntroTask(0, 0, 3, 2, 2);
+        if (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+            CreateIntroTask(0, 0, 1, 4, 4);
+        else
+            CreateIntroTask(0, 0, 3, 2, 2);
     }
     else if (IsIntroTaskDone())
     {
