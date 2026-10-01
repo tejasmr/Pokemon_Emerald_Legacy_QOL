@@ -694,10 +694,12 @@ static void Task_DoDoorWarp(u8 taskId)
         if (task->data[1] < 0 || gTasks[task->data[1]].isActive != TRUE)
         {
             u8 objEventId;
+            u8 movementAction;
+
             objEventId = GetObjectEventIdByLocalIdAndMap(OBJ_EVENT_ID_PLAYER, 0, 0);
             ObjectEventClearHeldMovementIfActive(&gObjectEvents[objEventId]);
             objEventId = GetObjectEventIdByLocalIdAndMap(OBJ_EVENT_ID_PLAYER, 0, 0);
-            u8 movementAction = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT)
+            movementAction = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT)
                 ? MOVEMENT_ACTION_WALK_FAST_UP
                 : MOVEMENT_ACTION_WALK_NORMAL_UP;
             ObjectEventSetHeldMovement(&gObjectEvents[objEventId], movementAction);

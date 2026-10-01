@@ -507,48 +507,34 @@ static void DrawOpenedDoor(const struct DoorGraphics *gfx, u32 x, u32 y)
 
 static s8 StartDoorOpenAnimation(const struct DoorGraphics *gfx, u32 x, u32 y)
 {
+    const struct DoorAnimFrame *frames;
+
     gfx = GetDoorGraphics(gfx, MapGridGetMetatileIdAt(x, y));
     if (gfx == NULL)
-    {
         return -1;
-    }
+
+    if (gfx->size == 2)
+        frames = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? sBigDoorOpenAnimFramesFast : sBigDoorOpenAnimFrames;
     else
-    {
-        if (gfx->size == 2)
-        {
-            const struct DoorAnimFrame *frames = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT)
-                ? sBigDoorOpenAnimFramesFast : sBigDoorOpenAnimFrames;
-            return StartDoorAnimationTask(gfx, frames, x, y);
-        }
-        else
-        {
-            const struct DoorAnimFrame *frames = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT)
-                ? sDoorOpenAnimFramesFast : sDoorOpenAnimFrames;
-            return StartDoorAnimationTask(gfx, frames, x, y);
-        }
-    }
+        frames = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? sDoorOpenAnimFramesFast : sDoorOpenAnimFrames;
+
+    return StartDoorAnimationTask(gfx, frames, x, y);
 }
 
 static s8 StartDoorCloseAnimation(const struct DoorGraphics *gfx, u32 x, u32 y)
 {
+    const struct DoorAnimFrame *frames;
+
     gfx = GetDoorGraphics(gfx, MapGridGetMetatileIdAt(x, y));
     if (gfx == NULL)
         return -1;
+
+    if (gfx->size == 2)
+        frames = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? sBigDoorCloseAnimFramesFast : sBigDoorCloseAnimFrames;
     else
-    {
-        if (gfx->size == 2)
-        {
-            const struct DoorAnimFrame *frames = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT)
-                ? sBigDoorCloseAnimFramesFast : sBigDoorCloseAnimFrames;
-            return StartDoorAnimationTask(gfx, frames, x, y);
-        }
-        else
-        {
-            const struct DoorAnimFrame *frames = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT)
-                ? sDoorCloseAnimFramesFast : sDoorCloseAnimFrames;
-            return StartDoorAnimationTask(gfx, frames, x, y);
-        }
-    }
+        frames = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? sDoorCloseAnimFramesFast : sDoorCloseAnimFrames;
+
+    return StartDoorAnimationTask(gfx, frames, x, y);
 }
 
 static s8 GetDoorSoundType(const struct DoorGraphics *gfx, u32 x, u32 y)
