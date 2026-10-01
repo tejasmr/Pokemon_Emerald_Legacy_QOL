@@ -18,10 +18,12 @@
 #include "event_object_movement.h"
 #include "metatile_behavior.h"
 #include "string_util.h"
+#include "qol.h"
 #include "constants/field_effects.h"
 #include "constants/metatile_behaviors.h"
 #include "constants/metatile_labels.h"
 #include "constants/songs.h"
+#include "constants/rgb.h"
 
 
 EWRAM_DATA struct MapPosition gPlayerFacingPosition = {0};
@@ -1206,6 +1208,27 @@ bool8 IsLargeBreakableDecoration(u16 metatileId, bool8 checkBase)
 static void Task_FieldPoisonEffect(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
+
+    if (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+    {
+        switch (tState)
+        {
+        case 0:
+            BlendPalettes(PALETTES_ALL, 6, RGB(18, 0, 24));
+            tState++;
+            break;
+        case 1:
+        case 2:
+            tState++;
+            break;
+        case 3:
+            BlendPalettes(PALETTES_ALL, 0, 0);
+            SetGpuReg(REG_OFFSET_MOSAIC, 0);
+            DestroyTask(taskId);
+            return;
+        }
+        return;
+    }
 
     switch (tState)
     {
