@@ -33,16 +33,7 @@ jobs:
 
       - name: Install deps
         run: |
-          sudo apt-get install gcc-arm-none-eabi binutils-arm-none-eabi libcapstone-dev libpng-dev xdelta3
-          git clone https://github.com/PikalaxALT/universal-pokemon-randomizer UPR -b fr-support
-          cd UPR
-          curl -fsSL https://downloads.sourceforge.net/project/launch4j/launch4j-3/3.14/launch4j-3.14-linux-x64.tgz | tar -xzv
-
-      - name: Setup Java
-        uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: 8
+          sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi libcapstone-dev libpng-dev xdelta3
 
       - name: Install agbcc
         run: |
