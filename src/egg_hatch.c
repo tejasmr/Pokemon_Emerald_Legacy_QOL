@@ -35,6 +35,7 @@
 #include "field_screen_effect.h"
 #include "data.h"
 #include "battle.h" // to get rid of later
+#include "qol.h"
 #include "constants/rgb.h"
 
 #define GFXTAG_EGG       12345
@@ -595,7 +596,7 @@ static void Task_EggHatchPlayBGM(u8 taskId)
     if (gTasks[taskId].tTimer == 1)
         PlayBGM(MUS_EVOLUTION_INTRO);
 
-    if (gTasks[taskId].tTimer > 60)
+    if (gTasks[taskId].tTimer > (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? 10 : 60))
     {
         PlayBGM(MUS_EVOLUTION);
         DestroyTask(taskId);
@@ -628,7 +629,7 @@ static void CB2_EggHatch(void)
         }
         break;
     case 2:
-        if (++sEggHatchData->delayTimer > 30)
+        if (++sEggHatchData->delayTimer > (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? 5 : 30))
         {
             // Start hatching animation
             sEggHatchData->state++;
@@ -732,8 +733,20 @@ static void SpriteCB_Egg_Shake1(struct Sprite *sprite)
 {
     if (++sprite->sTimer > 20)
     {
-        sprite->callback = SpriteCB_Egg_Shake2;
-        sprite->sTimer = 0;
+        if (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+        {
+            u16 UNUSED species;
+            sprite->callback = SpriteCB_Egg_Hatch;
+            sprite->sTimer = 0;
+            species = GetMonData(&gPlayerParty[sEggHatchData->eggPartyId], MON_DATA_SPECIES);
+            gSprites[sEggHatchData->monSpriteId].x2 = 0;
+            gSprites[sEggHatchData->monSpriteId].y2 = 0;
+        }
+        else
+        {
+            sprite->callback = SpriteCB_Egg_Shake2;
+            sprite->sTimer = 0;
+        }
     }
     else
     {
@@ -744,7 +757,11 @@ static void SpriteCB_Egg_Shake1(struct Sprite *sprite)
         {
             // First egg crack
             PlaySE(SE_BALL);
-            StartSpriteAnim(sprite, EGG_ANIM_CRACKED_1);
+            if (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+                StartSpriteAnim(sprite, EGG_ANIM_CRACKED_3);
+            else
+                StartSpriteAnim(sprite, EGG_ANIM_CRACKED_1);
+            CreateRandomEggShardSprite();
             CreateRandomEggShardSprite();
         }
     }
@@ -861,7 +878,7 @@ static void SpriteCB_Egg_Reveal(struct Sprite *sprite)
     if (sprite->sTimer <= 9)
         gSprites[sEggHatchData->monSpriteId].y--;
 
-    if (sprite->sTimer > 40)
+    if (sprite->sTimer > (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? 20 : 40))
         sprite->callback = SpriteCallbackDummy; // Finished
 
     sprite->sTimer++;

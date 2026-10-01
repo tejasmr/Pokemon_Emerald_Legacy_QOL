@@ -8,6 +8,7 @@
 #include "sound.h"
 #include "constants/songs.h"
 #include "palette.h"
+#include "qol.h"
 #include "constants/rgb.h"
 
 static void SpriteCB_Sparkle_Dummy(struct Sprite *sprite);
@@ -565,7 +566,18 @@ static void Task_CycleEvolutionMonSprite_TryEnd(u8 taskId)
         EndOnPostEvoMon(taskId);
     else
     {
-        gTasks[taskId].tScaleSpeed += 2;
+        if (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+        {
+            if (gTasks[taskId].tScaleSpeed < 64)
+                gTasks[taskId].tScaleSpeed = 64;
+            gTasks[taskId].tScaleSpeed += 32;
+            if (gTasks[taskId].tScaleSpeed >= 128)
+                gTasks[taskId].tScaleSpeed = 128;
+        }
+        else
+        {
+            gTasks[taskId].tScaleSpeed += 2;
+        }
         gTasks[taskId].tShowingPostEvo ^= 1;
         gTasks[taskId].func = Task_CycleEvolutionMonSprite_UpdateSize;
     }
