@@ -123,6 +123,7 @@ static const u8 sText_No[]       = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}NO");
 static const u8 sText_Fast[]     = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}FAST");
 static const u8 sText_Short[]    = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}SHORT");
 static const u8 sText_Skip[]     = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}SKIP");
+static const u8 sText_Easy[]     = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}EASY");
 
 static const u8 sText_100Pct[]   = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}100%");
 static const u8 sText_All[]      = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}ALL");
@@ -133,9 +134,10 @@ static const u8 sText_Random[]   = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}RANDOM");
 
 static const u8 sText_Triple[]   = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}TRIPLE");
 
-static const u8 sText_Page1[]    = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}1/3");
-static const u8 sText_Page2[]    = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}2/3");
-static const u8 sText_Page3[]    = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}3/3");
+static const u8 sText_Page1[]    = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}1/4");
+static const u8 sText_Page2[]    = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}2/4");
+static const u8 sText_Page3[]    = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}3/4");
+static const u8 sText_Page4[]    = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}4/4");
 
 /* ----------------------------------------------- */
 /* QOL MENU TEXT (Option Names)                    */
@@ -144,15 +146,17 @@ static const u8 sOption_Preset[]        = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}PR
 static const u8 sOption_HoldA[]         = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}HOLD A BUTTON");
 static const u8 sOption_BattleSpeed[]   = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}BATTLE SPEED");
 static const u8 sOption_QuickAnims[]    = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}QUICK ANIMS");
-static const u8 sOption_Fanfares[]      = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}FANFARES");
 
+static const u8 sOption_Fanfares[]      = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}FANFARES");
 static const u8 sOption_FastHealing[]   = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}FAST HEALING");
 static const u8 sOption_WallyTutorial[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}WALLY TUTORIAL");
 static const u8 sOption_EarlyRun[]      = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}EARLY SHOES");
+
 static const u8 sOption_InfiniteTms[]   = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}INFINITE TMS");
 static const u8 sOption_ModItems[]      = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}MOD ITEMS");
-
+static const u8 sOption_EasyFishing[]   = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}EASY FISHING");
 static const u8 sOption_ExpMultiplier[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}EXP RATE");
+
 static const u8 sOption_CatchRate[]     = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}CATCH RATE");
 static const u8 sOption_ShinyRate[]     = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}SHINIES");
 static const u8 sOption_PerfectIvs[]    = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}PERFECT IVS");
@@ -172,16 +176,18 @@ static const u8 sTooltip_Explanation[]    = _("Configure Quality of Life options
 static const u8 sTooltip_Preset[]         = _("Quickly select between preset configurations.\nDEFAULT: All QOL features enabled.\nVANILLA: Original Emerald mechanics.\nCUSTOM: Customized settings.");
 static const u8 sTooltip_HoldA[]          = _("YES: Holding A accelerates text printing\ninstantly.\nNO: Text prints at standard option speed.");
 static const u8 sTooltip_BattleSpeed[]    = _("FAST: Quick intro & send-out animations.\nVANILLA: Standard battle speed.");
-static const u8 sTooltip_QuickAnims[]     = _("SHORT: Skip stat change & sparkle anims,\nand accelerate intro fade transitions.\nVANILLA: Standard animation flow.");
-static const u8 sTooltip_Fanfares[]       = _("SKIP: Silence level-up, item, and badge\nfanfares for faster pacing.\nVANILLA: Play all standard fanfares.");
+static const u8 sTooltip_QuickAnims[]     = _("SHORT: Fast intro fades, trainer sprints,\nevolution, eggs & instant map warps.\nVANILLA: Standard animation flow.");
 
+static const u8 sTooltip_Fanfares[]       = _("SKIP: Silence level-up, item, and badge\nfanfares for faster pacing.\nVANILLA: Play all standard fanfares.");
 static const u8 sTooltip_FastHealing[]    = _("FAST: Quick Poké Center healing without\nlengthy Nurse Joy dialogues.\nVANILLA: Standard healing sequence.");
 static const u8 sTooltip_WallyTutorial[]  = _("SKIP: Completely skip catching tutorial.\nSHORT: Faster in-battle pacing only.\nVANILLA: Original tutorial pacing.");
 static const u8 sTooltip_EarlyRun[]       = _("ON: Start game with Running Shoes &\nB-Button Dash enabled.\nOFF: Receive shoes normally.");
+
 static const u8 sTooltip_InfiniteTms[]    = _("ON: TMs are reusable and not consumed.\nOFF: TMs are single use.");
 static const u8 sTooltip_ModItems[]       = _("ON: Receive Porta Heal, EV Editor, Porta\nFly, etc., after choosing starter.\nOFF: Do not receive mod items.");
-
+static const u8 sTooltip_EasyFishing[]    = _("EASY: Fast dots and 1-round bite hook.\n100%: Fast 1-round bites with 100% bite rate.\nVANILLA: Standard fishing mechanics.");
 static const u8 sTooltip_ExpMultiplier[]  = _("TRIPLE: 3x Experience points gained.\nVANILLA: Normal experience rate.");
+
 static const u8 sTooltip_CatchRate[]      = _("100%: All Poké Balls have guaranteed\ncatch rate.\nVANILLA: Standard catch calculation.");
 static const u8 sTooltip_ShinyRate[]      = _("ALL: All wild & starter Pokémon shiny.\nSTARTER: Starter Pokémon is shiny.\nVANILLA: 1/8192 shiny odds.");
 static const u8 sTooltip_PerfectIvs[]     = _("MAX 31: All caught and hatched Pokémon\nhave 31 IVs across all stats.\nRANDOM: Standard random IVs.");
@@ -205,43 +211,51 @@ static const u8 *const sChoices_Preset[]        = { sText_Default, sText_Vanilla
 static const u8 *const sChoices_HoldA[]         = { sText_Yes, sText_No };
 static const u8 *const sChoices_BattleSpeed[]   = { sText_Fast, sText_Vanilla };
 static const u8 *const sChoices_QuickAnims[]    = { sText_Short, sText_Vanilla };
-static const u8 *const sChoices_Fanfares[]      = { sText_Skip, sText_Vanilla };
 
+static const u8 *const sChoices_Fanfares[]      = { sText_Skip, sText_Vanilla };
 static const u8 *const sChoices_FastHealing[]   = { sText_Fast, sText_Vanilla };
 static const u8 *const sChoices_WallyTutorial[] = { sText_Skip, sText_Short, sText_Vanilla };
 static const u8 *const sChoices_EarlyRun[]      = { sText_On, sText_Off };
+
 static const u8 *const sChoices_InfiniteTms[]   = { sText_On, sText_Off };
 static const u8 *const sChoices_ModItems[]      = { sText_On, sText_Off };
-
+static const u8 *const sChoices_EasyFishing[]   = { sText_Easy, sText_100Pct, sText_Vanilla };
 static const u8 *const sChoices_ExpMultiplier[] = { sText_Triple, sText_Vanilla };
+
 static const u8 *const sChoices_CatchRate[]     = { sText_100Pct, sText_Vanilla };
 static const u8 *const sChoices_ShinyRate[]     = { sText_All, sText_Starter, sText_Vanilla };
 static const u8 *const sChoices_PerfectIvs[]    = { sText_Max31, sText_Random };
 static const u8 *const sChoices_PreferNature[]  = { sText_On, sText_Off };
 
-static const u8 *const sChoices_Page[]          = { sText_Page1, sText_Page2, sText_Page3 };
+static const u8 *const sChoices_Page[]          = { sText_Page1, sText_Page2, sText_Page3, sText_Page4 };
 
 static const struct QolOptionData sQolOptions[CURRENT_QOL_OPTIONS_NUM + 1] =
 {
+    // Page 1
     [QOL_PRESET]         = { sOption_Preset,         sChoices_Preset,        3, sTooltip_Preset },
     [QOL_HOLD_A]         = { sOption_HoldA,          sChoices_HoldA,         2, sTooltip_HoldA },
     [QOL_BATTLE_SPEED]   = { sOption_BattleSpeed,    sChoices_BattleSpeed,   2, sTooltip_BattleSpeed },
     [QOL_QUICK_ANIMS]    = { sOption_QuickAnims,     sChoices_QuickAnims,    2, sTooltip_QuickAnims },
-    [QOL_FANFARES]       = { sOption_Fanfares,       sChoices_Fanfares,      2, sTooltip_Fanfares },
 
+    // Page 2
+    [QOL_FANFARES]       = { sOption_Fanfares,       sChoices_Fanfares,      2, sTooltip_Fanfares },
     [QOL_FAST_HEALING]   = { sOption_FastHealing,    sChoices_FastHealing,   2, sTooltip_FastHealing },
     [QOL_WALLY_TUTORIAL] = { sOption_WallyTutorial,  sChoices_WallyTutorial, 3, sTooltip_WallyTutorial },
     [QOL_EARLY_RUN]      = { sOption_EarlyRun,       sChoices_EarlyRun,      2, sTooltip_EarlyRun },
+
+    // Page 3
     [QOL_INFINITE_TMS]   = { sOption_InfiniteTms,    sChoices_InfiniteTms,   2, sTooltip_InfiniteTms },
     [QOL_MOD_ITEMS]      = { sOption_ModItems,       sChoices_ModItems,      2, sTooltip_ModItems },
-
+    [QOL_EASY_FISHING]   = { sOption_EasyFishing,    sChoices_EasyFishing,   3, sTooltip_EasyFishing },
     [QOL_EXP_MULTIPLIER] = { sOption_ExpMultiplier,  sChoices_ExpMultiplier, 2, sTooltip_ExpMultiplier },
+
+    // Page 4
     [QOL_CATCH_RATE]     = { sOption_CatchRate,      sChoices_CatchRate,     2, sTooltip_CatchRate },
     [QOL_SHINY_RATE]     = { sOption_ShinyRate,      sChoices_ShinyRate,     3, sTooltip_ShinyRate },
     [QOL_PERFECT_IVS]    = { sOption_PerfectIvs,     sChoices_PerfectIvs,    2, sTooltip_PerfectIvs },
     [QOL_PREFER_NATURE]  = { sOption_PreferNature,   sChoices_PreferNature,  2, sTooltip_PreferNature },
 
-    [QOL_PAGE]           = { sOption_Page,           sChoices_Page,          3, sTooltip_Page },
+    [QOL_PAGE]           = { sOption_Page,           sChoices_Page,          4, sTooltip_Page },
 };
 
 /* ----------------------------------------------- */
@@ -259,6 +273,7 @@ static const u8 sPresetDefault[CURRENT_QOL_OPTIONS_NUM] =
     [QOL_EARLY_RUN]      = QOL_EARLY_RUN_ON,
     [QOL_INFINITE_TMS]   = QOL_INFINITE_TMS_ON,
     [QOL_MOD_ITEMS]      = QOL_MOD_ITEMS_ON,
+    [QOL_EASY_FISHING]   = QOL_FISHING_EASY,
     [QOL_EXP_MULTIPLIER] = QOL_EXP_TRIPLE,
     [QOL_CATCH_RATE]     = QOL_CATCH_100,
     [QOL_SHINY_RATE]     = QOL_SHINY_ALL,
@@ -278,6 +293,7 @@ static const u8 sPresetVanilla[CURRENT_QOL_OPTIONS_NUM] =
     [QOL_EARLY_RUN]      = QOL_EARLY_RUN_OFF,
     [QOL_INFINITE_TMS]   = QOL_INFINITE_TMS_OFF,
     [QOL_MOD_ITEMS]      = QOL_MOD_ITEMS_OFF,
+    [QOL_EASY_FISHING]   = QOL_FISHING_VANILLA,
     [QOL_EXP_MULTIPLIER] = QOL_EXP_VANILLA,
     [QOL_CATCH_RATE]     = QOL_CATCH_VANILLA,
     [QOL_SHINY_RATE]     = QOL_SHINY_VANILLA,
@@ -473,6 +489,7 @@ static void SaveQolOptions(void)
     gSaveBlock2Ptr->qolConfig.earlyRun       = sLocalQolConfig.optionConfig[QOL_EARLY_RUN];
     gSaveBlock2Ptr->qolConfig.infiniteTms    = sLocalQolConfig.optionConfig[QOL_INFINITE_TMS];
     gSaveBlock2Ptr->qolConfig.modItems       = sLocalQolConfig.optionConfig[QOL_MOD_ITEMS];
+    gSaveBlock2Ptr->qolConfig.easyFishing    = sLocalQolConfig.optionConfig[QOL_EASY_FISHING];
     gSaveBlock2Ptr->qolConfig.expMultiplier  = sLocalQolConfig.optionConfig[QOL_EXP_MULTIPLIER];
     gSaveBlock2Ptr->qolConfig.catchRate      = sLocalQolConfig.optionConfig[QOL_CATCH_RATE];
     gSaveBlock2Ptr->qolConfig.shinyRate      = sLocalQolConfig.optionConfig[QOL_SHINY_RATE];
@@ -816,6 +833,7 @@ static void LoadQolOptions(void)
     sLocalQolConfig.optionConfig[QOL_EARLY_RUN]       = gSaveBlock2Ptr->qolConfig.earlyRun;
     sLocalQolConfig.optionConfig[QOL_INFINITE_TMS]    = gSaveBlock2Ptr->qolConfig.infiniteTms;
     sLocalQolConfig.optionConfig[QOL_MOD_ITEMS]       = gSaveBlock2Ptr->qolConfig.modItems;
+    sLocalQolConfig.optionConfig[QOL_EASY_FISHING]    = gSaveBlock2Ptr->qolConfig.easyFishing;
     sLocalQolConfig.optionConfig[QOL_EXP_MULTIPLIER]  = gSaveBlock2Ptr->qolConfig.expMultiplier;
     sLocalQolConfig.optionConfig[QOL_CATCH_RATE]      = gSaveBlock2Ptr->qolConfig.catchRate;
     sLocalQolConfig.optionConfig[QOL_SHINY_RATE]      = gSaveBlock2Ptr->qolConfig.shinyRate;
@@ -850,6 +868,8 @@ bool8 CheckQolOption(u8 option, u8 selection)
         return gSaveBlock2Ptr->qolConfig.infiniteTms == selection;
     case QOL_MOD_ITEMS:
         return gSaveBlock2Ptr->qolConfig.modItems == selection;
+    case QOL_EASY_FISHING:
+        return gSaveBlock2Ptr->qolConfig.easyFishing == selection;
     case QOL_EXP_MULTIPLIER:
         return gSaveBlock2Ptr->qolConfig.expMultiplier == selection;
     case QOL_CATCH_RATE:
@@ -892,6 +912,8 @@ u8 GetQolOption(u8 option)
         return gSaveBlock2Ptr->qolConfig.infiniteTms;
     case QOL_MOD_ITEMS:
         return gSaveBlock2Ptr->qolConfig.modItems;
+    case QOL_EASY_FISHING:
+        return gSaveBlock2Ptr->qolConfig.easyFishing;
     case QOL_EXP_MULTIPLIER:
         return gSaveBlock2Ptr->qolConfig.expMultiplier;
     case QOL_CATCH_RATE:
