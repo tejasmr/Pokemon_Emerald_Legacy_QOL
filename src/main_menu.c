@@ -480,6 +480,16 @@ static const union AffineAnimCmd *const sSpriteAffineAnimTable_PlayerShrink[] =
     sSpriteAffineAnim_PlayerShrink
 };
 
+static const union AffineAnimCmd sSpriteAffineAnim_PlayerShrinkFast[] = {
+    AFFINEANIMCMD_FRAME(-8, -8, 0, 0x0C),
+    AFFINEANIMCMD_END
+};
+
+static const union AffineAnimCmd *const sSpriteAffineAnimTable_PlayerShrinkFast[] =
+{
+    sSpriteAffineAnim_PlayerShrinkFast
+};
+
 static const struct MenuAction sMenuActions_Gender[] = {
     {gText_BirchBoy, {NULL}},
     {gText_BirchGirl, {NULL}}
@@ -1887,12 +1897,12 @@ static void Task_NewGameBirchSpeech_ShrinkPlayer(u8 taskId)
         {
             spriteId = gTasks[taskId].tPlayerSpriteId;
             gSprites[spriteId].oam.affineMode = ST_OAM_AFFINE_NORMAL;
-            gSprites[spriteId].affineAnims = sSpriteAffineAnimTable_PlayerShrink;
+            gSprites[spriteId].affineAnims = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? sSpriteAffineAnimTable_PlayerShrinkFast : sSpriteAffineAnimTable_PlayerShrink;
             InitSpriteAffineAnim(&gSprites[spriteId]);
             StartSpriteAffineAnim(&gSprites[spriteId], 0);
             gSprites[spriteId].callback = SpriteCB_MovePlayerDownWhileShrinking;
             BeginNormalPaletteFade(PALETTES_BG, 0, 0, 16, RGB_BLACK);
-            FadeOutBGM(4);
+            FadeOutBGM(CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? 1 : 4);
             gTasks[taskId].func = Task_NewGameBirchSpeech_WaitForPlayerShrink;
         }
     }
@@ -2015,8 +2025,9 @@ static void SpriteCB_Null(struct Sprite *sprite)
 static void SpriteCB_MovePlayerDownWhileShrinking(struct Sprite *sprite)
 {
     u32 y;
+    u32 step = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? 0x30000 : 0xC000;
 
-    y = (sprite->y << 16) + sprite->data[0] + 0xC000;
+    y = (sprite->y << 16) + sprite->data[0] + step;
     sprite->y = y >> 16;
     sprite->data[0] = y;
 }

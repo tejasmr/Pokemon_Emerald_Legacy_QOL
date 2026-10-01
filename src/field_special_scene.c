@@ -18,6 +18,7 @@
 #include "constants/field_specials.h"
 #include "constants/songs.h"
 #include "constants/metatile_labels.h"
+#include "qol.h"
 
 // Most of the boxes in the moving truck are map tiles, with the
 // exception of three boxes that are map events that jostle around
@@ -189,12 +190,13 @@ static void Task_Truck3(u8 taskId)
 static void Task_HandleTruckSequence(u8 taskId)
 {
    s16 *data = gTasks[taskId].data;
+   bool8 fast = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT);
 
     switch (tState)
     {
     case 0:
         tTimer++;
-        if (tTimer == 90)
+        if (tTimer == (fast ? 5 : 90))
         {
             SetCameraPanningCallback(NULL);
             tTimer = 0;
@@ -205,7 +207,7 @@ static void Task_HandleTruckSequence(u8 taskId)
         break;
     case 1:
         tTimer++;
-        if (tTimer == 150)
+        if (tTimer == (fast ? 10 : 150))
         {
             FadeInFromBlack();
             tTimer = 0;
@@ -214,7 +216,7 @@ static void Task_HandleTruckSequence(u8 taskId)
         break;
     case 2:
         tTimer++;
-        if (!gPaletteFade.active && tTimer > 300)
+        if (!gPaletteFade.active && tTimer > (fast ? 30 : 300))
         {
             tTimer = 0;
             DestroyTask(tTaskId1);
@@ -234,7 +236,7 @@ static void Task_HandleTruckSequence(u8 taskId)
         break;
     case 4:
         tTimer++;
-        if (tTimer == 90)
+        if (tTimer == (fast ? 10 : 90))
         {
             PlaySE(SE_TRUCK_UNLOAD);
             tTimer = 0;
@@ -243,7 +245,7 @@ static void Task_HandleTruckSequence(u8 taskId)
         break;
     case 5:
         tTimer++;
-        if (tTimer == 120)
+        if (tTimer == (fast ? 15 : 120))
         {
             MapGridSetMetatileIdAt(4 + MAP_OFFSET, 1 + MAP_OFFSET, METATILE_InsideOfTruck_ExitLight_Top);
             MapGridSetMetatileIdAt(4 + MAP_OFFSET, 2 + MAP_OFFSET, METATILE_InsideOfTruck_ExitLight_Mid);
