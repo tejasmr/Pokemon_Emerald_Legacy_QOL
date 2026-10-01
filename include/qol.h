@@ -1,8 +1,8 @@
 #ifndef GUARD_QOL_H
 #define GUARD_QOL_H
 
-#define CURRENT_QOL_OPTIONS_NUM 16
-#define QOL_OPTIONS_PER_PAGE 4
+#define CURRENT_QOL_OPTIONS_NUM 17
+#define QOL_OPTIONS_PER_PAGE 5
 #define QOL_MAX_PAGES 4
 #define ALL_QOL_OPTIONS_PER_PAGE (QOL_OPTIONS_PER_PAGE + 2)
 
@@ -15,22 +15,23 @@ enum QolOption
     QOL_HOLD_A,
     QOL_BATTLE_SPEED,
     QOL_QUICK_ANIMS,
+    QOL_RUN_TRAINER_BATTLE,
 
     // Page 2: Convenience
     QOL_FANFARES,
     QOL_FAST_HEALING,
     QOL_WALLY_TUTORIAL,
     QOL_EARLY_RUN,
+    QOL_INFINITE_TMS,
 
     // Page 3: Items & Fishing
-    QOL_INFINITE_TMS,
     QOL_MOD_ITEMS,
     QOL_EASY_FISHING,
     QOL_EXP_MULTIPLIER,
-
-    // Page 4: Pokémon & Battles
     QOL_CATCH_RATE,
     QOL_SHINY_RATE,
+
+    // Page 4: Pokémon & Battles
     QOL_PERFECT_IVS,
     QOL_PREFER_NATURE,
 
@@ -72,6 +73,13 @@ enum
 {
     QOL_ANIMS_SHORT,
     QOL_ANIMS_VANILLA
+};
+
+// Run from Trainer Battle
+enum
+{
+    QOL_RUN_TRAINER_ON,
+    QOL_RUN_TRAINER_OFF
 };
 
 // Fanfares
@@ -167,6 +175,7 @@ struct QolSaveOptions
     u8 holdA:1;
     u8 battleSpeed:1;
     u8 quickAnims:1;
+    u8 runTrainer:1;
     u8 fanfares:1;
     u8 fastHealing:1;
     u8 wallyTutorial:2;

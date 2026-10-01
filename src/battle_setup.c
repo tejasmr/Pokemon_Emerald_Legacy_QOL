@@ -1336,8 +1336,11 @@ static void CB2_EndTrainerBattle(void)
         SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
         if (!InBattlePyramid() && !InTrainerHillChallenge())
         {
-            RegisterTrainerInMatchCall();
-            SetBattledTrainersFlags();
+            if (gBattleOutcome != B_OUTCOME_RAN)
+            {
+                RegisterTrainerInMatchCall();
+                SetBattledTrainersFlags();
+            }
         }
     }
 }
@@ -1355,9 +1358,12 @@ static void CB2_EndRematchBattle(void)
     else
     {
         SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
-        RegisterTrainerInMatchCall();
-        SetBattledTrainersFlags();
-        HandleRematchVarsOnBattleEnd();
+        if (gBattleOutcome != B_OUTCOME_RAN)
+        {
+            RegisterTrainerInMatchCall();
+            SetBattledTrainersFlags();
+            HandleRematchVarsOnBattleEnd();
+        }
     }
 }
 
@@ -1397,7 +1403,7 @@ void ShowTrainerIntroSpeech(void)
 
 const u8 *BattleSetup_GetScriptAddrAfterBattle(void)
 {
-    if (sTrainerBattleEndScript != NULL)
+    if (sTrainerBattleEndScript != NULL && gBattleOutcome != B_OUTCOME_RAN)
         return sTrainerBattleEndScript;
     else
         return EventScript_TestSignpostMsg;
@@ -1405,6 +1411,12 @@ const u8 *BattleSetup_GetScriptAddrAfterBattle(void)
 
 const u8 *BattleSetup_GetTrainerPostBattleScript(void)
 {
+    if (gBattleOutcome == B_OUTCOME_RAN)
+    {
+        sNoOfPossibleTrainerRetScripts = 0;
+        return EventScript_TryGetTrainerScript;
+    }
+
     if (sShouldCheckTrainerBScript)
     {
         sShouldCheckTrainerBScript = FALSE;
