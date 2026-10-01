@@ -588,7 +588,7 @@ static void Task_DoCableClubWarp(u8 taskId)
         task->tState++;
         break;
     case 1:
-        if (!PaletteFadeActive() && BGMusicStopped())
+        if (!PaletteFadeActive() && (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) || BGMusicStopped()))
             task->tState++;
         break;
     case 2:
@@ -622,7 +622,7 @@ static void Task_ReturnToWorldFromLinkRoom(u8 taskId)
         tState++;
         break;
     case 1:
-        if (!PaletteFadeActive() && BGMusicStopped())
+        if (!PaletteFadeActive() && (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) || BGMusicStopped()))
         {
             SetCloseLinkCallback();
             tState++;
@@ -663,7 +663,7 @@ static void Task_WarpAndLoadMap(u8 taskId)
                 ClearMirageTowerPulseBlendEffect();
                 task->data[1] = 1;
             }
-            if (BGMusicStopped())
+            if (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) || BGMusicStopped())
                 task->tState++;
         }
         break;
@@ -745,7 +745,7 @@ static void Task_DoContestHallWarp(u8 taskId)
         task->tState++;
         break;
     case 1:
-        if (!PaletteFadeActive() && BGMusicStopped())
+        if (!PaletteFadeActive() && (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) || BGMusicStopped()))
         {
             task->tState++;
         }

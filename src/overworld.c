@@ -58,6 +58,7 @@
 #include "tv.h"
 #include "scanline_effect.h"
 #include "wild_encounter.h"
+#include "qol.h"
 #include "frontier_util.h"
 #include "constants/abilities.h"
 #include "constants/layouts.h"
@@ -1210,7 +1211,12 @@ void Overworld_ChangeMusicTo(u16 newMusic)
 
 u8 GetMapMusicFadeoutSpeed(void)
 {
-    const struct MapHeader *mapHeader = GetDestinationWarpMapHeader();
+    const struct MapHeader *mapHeader;
+
+    if (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+        return 16;
+
+    mapHeader = GetDestinationWarpMapHeader();
     if (IsMapTypeIndoors(mapHeader->mapType) == TRUE)
         return 2;
     else
