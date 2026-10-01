@@ -7,6 +7,7 @@
 #include "task.h"
 #include "constants/songs.h"
 #include "constants/metatile_labels.h"
+#include "qol.h"
 
 #define DOOR_SOUND_NORMAL  0
 #define DOOR_SOUND_SLIDING 1
@@ -141,12 +142,30 @@ static const struct DoorAnimFrame sDoorOpenAnimFrames[] =
     {0, 0},
 };
 
+static const struct DoorAnimFrame sDoorOpenAnimFramesFast[] =
+{
+    {2, -1},
+    {2, 0},
+    {2, 0x100},
+    {2, 0x200},
+    {0, 0},
+};
+
 static const struct DoorAnimFrame sDoorCloseAnimFrames[] =
 {
     {4, 0x200},
     {4, 0x100},
     {4, 0},
     {4, -1},
+    {0, 0},
+};
+
+static const struct DoorAnimFrame sDoorCloseAnimFramesFast[] =
+{
+    {2, 0x200},
+    {2, 0x100},
+    {2, 0},
+    {2, -1},
     {0, 0},
 };
 
@@ -159,12 +178,30 @@ static const struct DoorAnimFrame sBigDoorOpenAnimFrames[] =
     {0, 0},
 };
 
+static const struct DoorAnimFrame sBigDoorOpenAnimFramesFast[] =
+{
+    {2, -1},
+    {2, 0},
+    {2, 0x200},
+    {2, 0x400},
+    {0, 0},
+};
+
 static const struct DoorAnimFrame sBigDoorCloseAnimFrames[] =
 {
     {4, 0x400},
     {4, 0x200},
     {4, 0},
     {4, -1},
+    {0, 0},
+};
+
+static const struct DoorAnimFrame sBigDoorCloseAnimFramesFast[] =
+{
+    {2, 0x400},
+    {2, 0x200},
+    {2, 0},
+    {2, -1},
     {0, 0},
 };
 
@@ -470,27 +507,34 @@ static void DrawOpenedDoor(const struct DoorGraphics *gfx, u32 x, u32 y)
 
 static s8 StartDoorOpenAnimation(const struct DoorGraphics *gfx, u32 x, u32 y)
 {
+    const struct DoorAnimFrame *frames;
+
     gfx = GetDoorGraphics(gfx, MapGridGetMetatileIdAt(x, y));
     if (gfx == NULL)
-    {
         return -1;
-    }
+
+    if (gfx->size == 2)
+        frames = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? sBigDoorOpenAnimFramesFast : sBigDoorOpenAnimFrames;
     else
-    {
-        if (gfx->size == 2)
-            return StartDoorAnimationTask(gfx, sBigDoorOpenAnimFrames, x, y);
-        else
-            return StartDoorAnimationTask(gfx, sDoorOpenAnimFrames, x, y);
-    }
+        frames = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? sDoorOpenAnimFramesFast : sDoorOpenAnimFrames;
+
+    return StartDoorAnimationTask(gfx, frames, x, y);
 }
 
 static s8 StartDoorCloseAnimation(const struct DoorGraphics *gfx, u32 x, u32 y)
 {
+    const struct DoorAnimFrame *frames;
+
     gfx = GetDoorGraphics(gfx, MapGridGetMetatileIdAt(x, y));
     if (gfx == NULL)
         return -1;
+
+    if (gfx->size == 2)
+        frames = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? sBigDoorCloseAnimFramesFast : sBigDoorCloseAnimFrames;
     else
-        return StartDoorAnimationTask(gfx, sDoorCloseAnimFrames, x, y);
+        frames = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? sDoorCloseAnimFramesFast : sDoorCloseAnimFrames;
+
+    return StartDoorAnimationTask(gfx, frames, x, y);
 }
 
 static s8 GetDoorSoundType(const struct DoorGraphics *gfx, u32 x, u32 y)

@@ -16,6 +16,7 @@
 #include "task.h"
 #include "trig.h"
 #include "gpu_regs.h"
+#include "qol.h"
 
 #define DROUGHT_COLOR_INDEX(color) ((((color) >> 1) & 0xF) | (((color) >> 2) & 0xF0) | (((color) >> 3) & 0xF00))
 
@@ -413,10 +414,11 @@ static void FadeInScreenWithWeather(void)
 
 static bool8 FadeInScreen_RainShowShade(void)
 {
-    if (gWeatherPtr->fadeScreenCounter == 16)
+    if (gWeatherPtr->fadeScreenCounter >= 16)
         return FALSE;
 
-    if (++gWeatherPtr->fadeScreenCounter >= 16)
+    gWeatherPtr->fadeScreenCounter += CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? 2 : 1;
+    if (gWeatherPtr->fadeScreenCounter >= 16)
     {
         ApplyColorMap(0, 32, 3);
         gWeatherPtr->fadeScreenCounter = 16;
@@ -429,10 +431,11 @@ static bool8 FadeInScreen_RainShowShade(void)
 
 static bool8 FadeInScreen_Drought(void)
 {
-    if (gWeatherPtr->fadeScreenCounter == 16)
+    if (gWeatherPtr->fadeScreenCounter >= 16)
         return FALSE;
 
-    if (++gWeatherPtr->fadeScreenCounter >= 16)
+    gWeatherPtr->fadeScreenCounter += CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? 2 : 1;
+    if (gWeatherPtr->fadeScreenCounter >= 16)
     {
         ApplyColorMap(0, 32, -6);
         gWeatherPtr->fadeScreenCounter = 16;
@@ -445,10 +448,12 @@ static bool8 FadeInScreen_Drought(void)
 
 static bool8 FadeInScreen_FogHorizontal(void)
 {
-    if (gWeatherPtr->fadeScreenCounter == 16)
+    if (gWeatherPtr->fadeScreenCounter >= 16)
         return FALSE;
 
-    gWeatherPtr->fadeScreenCounter++;
+    gWeatherPtr->fadeScreenCounter += CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? 2 : 1;
+    if (gWeatherPtr->fadeScreenCounter > 16)
+        gWeatherPtr->fadeScreenCounter = 16;
     ApplyFogBlend(16 - gWeatherPtr->fadeScreenCounter, gWeatherPtr->fadeDestColor);
     return TRUE;
 }
@@ -777,6 +782,11 @@ void FadeScreen(u8 mode, s8 delay)
         useWeatherPal = FALSE;
         break;
     }
+
+    if (delay == 0 && CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+        delay = -2;
+    else if (delay > 0 && CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+        delay /= 2;
 
     if (fadeOut)
     {
