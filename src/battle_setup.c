@@ -909,13 +909,13 @@ static void CB2_GiveStarter(void)
     ScriptGiveMon(starterMon, 5, ITEM_NONE, 0, 0, 0);
     if (CheckQolOption(QOL_MOD_ITEMS, QOL_MOD_ITEMS_ON))
     {
+        AddBagItem(ITEM_INF_REPEL, 1);
         AddBagItem(ITEM_PORTA_HEAL, 1);
+        AddBagItem(ITEM_PORTA_FLY, 1);
+        AddBagItem(ITEM_PORTA_PC, 1);
         AddBagItem(ITEM_EV_EDITOR, 1);
         AddBagItem(ITEM_ABILITY_CAPSULE, 1);
         AddBagItem(ITEM_MOVE_RELEARNER, 1);
-        AddBagItem(ITEM_INF_REPEL, 1);
-        AddBagItem(ITEM_PORTA_FLY, 1);
-        AddBagItem(ITEM_PORTA_PC, 1);
     }
     ResetTasks();
     PlayBattleBGM();

@@ -515,20 +515,20 @@ static void SaveQolOptions(void)
         }
         else if (sLocalQolConfig.optionConfig[QOL_MOD_ITEMS] == QOL_MOD_ITEMS_ON && FlagGet(FLAG_SYS_POKEMON_GET))
         {
+            if (CheckBagHasItem(ITEM_INF_REPEL, 1) == FALSE)
+                AddBagItem(ITEM_INF_REPEL, 1);
             if (CheckBagHasItem(ITEM_PORTA_HEAL, 1) == FALSE)
                 AddBagItem(ITEM_PORTA_HEAL, 1);
+            if (CheckBagHasItem(ITEM_PORTA_FLY, 1) == FALSE)
+                AddBagItem(ITEM_PORTA_FLY, 1);
+            if (CheckBagHasItem(ITEM_PORTA_PC, 1) == FALSE)
+                AddBagItem(ITEM_PORTA_PC, 1);
             if (CheckBagHasItem(ITEM_EV_EDITOR, 1) == FALSE)
                 AddBagItem(ITEM_EV_EDITOR, 1);
             if (CheckBagHasItem(ITEM_ABILITY_CAPSULE, 1) == FALSE)
                 AddBagItem(ITEM_ABILITY_CAPSULE, 1);
             if (CheckBagHasItem(ITEM_MOVE_RELEARNER, 1) == FALSE)
                 AddBagItem(ITEM_MOVE_RELEARNER, 1);
-            if (CheckBagHasItem(ITEM_INF_REPEL, 1) == FALSE)
-                AddBagItem(ITEM_INF_REPEL, 1);
-            if (CheckBagHasItem(ITEM_PORTA_FLY, 1) == FALSE)
-                AddBagItem(ITEM_PORTA_FLY, 1);
-            if (CheckBagHasItem(ITEM_PORTA_PC, 1) == FALSE)
-                AddBagItem(ITEM_PORTA_PC, 1);
         }
     }
 }
