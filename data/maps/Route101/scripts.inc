@@ -152,8 +152,7 @@ Route101_Movement_PlayerApproachBag10:
 	walk_fast_left
 	walk_fast_left
 	walk_fast_left
-	walk_fast_up
-	walk_in_place_faster_left
+	walk_in_place_faster_up
 	step_end
 
 Route101_Movement_PlayerApproachBag11:
@@ -165,8 +164,7 @@ Route101_Movement_PlayerApproachBag11:
 	walk_fast_left
 	walk_fast_left
 	walk_fast_left
-	walk_fast_up
-	walk_in_place_faster_left
+	walk_in_place_faster_up
 	step_end
 
 Route101_Movement_BirchRunInCircles:
