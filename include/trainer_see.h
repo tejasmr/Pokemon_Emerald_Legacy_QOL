@@ -17,6 +17,7 @@ extern bool8 gTrainerApproachedPlayer;
 extern u8 gApproachingTrainerId;
 
 bool8 CheckForTrainersWantingBattle(void);
+void SetTrainerSightDisabledTimer(u16 frames);
 void SetBuriedTrainerMovement(struct ObjectEvent *var);
 void DoTrainerApproach(void);
 void TryPrepareSecondApproachingTrainer(void);
