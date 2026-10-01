@@ -106,7 +106,7 @@ static const u16 sQolMenuText_Pal[] = INCBIN_U16("graphics/interface/option_menu
 /* QOL MENU TEXT (Header & System Text)            */
 /* ----------------------------------------------- */
 static const u8 sText_Header[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}QOL CONFIGURATION MENU");
-static const u8 sText_Version[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}v1.2.1");
+static const u8 sText_Version[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}v1.2.2");
 
 /* ----------------------------------------------- */
 /* QOL MENU TEXT (Option Choices)                  */
