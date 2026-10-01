@@ -509,7 +509,7 @@ static void SaveQolOptions(void)
 
         if (sLocalQolConfig.optionConfig[QOL_MOD_ITEMS] == QOL_MOD_ITEMS_OFF)
         {
-            if (gSaveBlock1Ptr->registeredItem >= ITEM_PORTA_HEAL && gSaveBlock1Ptr->registeredItem <= ITEM_PORTA_FLY)
+            if (gSaveBlock1Ptr->registeredItem >= ITEM_PORTA_HEAL && gSaveBlock1Ptr->registeredItem <= ITEM_PORTA_PC)
                 gSaveBlock1Ptr->registeredItem = ITEM_NONE;
             ClearItemSlots(gSaveBlock1Ptr->bagPocket_Mods, BAG_MODS_COUNT);
         }
@@ -527,6 +527,8 @@ static void SaveQolOptions(void)
                 AddBagItem(ITEM_INF_REPEL, 1);
             if (CheckBagHasItem(ITEM_PORTA_FLY, 1) == FALSE)
                 AddBagItem(ITEM_PORTA_FLY, 1);
+            if (CheckBagHasItem(ITEM_PORTA_PC, 1) == FALSE)
+                AddBagItem(ITEM_PORTA_PC, 1);
         }
     }
 }

@@ -59,6 +59,7 @@ static void PlayerFaceHiddenItem(u8);
 static void CheckForHiddenItemsInMapConnection(u8);
 static void Task_OpenRegisteredPokeblockCase(u8);
 static void Task_OpenRegisteredFlyMap(u8);
+static void ItemUseOnFieldCB_PortaPC(u8);
 static void ItemUseOnFieldCB_Bike(u8);
 static void ItemUseOnFieldCB_Rod(u8);
 static void ItemUseOnFieldCB_Itemfinder(u8);
@@ -289,6 +290,26 @@ void ItemUseOutOfBattle_PortaFly(u8 taskId)
         gFieldCallback = FieldCB_ReturnToFieldNoScript;
         FadeScreen(FADE_TO_BLACK, 0);
         gTasks[taskId].func = Task_OpenRegisteredFlyMap;
+    }
+}
+
+static void ItemUseOnFieldCB_PortaPC(u8 taskId)
+{
+    LockPlayerFieldControls();
+    ScriptContext_SetupScript(EventScript_PortaPC);
+    DestroyTask(taskId);
+}
+
+void ItemUseOutOfBattle_PortaPC(u8 taskId)
+{
+    if (MenuHelpers_IsLinkActive() == TRUE || InUnionRoom() == TRUE || InBattlePyramid())
+    {
+        DisplayDadsAdviceCannotUseItemMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem);
+    }
+    else
+    {
+        sItemUseOnFieldCB = ItemUseOnFieldCB_PortaPC;
+        SetUpItemUseOnFieldCallback(taskId);
     }
 }
 

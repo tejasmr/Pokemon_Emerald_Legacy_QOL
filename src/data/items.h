@@ -4616,4 +4616,17 @@ const struct Item gItems[] =
         .type = ITEM_USE_BAG_MENU,
         .fieldUseFunc = ItemUseOutOfBattle_PortaFly,
     },
+
+    [ITEM_PORTA_PC] =
+    {
+        .name = _("PORTA PC"),
+        .itemId = ITEM_PORTA_PC,
+        .price = 0,
+        .description = sPortaPcDesc,
+        .importance = 1,
+        .registrability = TRUE,
+        .pocket = POCKET_MODS,
+        .type = ITEM_USE_FIELD,
+        .fieldUseFunc = ItemUseOutOfBattle_PortaPC,
+    },
 };

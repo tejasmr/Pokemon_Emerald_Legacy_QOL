@@ -1576,3 +1576,7 @@ static const u8 sInfRepelDesc[] = _(
 static const u8 sPortaFlyDesc[] = _(
     "Fly to any visited\n"
     "town or city.");
+
+static const u8 sPortaPcDesc[] = _(
+    "Access the PC from\n"
+    "anywhere.");
