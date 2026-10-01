@@ -251,7 +251,6 @@ static void Task_NewGameBirchSpeech_ReshowBirchLotad(u8);
 static void Task_NewGameBirchSpeech_WaitForSpriteFadeInAndTextPrinter(u8);
 static void Task_NewGameBirchSpeech_AreYouReady(u8);
 static void Task_NewGameBirchSpeech_ShrinkPlayer(u8);
-static void SpriteCB_MovePlayerDownWhileShrinking(struct Sprite *);
 static void Task_NewGameBirchSpeech_WaitForPlayerShrink(u8);
 static void Task_NewGameBirchSpeech_FadePlayerToWhite(u8);
 static void Task_NewGameBirchSpeech_Cleanup(u8);
@@ -1900,7 +1899,7 @@ static void Task_NewGameBirchSpeech_ShrinkPlayer(u8 taskId)
             gSprites[spriteId].affineAnims = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? sSpriteAffineAnimTable_PlayerShrinkFast : sSpriteAffineAnimTable_PlayerShrink;
             InitSpriteAffineAnim(&gSprites[spriteId]);
             StartSpriteAffineAnim(&gSprites[spriteId], 0);
-            gSprites[spriteId].callback = SpriteCB_MovePlayerDownWhileShrinking;
+            gSprites[spriteId].callback = SpriteCB_Null;
             BeginNormalPaletteFade(PALETTES_BG, 0, 0, 16, RGB_BLACK);
             FadeOutBGM(CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? 1 : 4);
             gTasks[taskId].func = Task_NewGameBirchSpeech_WaitForPlayerShrink;
@@ -2020,16 +2019,6 @@ static void CB2_NewGameBirchSpeech_ReturnFromNamingScreen(void)
 
 static void SpriteCB_Null(struct Sprite *sprite)
 {
-}
-
-static void SpriteCB_MovePlayerDownWhileShrinking(struct Sprite *sprite)
-{
-    u32 y;
-    u32 step = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT) ? 0x30000 : 0xC000;
-
-    y = (sprite->y << 16) + sprite->data[0] + step;
-    sprite->y = y >> 16;
-    sprite->data[0] = y;
 }
 
 static u8 NewGameBirchSpeech_CreateLotadSprite(u8 x, u8 y)
