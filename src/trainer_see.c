@@ -13,6 +13,7 @@
 #include "trainer_hill.h"
 #include "util.h"
 #include "battle_pyramid.h"
+#include "qol.h"
 #include "constants/battle_setup.h"
 #include "constants/event_objects.h"
 #include "constants/event_object_movement.h"
@@ -159,10 +160,24 @@ static const union AnimCmd sSpriteAnim_Icons2[] =
     ANIMCMD_END
 };
 
+static const union AnimCmd sSpriteAnim_Icons1Fast[] =
+{
+    ANIMCMD_FRAME(0, 18),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sSpriteAnim_Icons2Fast[] =
+{
+    ANIMCMD_FRAME(1, 18),
+    ANIMCMD_END
+};
+
 static const union AnimCmd *const sSpriteAnimTable_Icons[] =
 {
     sSpriteAnim_Icons1,
-    sSpriteAnim_Icons2
+    sSpriteAnim_Icons2,
+    sSpriteAnim_Icons1Fast,
+    sSpriteAnim_Icons2Fast
 };
 
 static const struct SpriteTemplate sSpriteTemplate_ExclamationQuestionMark =
@@ -493,7 +508,10 @@ static bool8 TrainerMoveToPlayer(u8 taskId, struct Task *task, struct ObjectEven
     {
         if (task->tTrainerRange)
         {
-            ObjectEventSetHeldMovement(trainerObj, GetWalkNormalMovementAction(trainerObj->facingDirection));
+            u8 movementAction = CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT)
+                ? GetWalkFastMovementAction(trainerObj->facingDirection)
+                : GetWalkNormalMovementAction(trainerObj->facingDirection);
+            ObjectEventSetHeldMovement(trainerObj, movementAction);
             task->tTrainerRange--;
         }
         else
@@ -738,6 +756,9 @@ static void SetIconSpriteData(struct Sprite *sprite, u16 fldEffId, u8 spriteAnim
     sprite->sMapGroup = gFieldEffectArguments[2];
     sprite->sYVelocity = -5;
     sprite->sFldEffId = fldEffId;
+
+    if (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+        spriteAnimNum += 2;
 
     StartSpriteAnim(sprite, spriteAnimNum);
 }
