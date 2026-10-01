@@ -143,7 +143,7 @@ static const u8 sText_Page3[]    = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}3/3");
 static const u8 sOption_Preset[]        = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}PRESET");
 static const u8 sOption_HoldA[]         = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}HOLD A BUTTON");
 static const u8 sOption_BattleSpeed[]   = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}BATTLE SPEED");
-static const u8 sOption_BattleAnims[]   = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}BATTLE ANIMS");
+static const u8 sOption_QuickAnims[]    = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}QUICK ANIMS");
 static const u8 sOption_Fanfares[]      = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}FANFARES");
 
 static const u8 sOption_FastHealing[]   = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}FAST HEALING");
@@ -172,7 +172,7 @@ static const u8 sTooltip_Explanation[]    = _("Configure Quality of Life options
 static const u8 sTooltip_Preset[]         = _("Quickly select between preset configurations.\nDEFAULT: All QOL features enabled.\nVANILLA: Original Emerald mechanics.\nCUSTOM: Customized settings.");
 static const u8 sTooltip_HoldA[]          = _("YES: Holding A accelerates text printing\ninstantly.\nNO: Text prints at standard option speed.");
 static const u8 sTooltip_BattleSpeed[]    = _("FAST: Quick intro & send-out animations.\nVANILLA: Standard battle speed.");
-static const u8 sTooltip_BattleAnims[]    = _("SHORT: Skip stat change & shiny sparkle\nentry animations.\nVANILLA: Standard animation flow.");
+static const u8 sTooltip_QuickAnims[]     = _("SHORT: Skip stat change & sparkle anims,\nand accelerate intro fade transitions.\nVANILLA: Standard animation flow.");
 static const u8 sTooltip_Fanfares[]       = _("SKIP: Silence level-up, item, and badge\nfanfares for faster pacing.\nVANILLA: Play all standard fanfares.");
 
 static const u8 sTooltip_FastHealing[]    = _("FAST: Quick Poké Center healing without\nlengthy Nurse Joy dialogues.\nVANILLA: Standard healing sequence.");
@@ -204,7 +204,7 @@ struct QolOptionData
 static const u8 *const sChoices_Preset[]        = { sText_Default, sText_Vanilla, sText_Custom };
 static const u8 *const sChoices_HoldA[]         = { sText_Yes, sText_No };
 static const u8 *const sChoices_BattleSpeed[]   = { sText_Fast, sText_Vanilla };
-static const u8 *const sChoices_BattleAnims[]   = { sText_Short, sText_Vanilla };
+static const u8 *const sChoices_QuickAnims[]    = { sText_Short, sText_Vanilla };
 static const u8 *const sChoices_Fanfares[]      = { sText_Skip, sText_Vanilla };
 
 static const u8 *const sChoices_FastHealing[]   = { sText_Fast, sText_Vanilla };
@@ -226,7 +226,7 @@ static const struct QolOptionData sQolOptions[CURRENT_QOL_OPTIONS_NUM + 1] =
     [QOL_PRESET]         = { sOption_Preset,         sChoices_Preset,        3, sTooltip_Preset },
     [QOL_HOLD_A]         = { sOption_HoldA,          sChoices_HoldA,         2, sTooltip_HoldA },
     [QOL_BATTLE_SPEED]   = { sOption_BattleSpeed,    sChoices_BattleSpeed,   2, sTooltip_BattleSpeed },
-    [QOL_BATTLE_ANIMS]   = { sOption_BattleAnims,    sChoices_BattleAnims,   2, sTooltip_BattleAnims },
+    [QOL_QUICK_ANIMS]    = { sOption_QuickAnims,     sChoices_QuickAnims,    2, sTooltip_QuickAnims },
     [QOL_FANFARES]       = { sOption_Fanfares,       sChoices_Fanfares,      2, sTooltip_Fanfares },
 
     [QOL_FAST_HEALING]   = { sOption_FastHealing,    sChoices_FastHealing,   2, sTooltip_FastHealing },
@@ -252,7 +252,7 @@ static const u8 sPresetDefault[CURRENT_QOL_OPTIONS_NUM] =
     [QOL_PRESET]         = QOL_PRESET_DEFAULT,
     [QOL_HOLD_A]         = QOL_HOLD_A_YES,
     [QOL_BATTLE_SPEED]   = QOL_BATTLE_SPEED_FAST,
-    [QOL_BATTLE_ANIMS]   = QOL_ANIMS_SHORT,
+    [QOL_QUICK_ANIMS]    = QOL_ANIMS_SHORT,
     [QOL_FANFARES]       = QOL_FANFARES_SKIP,
     [QOL_FAST_HEALING]   = QOL_HEALING_FAST,
     [QOL_WALLY_TUTORIAL] = QOL_WALLY_SKIP,
@@ -271,7 +271,7 @@ static const u8 sPresetVanilla[CURRENT_QOL_OPTIONS_NUM] =
     [QOL_PRESET]         = QOL_PRESET_VANILLA,
     [QOL_HOLD_A]         = QOL_HOLD_A_NO,
     [QOL_BATTLE_SPEED]   = QOL_BATTLE_SPEED_VANILLA,
-    [QOL_BATTLE_ANIMS]   = QOL_ANIMS_VANILLA,
+    [QOL_QUICK_ANIMS]    = QOL_ANIMS_VANILLA,
     [QOL_FANFARES]       = QOL_FANFARES_VANILLA,
     [QOL_FAST_HEALING]   = QOL_HEALING_VANILLA,
     [QOL_WALLY_TUTORIAL] = QOL_WALLY_VANILLA,
@@ -466,7 +466,7 @@ static void SaveQolOptions(void)
     gSaveBlock2Ptr->qolConfig.preset         = sLocalQolConfig.optionConfig[QOL_PRESET];
     gSaveBlock2Ptr->qolConfig.holdA          = sLocalQolConfig.optionConfig[QOL_HOLD_A];
     gSaveBlock2Ptr->qolConfig.battleSpeed    = sLocalQolConfig.optionConfig[QOL_BATTLE_SPEED];
-    gSaveBlock2Ptr->qolConfig.battleAnims    = sLocalQolConfig.optionConfig[QOL_BATTLE_ANIMS];
+    gSaveBlock2Ptr->qolConfig.quickAnims     = sLocalQolConfig.optionConfig[QOL_QUICK_ANIMS];
     gSaveBlock2Ptr->qolConfig.fanfares       = sLocalQolConfig.optionConfig[QOL_FANFARES];
     gSaveBlock2Ptr->qolConfig.fastHealing    = sLocalQolConfig.optionConfig[QOL_FAST_HEALING];
     gSaveBlock2Ptr->qolConfig.wallyTutorial  = sLocalQolConfig.optionConfig[QOL_WALLY_TUTORIAL];
@@ -809,7 +809,7 @@ static void LoadQolOptions(void)
     sLocalQolConfig.optionConfig[QOL_PRESET]          = gSaveBlock2Ptr->qolConfig.preset;
     sLocalQolConfig.optionConfig[QOL_HOLD_A]          = gSaveBlock2Ptr->qolConfig.holdA;
     sLocalQolConfig.optionConfig[QOL_BATTLE_SPEED]    = gSaveBlock2Ptr->qolConfig.battleSpeed;
-    sLocalQolConfig.optionConfig[QOL_BATTLE_ANIMS]    = gSaveBlock2Ptr->qolConfig.battleAnims;
+    sLocalQolConfig.optionConfig[QOL_QUICK_ANIMS]     = gSaveBlock2Ptr->qolConfig.quickAnims;
     sLocalQolConfig.optionConfig[QOL_FANFARES]        = gSaveBlock2Ptr->qolConfig.fanfares;
     sLocalQolConfig.optionConfig[QOL_FAST_HEALING]    = gSaveBlock2Ptr->qolConfig.fastHealing;
     sLocalQolConfig.optionConfig[QOL_WALLY_TUTORIAL]  = gSaveBlock2Ptr->qolConfig.wallyTutorial;
@@ -836,8 +836,8 @@ bool8 CheckQolOption(u8 option, u8 selection)
         return gSaveBlock2Ptr->qolConfig.holdA == selection;
     case QOL_BATTLE_SPEED:
         return gSaveBlock2Ptr->qolConfig.battleSpeed == selection;
-    case QOL_BATTLE_ANIMS:
-        return gSaveBlock2Ptr->qolConfig.battleAnims == selection;
+    case QOL_QUICK_ANIMS:
+        return gSaveBlock2Ptr->qolConfig.quickAnims == selection;
     case QOL_FANFARES:
         return gSaveBlock2Ptr->qolConfig.fanfares == selection;
     case QOL_FAST_HEALING:
@@ -878,8 +878,8 @@ u8 GetQolOption(u8 option)
         return gSaveBlock2Ptr->qolConfig.holdA;
     case QOL_BATTLE_SPEED:
         return gSaveBlock2Ptr->qolConfig.battleSpeed;
-    case QOL_BATTLE_ANIMS:
-        return gSaveBlock2Ptr->qolConfig.battleAnims;
+    case QOL_QUICK_ANIMS:
+        return gSaveBlock2Ptr->qolConfig.quickAnims;
     case QOL_FANFARES:
         return gSaveBlock2Ptr->qolConfig.fanfares;
     case QOL_FAST_HEALING:
