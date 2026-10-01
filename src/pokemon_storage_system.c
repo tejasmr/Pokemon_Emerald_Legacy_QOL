@@ -36,6 +36,7 @@
 #include "trig.h"
 #include "walda_phrase.h"
 #include "window.h"
+#include "qol.h"
 #include "constants/items.h"
 #include "constants/moves.h"
 #include "constants/rgb.h"
@@ -3897,6 +3898,13 @@ static void StartDisplayMonMosaicEffect(void)
     RefreshDisplayMonData();
     if (sStorage->displayMonSprite)
     {
+        if (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+        {
+            sStorage->displayMonSprite->oam.mosaic = FALSE;
+            sStorage->displayMonSprite->callback = SpriteCallbackDummy;
+            SetGpuReg(REG_OFFSET_MOSAIC, 0);
+            return;
+        }
         sStorage->displayMonSprite->oam.mosaic = TRUE;
         sStorage->displayMonSprite->data[0] = 10;
         sStorage->displayMonSprite->data[1] = 1;
@@ -4080,6 +4088,22 @@ static bool8 ShowPartyMenu(void)
     if (sStorage->partyMenuMoveTimer == 20)
         return FALSE;
 
+    if (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+    {
+        while (sStorage->partyMenuMoveTimer < 20)
+        {
+            sStorage->partyMenuUnused1--;
+            sStorage->partyMenuY++;
+            TilemapUtil_Move(TILEMAPID_PARTY_MENU, 3, 1);
+            MovePartySprites(8);
+            sStorage->partyMenuMoveTimer++;
+        }
+        TilemapUtil_Update(TILEMAPID_PARTY_MENU);
+        ScheduleBgCopyTilemapToVram(1);
+        sInPartyMenu = TRUE;
+        return FALSE;
+    }
+
     sStorage->partyMenuUnused1--;
     sStorage->partyMenuY++;
     TilemapUtil_Move(TILEMAPID_PARTY_MENU, 3, 1);
@@ -4110,6 +4134,28 @@ static bool8 HidePartyMenu(void)
 {
     if (sStorage->partyMenuMoveTimer != 20)
     {
+        if (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+        {
+            while (sStorage->partyMenuMoveTimer < 20)
+            {
+                sStorage->partyMenuUnused1++;
+                sStorage->partyMenuY--;
+                TilemapUtil_Move(TILEMAPID_PARTY_MENU, 3, -1);
+                FillBgTilemapBufferRect_Palette0(1, 0x100, 10, sStorage->partyMenuY, 12, 1);
+                MovePartySprites(-8);
+                sStorage->partyMenuMoveTimer++;
+            }
+            TilemapUtil_Update(TILEMAPID_PARTY_MENU);
+            sInPartyMenu = FALSE;
+            DestroyAllPartyMonIcons();
+            CompactPartySlots();
+
+            TilemapUtil_SetRect(TILEMAPID_CLOSE_BUTTON, 0, 0, 9, 2);
+            TilemapUtil_Update(TILEMAPID_CLOSE_BUTTON);
+            ScheduleBgCopyTilemapToVram(1);
+            return FALSE;
+        }
+
         sStorage->partyMenuUnused1++;
         sStorage->partyMenuY--;
         TilemapUtil_Move(TILEMAPID_PARTY_MENU, 3, -1);
@@ -4790,7 +4836,8 @@ static void CompactPartySprites(void)
             {
                 MovePartySpriteToNextSlot(sStorage->partySprites[i], targetSlot);
                 sStorage->partySprites[i] = NULL;
-                sStorage->numPartyToCompact++;
+                if (!CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+                    sStorage->numPartyToCompact++;
             }
             targetSlot++;
         }
@@ -4813,12 +4860,21 @@ static void MovePartySpriteToNextSlot(struct Sprite *sprite, u16 partyId)
 {
     s16 x, y;
 
-    sprite->sPartyId = partyId;
     if (partyId == 0)
         x = 104, y = 64;
     else
         x = 152, y = 8 * (3 * (partyId - 1)) + 16;
 
+    if (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+    {
+        sprite->x = x;
+        sprite->y = y;
+        sprite->callback = SpriteCallbackDummy;
+        sStorage->partySprites[partyId] = sprite;
+        return;
+    }
+
+    sprite->sPartyId = partyId;
     sprite->sMonX = (u16)(sprite->x) * 8;
     sprite->sMonY = (u16)(sprite->y) * 8;
     sprite->sSpeedX = ((x * 8) - sprite->sMonX) / 8;
@@ -4974,8 +5030,31 @@ static void SaveMonSpriteAtPos(u8 boxId, u8 position)
 
 static bool8 MoveShiftingMons(void)
 {
+    struct Sprite *sprite;
+
     if (sStorage->shiftTimer == 16)
         return FALSE;
+
+    if (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+    {
+        (*sStorage->shiftMonSpritePtr)->y -= 8;
+        sStorage->movingMonSprite->y += 8;
+        (*sStorage->shiftMonSpritePtr)->x2 = 0;
+        sStorage->movingMonSprite->x2 = 0;
+        sStorage->movingMonSprite->oam.priority = (*sStorage->shiftMonSpritePtr)->oam.priority;
+        sStorage->movingMonSprite->subpriority = (*sStorage->shiftMonSpritePtr)->subpriority;
+        (*sStorage->shiftMonSpritePtr)->oam.priority = GetMonIconPriorityByCursorPos();
+        (*sStorage->shiftMonSpritePtr)->subpriority = 7;
+
+        sprite = sStorage->movingMonSprite;
+        sStorage->movingMonSprite = (*sStorage->shiftMonSpritePtr);
+        *sStorage->shiftMonSpritePtr = sprite;
+
+        sStorage->movingMonSprite->callback = SpriteCB_HeldMon;
+        (*sStorage->shiftMonSpritePtr)->callback = SpriteCallbackDummy;
+        sStorage->shiftTimer = 16;
+        return FALSE;
+    }
 
     sStorage->shiftTimer++;
     if (sStorage->shiftTimer & 1)
@@ -4996,7 +5075,7 @@ static bool8 MoveShiftingMons(void)
 
     if (sStorage->shiftTimer == 16)
     {
-        struct Sprite *sprite = sStorage->movingMonSprite;
+        sprite = sStorage->movingMonSprite;
         sStorage->movingMonSprite = (*sStorage->shiftMonSpritePtr);
         *sStorage->shiftMonSpritePtr = sprite;
 
@@ -5259,6 +5338,7 @@ static void SetUpScrollToBox(u8 boxId)
 static bool8 ScrollToBox(void)
 {
     bool8 iconsScrolling;
+    u16 i;
 
     switch (sStorage->scrollState)
     {
@@ -5268,6 +5348,28 @@ static bool8 ScrollToBox(void)
     case 1:
         if (!WaitForWallpaperGfxLoad())
             return TRUE;
+
+        if (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+        {
+            CreateIncomingBoxTitle(sStorage->scrollToBoxId, sStorage->scrollDirection);
+            sStorage->bg2_X += sStorage->scrollSpeed * sStorage->scrollTimer;
+            sStorage->scrollTimer = 0;
+
+            sStorage->nextBoxTitleSprites[0]->x = sStorage->nextBoxTitleSprites[0]->data[1];
+            sStorage->nextBoxTitleSprites[1]->x = sStorage->nextBoxTitleSprites[1]->data[1];
+            sStorage->nextBoxTitleSprites[0]->callback = SpriteCallbackDummy;
+            sStorage->nextBoxTitleSprites[1]->callback = SpriteCallbackDummy;
+            DestroySprite(sStorage->curBoxTitleSprites[0]);
+            DestroySprite(sStorage->curBoxTitleSprites[1]);
+            CycleBoxTitleSprites();
+            StopBoxScrollArrowsSlide();
+
+            for (i = 0; i < IN_BOX_COLUMNS; i++)
+                DestroyBoxMonIconsInColumn(i);
+            InitBoxMonSprites(sStorage->scrollToBoxId);
+
+            return FALSE;
+        }
 
         InitBoxMonIconScroll(sStorage->scrollToBoxId, sStorage->scrollDirection);
         CreateIncomingBoxTitle(sStorage->scrollToBoxId, sStorage->scrollDirection);
@@ -5946,13 +6048,25 @@ static void InitCursorMove(void)
 {
     int yDistance, xDistance;
 
-    if (sStorage->cursorVerticalWrap != 0 || sStorage->cursorHorizontalWrap != 0)
-        sStorage->cursorMoveSteps = 12;
+    if (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+    {
+        sStorage->cursorMoveSteps = 1;
+        if (sStorage->cursorFlipTimer)
+        {
+            sStorage->cursorSprite->vFlip = (sStorage->cursorSprite->vFlip == FALSE);
+            sStorage->cursorFlipTimer = 0;
+        }
+    }
     else
-        sStorage->cursorMoveSteps = 6;
+    {
+        if (sStorage->cursorVerticalWrap != 0 || sStorage->cursorHorizontalWrap != 0)
+            sStorage->cursorMoveSteps = 12;
+        else
+            sStorage->cursorMoveSteps = 6;
 
-    if (sStorage->cursorFlipTimer)
-        sStorage->cursorFlipTimer = sStorage->cursorMoveSteps >> 1;
+        if (sStorage->cursorFlipTimer)
+            sStorage->cursorFlipTimer = sStorage->cursorMoveSteps >> 1;
+    }
 
     switch (sStorage->cursorVerticalWrap)
     {
@@ -6261,6 +6375,12 @@ static bool8 MultiMonPlaceChange_Up(void)
 
 static bool8 MonPlaceChange_CursorDown(void)
 {
+    if (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+    {
+        sStorage->cursorSprite->y2 = 8;
+        return FALSE;
+    }
+
     switch (sStorage->cursorSprite->y2)
     {
     default:
@@ -6278,6 +6398,12 @@ static bool8 MonPlaceChange_CursorDown(void)
 
 static bool8 MonPlaceChange_CursorUp(void)
 {
+    if (CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+    {
+        sStorage->cursorSprite->y2 = 0;
+        return FALSE;
+    }
+
     switch (sStorage->cursorSprite->y2)
     {
     case 0: // Cursor has reached top
