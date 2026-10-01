@@ -1,9 +1,9 @@
 #ifndef GUARD_QOL_H
 #define GUARD_QOL_H
 
-#define CURRENT_QOL_OPTIONS_NUM 15
-#define QOL_OPTIONS_PER_PAGE 5
-#define QOL_MAX_PAGES 3
+#define CURRENT_QOL_OPTIONS_NUM 16
+#define QOL_OPTIONS_PER_PAGE 4
+#define QOL_MAX_PAGES 4
 #define ALL_QOL_OPTIONS_PER_PAGE (QOL_OPTIONS_PER_PAGE + 2)
 
 #define QOL_FONT_ID 1
@@ -15,17 +15,20 @@ enum QolOption
     QOL_HOLD_A,
     QOL_BATTLE_SPEED,
     QOL_QUICK_ANIMS,
-    QOL_FANFARES,
 
-    // Page 2: Convenience & Items
+    // Page 2: Convenience
+    QOL_FANFARES,
     QOL_FAST_HEALING,
     QOL_WALLY_TUTORIAL,
     QOL_EARLY_RUN,
+
+    // Page 3: Items & Fishing
     QOL_INFINITE_TMS,
     QOL_MOD_ITEMS,
-
-    // Page 3: Pokémon & Battles
+    QOL_EASY_FISHING,
     QOL_EXP_MULTIPLIER,
+
+    // Page 4: Pokémon & Battles
     QOL_CATCH_RATE,
     QOL_SHINY_RATE,
     QOL_PERFECT_IVS,
@@ -114,6 +117,14 @@ enum
     QOL_MOD_ITEMS_OFF
 };
 
+// Easy Fishing
+enum
+{
+    QOL_FISHING_EASY,
+    QOL_FISHING_GUARANTEE,
+    QOL_FISHING_VANILLA
+};
+
 // EXP Multiplier
 enum
 {
@@ -162,6 +173,7 @@ struct QolSaveOptions
     u8 earlyRun:1;
     u8 infiniteTms:1;
     u8 modItems:1;
+    u8 easyFishing:2;
     u8 expMultiplier:1;
     u8 catchRate:1;
     u8 shinyRate:2;

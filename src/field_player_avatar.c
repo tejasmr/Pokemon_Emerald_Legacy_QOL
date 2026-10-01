@@ -21,6 +21,7 @@
 #include "task.h"
 #include "tv.h"
 #include "wild_encounter.h"
+#include "qol.h"
 #include "constants/abilities.h"
 #include "constants/event_objects.h"
 #include "constants/event_object_movement.h"
@@ -1761,9 +1762,9 @@ static bool8 Fishing_WaitBeforeDots(struct Task *task)
 {
     AlignFishingAnimationFrames();
 
-    // Wait one second
+    // Wait before dots
     task->tFrameCounter++;
-    if (task->tFrameCounter >= 60)
+    if (task->tFrameCounter >= (!CheckQolOption(QOL_EASY_FISHING, QOL_FISHING_VANILLA) ? 5 : 60))
         task->tStep++;
     return FALSE;
 }
@@ -1776,19 +1777,27 @@ static bool8 Fishing_InitDots(struct Task *task)
     task->tStep++;
     task->tFrameCounter = 0;
     task->tNumDots = 0;
-    randVal = Random();
-    randVal %= 10;
-    task->tDotsRequired = randVal + 1;
-    if (task->tRoundsPlayed == 0)
-        task->tDotsRequired = randVal + 4;
-    if (task->tDotsRequired >= 10)
-        task->tDotsRequired = 10;
+    if (!CheckQolOption(QOL_EASY_FISHING, QOL_FISHING_VANILLA))
+    {
+        task->tDotsRequired = 3;
+    }
+    else
+    {
+        randVal = Random();
+        randVal %= 10;
+        task->tDotsRequired = randVal + 1;
+        if (task->tRoundsPlayed == 0)
+            task->tDotsRequired = randVal + 4;
+        if (task->tDotsRequired >= 10)
+            task->tDotsRequired = 10;
+    }
     return TRUE;
 }
 
 static bool8 Fishing_ShowDots(struct Task *task)
 {
     const u8 dot[] = _("·");
+    u8 waitTicks = !CheckQolOption(QOL_EASY_FISHING, QOL_FISHING_VANILLA) ? 2 : 20;
 
     AlignFishingAnimationFrames();
     task->tFrameCounter++;
@@ -1801,7 +1810,7 @@ static bool8 Fishing_ShowDots(struct Task *task)
     }
     else
     {
-        if (task->tFrameCounter >= 20)
+        if (task->tFrameCounter >= waitTicks)
         {
             task->tFrameCounter = 0;
             if (task->tNumDots >= task->tDotsRequired)
@@ -1835,22 +1844,29 @@ static bool8 Fishing_CheckForBite(struct Task *task)
     }
     else
     {
-        if (!GetMonData(&gPlayerParty[0], MON_DATA_SANITY_IS_EGG))
+        if (CheckQolOption(QOL_EASY_FISHING, QOL_FISHING_GUARANTEE))
         {
-            u8 ability = GetMonAbility(&gPlayerParty[0]);
-            if (ability == ABILITY_SUCTION_CUPS || ability  == ABILITY_STICKY_HOLD)
+            bite = TRUE;
+        }
+        else
+        {
+            if (!GetMonData(&gPlayerParty[0], MON_DATA_SANITY_IS_EGG))
             {
-                if (Random() % 100 > 14)
+                u8 ability = GetMonAbility(&gPlayerParty[0]);
+                if (ability == ABILITY_SUCTION_CUPS || ability  == ABILITY_STICKY_HOLD)
+                {
+                    if (Random() % 100 > 14)
+                        bite = TRUE;
+                }
+            }
+
+            if (!bite)
+            {
+                if (Random() & 1)
+                    task->tStep = FISHING_NO_BITE;
+                else
                     bite = TRUE;
             }
-        }
-
-        if (!bite)
-        {
-            if (Random() & 1)
-                task->tStep = FISHING_NO_BITE;
-            else
-                bite = TRUE;
         }
 
         if (bite == TRUE)
@@ -1890,7 +1906,17 @@ static bool8 Fishing_WaitForA(struct Task *task)
 static bool8 Fishing_CheckMoreDots(struct Task *task)
 {
     AlignFishingAnimationFrames();
-    task->tStep++; // Always proceed to the next step without more rounds.
+    if (!CheckQolOption(QOL_EASY_FISHING, QOL_FISHING_VANILLA))
+    {
+        task->tStep++; // Single round
+    }
+    else
+    {
+        if (task->tRoundsPlayed < task->tMinRoundsRequired)
+            task->tStep = FISHING_START_ROUND;
+        else
+            task->tStep++;
+    }
     return FALSE;
 }
 
