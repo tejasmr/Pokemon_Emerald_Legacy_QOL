@@ -2126,7 +2126,13 @@ u8 GetSpeciesPreferredNature(u16 species)
     u8 spDefense = gSpeciesInfo[finalSpecies].baseSpDefense;
 
     if (gSpeciesInfo[finalSpecies].baseSpeed < 60)
-        return attack > spAttack ? NATURE_BRAVE : NATURE_QUIET;
+    {
+        if (attack > spAttack)
+            return NATURE_BRAVE;
+        if (spAttack > attack)
+            return NATURE_QUIET;
+        return (IS_TYPE_SPECIAL(type1) || IS_TYPE_SPECIAL(type2)) ? NATURE_QUIET : NATURE_BRAVE;
+    }
 
     if ((IS_TYPE_PHYSICAL(type1) && IS_TYPE_SPECIAL(type2))
      || (IS_TYPE_SPECIAL(type1) && IS_TYPE_PHYSICAL(type2)))
@@ -2148,7 +2154,11 @@ u8 GetSpeciesPreferredNature(u16 species)
     if (attack < spAttack)
         return NATURE_MODEST;
 
-    return Random() % NUM_NATURES;
+    // Tie-breaker when attack == spAttack: prefer nature matching type
+    if (IS_TYPE_SPECIAL(type1) || IS_TYPE_SPECIAL(type2))
+        return NATURE_MODEST;
+    else
+        return NATURE_ADAMANT;
 }
 
 // 3 modifiers each for how much to change friendship for different ranges
