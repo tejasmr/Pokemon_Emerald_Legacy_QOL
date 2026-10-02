@@ -35,5 +35,6 @@ bool8 ShouldShowBoxWasFullMessage(void);
 void SetPCBoxToSendMon(u8 boxId);
 bool8 IsQolFastHealingEnabled(void);
 bool8 IsQolWallyTutorialSkipped(void);
+bool8 IsQolSkipScott(void);
 
 #endif // GUARD_FIELD_SPECIALS_H

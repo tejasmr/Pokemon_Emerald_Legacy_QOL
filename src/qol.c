@@ -165,6 +165,7 @@ static const u8 sOption_PerfectIvs[]    = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}PE
 static const u8 sOption_PreferNature[]  = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}PREFER NATURE");
 static const u8 sOption_FreeHms[]       = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}FREE HMS");
 static const u8 sOption_AlwaysFlash[]   = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}ALWAYS FLASH");
+static const u8 sOption_SkipScott[]     = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}SKIP SCOTT");
 
 static const u8 sOption_Page[]          = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}PAGE");
 static const u8 sOption_StartGame[]     = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}START GAME");
@@ -199,6 +200,7 @@ static const u8 sTooltip_PerfectIvs[]     = _("MAX 31: All caught and hatched Po
 static const u8 sTooltip_PreferNature[]   = _("ON: Pokémon automatically receive optimal\nnature (Adamant/Modest/etc.)\nOFF: Standard random natures.");
 static const u8 sTooltip_FreeHms[]        = _("ON: Use overworld HMs without learning\nthe move if badge is obtained.\nOFF: Must know the HM move.");
 static const u8 sTooltip_AlwaysFlash[]    = _("ON: Dark caves are automatically lit up\nwith Flash without using the move.\nOFF: Must use Flash to light up caves.");
+static const u8 sTooltip_SkipScott[]      = _("ON: Skip Scott cutscenes and dialogue\nwhile preserving Match Call & BP rewards.\nOFF: Standard Scott encounters.");
 static const u8 sTooltip_Page[]           = _("Switch between QOL configuration pages.\nPress LEFT/RIGHT or L/R triggers to flip\npages.");
 static const u8 sTooltip_StartGame[]      = _("Save configured Quality of Life options\nand proceed to begin your adventure!");
 static const u8 sTooltip_SaveExit[]       = _("Save configured Quality of Life options\nand return to the game.");
@@ -236,6 +238,7 @@ static const u8 *const sChoices_PerfectIvs[]    = { sText_Max31, sText_Random };
 static const u8 *const sChoices_PreferNature[]  = { sText_On, sText_Off };
 static const u8 *const sChoices_FreeHms[]       = { sText_On, sText_Off };
 static const u8 *const sChoices_AlwaysFlash[]   = { sText_On, sText_Off };
+static const u8 *const sChoices_SkipScott[]     = { sText_On, sText_Off };
 
 static const u8 *const sChoices_Page[]          = { sText_Page1, sText_Page2, sText_Page3, sText_Page4 };
 
@@ -267,6 +270,7 @@ static const struct QolOptionData sQolOptions[CURRENT_QOL_OPTIONS_NUM + 1] =
     [QOL_PREFER_NATURE]      = { sOption_PreferNature,   sChoices_PreferNature,  2, sTooltip_PreferNature },
     [QOL_FREE_HMS]           = { sOption_FreeHms,        sChoices_FreeHms,       2, sTooltip_FreeHms },
     [QOL_ALWAYS_FLASH]       = { sOption_AlwaysFlash,    sChoices_AlwaysFlash,   2, sTooltip_AlwaysFlash },
+    [QOL_SKIP_SCOTT]         = { sOption_SkipScott,      sChoices_SkipScott,     2, sTooltip_SkipScott },
 
     [QOL_PAGE]               = { sOption_Page,           sChoices_Page,          4, sTooltip_Page },
 };
@@ -295,6 +299,7 @@ static const u8 sPresetDefault[CURRENT_QOL_OPTIONS_NUM] =
     [QOL_PREFER_NATURE]      = QOL_NATURE_ON,
     [QOL_FREE_HMS]           = QOL_FREE_HMS_ON,
     [QOL_ALWAYS_FLASH]       = QOL_ALWAYS_FLASH_ON,
+    [QOL_SKIP_SCOTT]         = QOL_SKIP_SCOTT_ON,
 };
 
 static const u8 sPresetVanilla[CURRENT_QOL_OPTIONS_NUM] =
@@ -318,6 +323,7 @@ static const u8 sPresetVanilla[CURRENT_QOL_OPTIONS_NUM] =
     [QOL_PREFER_NATURE]      = QOL_NATURE_OFF,
     [QOL_FREE_HMS]           = QOL_FREE_HMS_OFF,
     [QOL_ALWAYS_FLASH]       = QOL_ALWAYS_FLASH_OFF,
+    [QOL_SKIP_SCOTT]         = QOL_SKIP_SCOTT_OFF,
 };
 
 /* ----------------------------------------------- */
@@ -517,6 +523,7 @@ static void SaveQolOptions(void)
     gSaveBlock2Ptr->qolConfig.preferNature   = sLocalQolConfig.optionConfig[QOL_PREFER_NATURE];
     gSaveBlock2Ptr->qolConfig.freeHms        = sLocalQolConfig.optionConfig[QOL_FREE_HMS];
     gSaveBlock2Ptr->qolConfig.alwaysFlash    = sLocalQolConfig.optionConfig[QOL_ALWAYS_FLASH];
+    gSaveBlock2Ptr->qolConfig.skipScott      = sLocalQolConfig.optionConfig[QOL_SKIP_SCOTT];
 
     if (gMain.savedCallback != NULL)
     {
@@ -868,6 +875,7 @@ static void LoadQolOptions(void)
     sLocalQolConfig.optionConfig[QOL_PREFER_NATURE]      = gSaveBlock2Ptr->qolConfig.preferNature;
     sLocalQolConfig.optionConfig[QOL_FREE_HMS]           = gSaveBlock2Ptr->qolConfig.freeHms;
     sLocalQolConfig.optionConfig[QOL_ALWAYS_FLASH]       = gSaveBlock2Ptr->qolConfig.alwaysFlash;
+    sLocalQolConfig.optionConfig[QOL_SKIP_SCOTT]         = gSaveBlock2Ptr->qolConfig.skipScott;
 }
 
 bool8 CheckQolOption(u8 option, u8 selection)
@@ -915,6 +923,8 @@ bool8 CheckQolOption(u8 option, u8 selection)
         return gSaveBlock2Ptr->qolConfig.freeHms == selection;
     case QOL_ALWAYS_FLASH:
         return gSaveBlock2Ptr->qolConfig.alwaysFlash == selection;
+    case QOL_SKIP_SCOTT:
+        return gSaveBlock2Ptr->qolConfig.skipScott == selection;
     default:
         return FALSE;
     }
@@ -965,6 +975,8 @@ u8 GetQolOption(u8 option)
         return gSaveBlock2Ptr->qolConfig.freeHms;
     case QOL_ALWAYS_FLASH:
         return gSaveBlock2Ptr->qolConfig.alwaysFlash;
+    case QOL_SKIP_SCOTT:
+        return gSaveBlock2Ptr->qolConfig.skipScott;
     default:
         return 0;
     }

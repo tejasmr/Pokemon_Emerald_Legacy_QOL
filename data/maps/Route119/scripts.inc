@@ -169,6 +169,8 @@ Route119_EventScript_RivalExitScottArrive::
 	setvar VAR_ROUTE119_STATE, 1
 	savebgm MUS_DUMMY
 	fadedefaultbgm
+	specialvar VAR_RESULT, IsQolSkipScott
+	goto_if_eq VAR_RESULT, TRUE, Route119_EventScript_SkipScott
 	delay 5
 	call_if_eq VAR_TEMP_1, 1, Route119_EventScript_SetScottPos1
 	call_if_eq VAR_TEMP_1, 2, Route119_EventScript_SetScottPos2
@@ -181,6 +183,11 @@ Route119_EventScript_RivalExitScottArrive::
 	call_if_eq VAR_TEMP_1, 1, Route119_EventScript_ScottExit1
 	call_if_eq VAR_TEMP_1, 2, Route119_EventScript_ScottExit2
 	removeobject LOCALID_SCOTT
+	releaseall
+	end
+
+Route119_EventScript_SkipScott::
+	addvar VAR_SCOTT_STATE, 1
 	releaseall
 	end
 

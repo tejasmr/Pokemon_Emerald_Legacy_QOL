@@ -188,6 +188,8 @@ SSTidalCorridor_EventScript_TrainerNotDefeated::
 
 SSTidalCorridor_EventScript_ScottScene::
 	lockall
+	specialvar VAR_RESULT, IsQolSkipScott
+	goto_if_eq VAR_RESULT, TRUE, SSTidalCorridor_EventScript_SkipScott
 	applymovement LOCALID_SCOTT, SSTidalCorridor_Movement_ScottApproachPlayer
 	waitmovement 0
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight
@@ -204,6 +206,13 @@ SSTidalCorridor_EventScript_ScottScene::
 	applymovement LOCALID_SAILOR, SSTidalCorridor_Movement_SailorReturn
 	waitmovement 0
 	delay 5
+	setflag FLAG_MET_SCOTT_ON_SS_TIDAL
+	setvar VAR_SS_TIDAL_SCOTT_STATE, 1
+	releaseall
+	end
+
+SSTidalCorridor_EventScript_SkipScott::
+	removeobject LOCALID_SCOTT
 	setflag FLAG_MET_SCOTT_ON_SS_TIDAL
 	setvar VAR_SS_TIDAL_SCOTT_STATE, 1
 	releaseall
