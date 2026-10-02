@@ -1,7 +1,7 @@
 #ifndef GUARD_QOL_H
 #define GUARD_QOL_H
 
-#define CURRENT_QOL_OPTIONS_NUM 17
+#define CURRENT_QOL_OPTIONS_NUM 18
 #define QOL_OPTIONS_PER_PAGE 5
 #define QOL_MAX_PAGES 4
 #define ALL_QOL_OPTIONS_PER_PAGE (QOL_OPTIONS_PER_PAGE + 2)
@@ -34,6 +34,7 @@ enum QolOption
     // Page 4: Pokémon & Battles
     QOL_PERFECT_IVS,
     QOL_PREFER_NATURE,
+    QOL_FREE_HMS,
 
     // Navigation items
     QOL_PAGE,
@@ -169,6 +170,13 @@ enum
     QOL_NATURE_OFF
 };
 
+// Free HMs
+enum
+{
+    QOL_FREE_HMS_ON,
+    QOL_FREE_HMS_OFF
+};
+
 struct QolSaveOptions
 {
     u8 preset:2;
@@ -188,6 +196,7 @@ struct QolSaveOptions
     u8 shinyRate:2;
     u8 perfectIvs:1;
     u8 preferNature:1;
+    u8 freeHms:1;
 };
 
 void CB2_InitQolMenu(void);
