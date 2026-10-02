@@ -4622,6 +4622,7 @@ static bool8 TrySetMonEVByDelta(struct Pokemon *mon, u8 statId, s16 delta)
 static void Task_EVEditorChooseStat(u8 taskId)
 {
     struct WindowTemplate window;
+    static const u8 sEvEditorStatResetAll[] = _("RESET ALL");
     const u8 *statText[] =
     {
         gText_HP3,
@@ -4630,6 +4631,7 @@ static void Task_EVEditorChooseStat(u8 taskId)
         gText_Speed2,
         gText_SpAtk3,
         gText_SpDef3,
+        sEvEditorStatResetAll,
     };
     static const u8 sEvEditorActionPlus[] = _("+4 EV");
     static const u8 sEvEditorActionMinus[] = _("-4 EV");
@@ -4653,16 +4655,16 @@ static void Task_EVEditorChooseStat(u8 taskId)
 
     if (gTasks[taskId].data[0] == 0)
     {
-        SetWindowTemplateFields(&window, 2, 20, 7, 9, 12, 14, 0x2E9);
+        SetWindowTemplateFields(&window, 2, 20, 5, 9, 14, 14, 0x2E9);
         sPartyMenuInternal->windowId[0] = AddWindow(&window);
         DrawStdFrameWithCustomTileAndPalette(sPartyMenuInternal->windowId[0], FALSE, 0x4F, 13);
         cursorDimension = GetMenuCursorDimensionByFont(FONT_NORMAL, 0);
         letterSpacing = GetFontAttribute(FONT_NORMAL, FONTATTR_LETTER_SPACING);
 
-        for (i = 0; i < 6; i++)
+        for (i = 0; i < 7; i++)
             AddTextPrinterParameterized4(sPartyMenuInternal->windowId[0], FONT_NORMAL, cursorDimension, (i * 16) + 1, letterSpacing, 0, sFontColorTable[3], 0, statText[i]);
 
-        InitMenuInUpperLeftCorner(sPartyMenuInternal->windowId[0], 6, 0, TRUE);
+        InitMenuInUpperLeftCorner(sPartyMenuInternal->windowId[0], 7, 0, TRUE);
         ScheduleBgCopyTilemapToVram(2);
         gTasks[taskId].data[0] = 1;
         return;
@@ -4681,6 +4683,38 @@ static void Task_EVEditorChooseStat(u8 taskId)
         input = ProcessMenuInput_other();
         if (input == MENU_NOTHING_CHOSEN)
             return;
+
+        if (input == 6)
+        {
+            u16 zero = 0;
+            changed = FALSE;
+            for (i = 0; i < NUM_STATS; i++)
+            {
+                if (GetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_HP_EV + i) != 0)
+                {
+                    SetMonData(&gPlayerParty[gPartyMenu.slotId], MON_DATA_HP_EV + i, &zero);
+                    changed = TRUE;
+                }
+            }
+            ClearWindowTilemap(sPartyMenuInternal->windowId[0]);
+            PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+            
+            if (!changed)
+            {
+                gPartyMenuUseExitCallback = FALSE;
+                PlaySE(SE_SELECT);
+                DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+                ScheduleBgCopyTilemapToVram(2);
+                gTasks[taskId].func = Task_EVEditorReturnToChooseStatAfterText;
+                return;
+            }
+
+            gPartyMenuUseExitCallback = FALSE;
+            PlaySE(SE_USE_ITEM);
+            gTasks[taskId].data[0] = 0;
+            gTasks[taskId].func = Task_EVEditorChooseStat;
+            return;
+        }
 
         gTasks[taskId].data[1] = input;
         ClearWindowTilemap(sPartyMenuInternal->windowId[0]);
@@ -4756,6 +4790,7 @@ static void Task_EVEditorChooseStat(u8 taskId)
         return;
     }
 
+    CalculateMonStats(&gPlayerParty[gPartyMenu.slotId]);
     gPartyMenuUseExitCallback = FALSE;
     PlaySE(SE_USE_ITEM);
     gTasks[taskId].data[0] = 0;
