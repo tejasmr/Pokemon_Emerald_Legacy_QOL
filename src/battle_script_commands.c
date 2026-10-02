@@ -4080,8 +4080,10 @@ static void Cmd_playanimation(void)
     if (gBattlescriptCurrInstr[2] == B_ANIM_STATS_CHANGE)
     {
         if (!CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+        {
             BtlController_EmitBattleAnimation(BUFFER_A, gBattlescriptCurrInstr[2], *argumentPtr);
-        MarkBattlerForControllerExec(gActiveBattler);
+            MarkBattlerForControllerExec(gActiveBattler);
+        }
         gBattlescriptCurrInstr += 7;
     }
     else if (gBattlescriptCurrInstr[2] == B_ANIM_SNATCH_MOVE
@@ -4130,8 +4132,10 @@ static void Cmd_playanimation_var(void)
     if (*animationIdPtr == B_ANIM_STATS_CHANGE)
     {
         if (!CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+        {
             BtlController_EmitBattleAnimation(BUFFER_A, *animationIdPtr, *argumentPtr);
-        MarkBattlerForControllerExec(gActiveBattler);
+            MarkBattlerForControllerExec(gActiveBattler);
+        }
         gBattlescriptCurrInstr += 10;
     }
     else if (*animationIdPtr == B_ANIM_SNATCH_MOVE
@@ -4278,8 +4282,10 @@ static void Cmd_playstatchangeanimation(void)
     else if (changeableStatsCount != 0 && !gBattleScripting.statAnimPlayed)
     {
         if (!CheckQolOption(QOL_QUICK_ANIMS, QOL_ANIMS_SHORT))
+        {
             BtlController_EmitBattleAnimation(BUFFER_A, B_ANIM_STATS_CHANGE, statAnimId);
-        MarkBattlerForControllerExec(gActiveBattler);
+            MarkBattlerForControllerExec(gActiveBattler);
+        }
         if (gBattlescriptCurrInstr[3] & STAT_CHANGE_MULTIPLE_STATS && changeableStatsCount > 1)
             gBattleScripting.statAnimPlayed = TRUE;
         gBattlescriptCurrInstr += 4;
