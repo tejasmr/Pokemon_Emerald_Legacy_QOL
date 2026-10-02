@@ -153,7 +153,6 @@ enum
 // Shiny Rate
 enum
 {
-    QOL_SHINY_ALL,
     QOL_SHINY_STARTER,
     QOL_SHINY_VANILLA
 };
@@ -209,7 +208,7 @@ struct QolSaveOptions
     u8 easyFishing:2;
     u8 expMultiplier:1;
     u8 catchRate:1;
-    u8 shinyRate:2;
+    u8 shinyRate:1;
     u8 perfectIvs:1;
     u8 preferNature:1;
     u8 freeHms:1;

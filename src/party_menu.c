@@ -4857,6 +4857,39 @@ void ItemUseCB_MoveRelearner(u8 taskId, TaskFunc task)
     Task_ClosePartyMenu(taskId);
 }
 
+void ItemUseCB_ShinyCharm(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+
+    if (GetMonData(mon, MON_DATA_IS_EGG) == TRUE)
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        PlaySE(SE_SELECT);
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = task;
+        return;
+    }
+
+    gPartyMenuUseExitCallback = TRUE;
+    GetMonNickname(mon, gStringVar1);
+    if (!IsMonShiny(mon))
+    {
+        ConvertMonToShiny(mon);
+        PlaySE(SE_SHINY);
+        StringExpandPlaceholders(gStringVar4, gText_PkmnBecameShiny);
+    }
+    else
+    {
+        ConvertMonToShiny(mon);
+        PlaySE(SE_USE_ITEM);
+        StringExpandPlaceholders(gStringVar4, gText_PkmnReturnedToNormal);
+    }
+    DisplayPartyMenuMessage(gStringVar4, TRUE);
+    ScheduleBgCopyTilemapToVram(2);
+    gTasks[taskId].func = task;
+}
+
 static u16 ItemEffectToMonEv(struct Pokemon *mon, u8 effectType)
 {
     switch (effectType)

@@ -409,6 +409,7 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_INF_REPEL] = {gItemIcon_Repel, gItemIconPalette_MaxRepel},
     [ITEM_PORTA_FLY] = {gItemIcon_HM, gItemIconPalette_FlyingTMHM},
     [ITEM_PORTA_PC] = {gItemIcon_TeachyTV, gItemIconPalette_TeachyTV},
+    [ITEM_SHINY_CHARM] = {gItemIcon_StarPiece, gItemIconPalette_Star},
 
     // Return to field arrow
     [ITEMS_COUNT] = {gItemIcon_ReturnToFieldArrow, gItemIconPalette_ReturnToFieldArrow},

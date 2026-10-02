@@ -2328,7 +2328,7 @@ SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
         case OT_ID_PRESET:
         {
             value = fixedOtId;
-            if (FlagGet(FLAG_SHINY_CREATION) || CheckQolOption(QOL_SHINY_RATE, QOL_SHINY_ALL))
+            if (FlagGet(FLAG_SHINY_CREATION))
             {
                 u8 nature = personality % NUM_NATURES;  // keep current nature
                 do {
@@ -2346,7 +2346,7 @@ SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
                  | (gSaveBlock2Ptr->playerTrainerId[2] << 16)
                  | (gSaveBlock2Ptr->playerTrainerId[3] << 24);
 
-            if (FlagGet(FLAG_SHINY_CREATION) || CheckQolOption(QOL_SHINY_RATE, QOL_SHINY_ALL))
+            if (FlagGet(FLAG_SHINY_CREATION))
             {
                 u8 nature = personality % NUM_NATURES;  // keep current nature
                 do {
@@ -2354,22 +2354,6 @@ SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
                     personality = ((((Random() % SHINY_ODDS) ^ (HIHALF(value) ^ LOHALF(value))) ^ LOHALF(personality)) << 16) | LOHALF(personality);
                 } while (nature != GetNatureFromPersonality(personality));
             }
-
-#ifdef ITEM_SHINY_CHARM
-            if (CheckBagHasItem(ITEM_SHINY_CHARM, 1))
-            {
-                u32 shinyValue;
-                u32 rolls = 0;
-                do
-                {
-                    personality = Random32();
-                    shinyValue = HIHALF(value) ^ LOHALF(value) ^ HIHALF(personality) ^ LOHALF(personality);
-                    rolls++;
-                      } while ((shinyValue >= SHINY_ODDS
-                          || (!hasFixedPersonality && GetNatureFromPersonality(personality) != preferredNature))
-                        && rolls < I_SHINY_CHARM_REROLLS);
-            }
-#endif
         }
         SetBoxMonData(boxMon, MON_DATA_PERSONALITY, &personality);
         FlagClear(FLAG_SHINY_CREATION);
@@ -6889,6 +6873,103 @@ bool8 IsShinyOtIdPersonality(u32 otId, u32 personality)
     if (shinyValue < SHINY_ODDS)
         retVal = TRUE;
     return retVal;
+}
+
+void ConvertMonToShiny(struct Pokemon *mon)
+{
+    u32 otId = GetMonData(mon, MON_DATA_OT_ID, 0);
+    u32 oldPersonality = GetMonData(mon, MON_DATA_PERSONALITY, 0);
+    u8 targetNature = GetNatureFromPersonality(oldPersonality);
+    u8 targetGenderByte = oldPersonality & 0xFF;
+    u8 targetAbilityBit = oldPersonality & 1;
+    u16 otIdXor = (otId >> 16) ^ (otId & 0xFFFF);
+    u32 newPersonality = oldPersonality;
+    u32 midByte, shinyVal;
+    u16 loHalf, hiHalf;
+    u32 candidate;
+    bool8 found = FALSE;
+    struct PokemonSubstruct0 sub0;
+    struct PokemonSubstruct1 sub1;
+    struct PokemonSubstruct2 sub2;
+    struct PokemonSubstruct3 sub3;
+
+    if (GetMonData(mon, MON_DATA_SANITY_IS_BAD_EGG))
+        return;
+
+    if (!IsMonShiny(mon))
+    {
+        for (midByte = 0; midByte < 256; midByte++)
+        {
+            loHalf = (midByte << 8) | targetGenderByte;
+            if ((loHalf & 1) != targetAbilityBit)
+                continue;
+
+            for (shinyVal = 0; shinyVal < SHINY_ODDS; shinyVal++)
+            {
+                hiHalf = shinyVal ^ otIdXor ^ loHalf;
+                candidate = ((u32)hiHalf << 16) | loHalf;
+                if (GetNatureFromPersonality(candidate) == targetNature && GET_SHINY_VALUE(otId, candidate) < SHINY_ODDS)
+                {
+                    newPersonality = candidate;
+                    found = TRUE;
+                    break;
+                }
+            }
+            if (found)
+                break;
+        }
+    }
+    else
+    {
+        for (midByte = 0; midByte < 256; midByte++)
+        {
+            loHalf = (midByte << 8) | targetGenderByte;
+            if ((loHalf & 1) != targetAbilityBit)
+                continue;
+
+            for (shinyVal = SHINY_ODDS; shinyVal < SHINY_ODDS + 100; shinyVal++)
+            {
+                hiHalf = shinyVal ^ otIdXor ^ loHalf;
+                candidate = ((u32)hiHalf << 16) | loHalf;
+                if (GetNatureFromPersonality(candidate) == targetNature && GET_SHINY_VALUE(otId, candidate) >= SHINY_ODDS)
+                {
+                    newPersonality = candidate;
+                    found = TRUE;
+                    break;
+                }
+            }
+            if (found)
+                break;
+        }
+    }
+
+    if (found && newPersonality != oldPersonality)
+    {
+        DecryptBoxMon(&mon->box);
+
+        if (CalculateBoxMonChecksum(&mon->box) != mon->box.checksum)
+        {
+            EncryptBoxMon(&mon->box);
+            return;
+        }
+
+        sub0 = GetSubstruct(&mon->box, oldPersonality, 0)->type0;
+        sub1 = GetSubstruct(&mon->box, oldPersonality, 1)->type1;
+        sub2 = GetSubstruct(&mon->box, oldPersonality, 2)->type2;
+        sub3 = GetSubstruct(&mon->box, oldPersonality, 3)->type3;
+
+        mon->box.personality = newPersonality;
+
+        GetSubstruct(&mon->box, newPersonality, 0)->type0 = sub0;
+        GetSubstruct(&mon->box, newPersonality, 1)->type1 = sub1;
+        GetSubstruct(&mon->box, newPersonality, 2)->type2 = sub2;
+        GetSubstruct(&mon->box, newPersonality, 3)->type3 = sub3;
+
+        mon->box.checksum = CalculateBoxMonChecksum(&mon->box);
+        EncryptBoxMon(&mon->box);
+
+        CalculateMonStats(mon);
+    }
 }
 
 const u8 *GetTrainerPartnerName(void)

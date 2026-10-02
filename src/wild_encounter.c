@@ -589,10 +589,6 @@ static void CreateWildMon(u16 species, u8 level)
     bool32 checkCuteCharm;
 
     ZeroEnemyPartyMons();
-    if (CheckQolOption(QOL_SHINY_RATE, QOL_SHINY_ALL))
-        FlagSet(FLAG_SHINY_CREATION);
-    else
-        FlagClear(FLAG_SHINY_CREATION);
     checkCuteCharm = TRUE;
 
     switch (gSpeciesInfo[species].genderRatio)

@@ -159,7 +159,7 @@ static const u8 sOption_ModItems[]      = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}MO
 static const u8 sOption_EasyFishing[]   = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}EASY FISHING");
 static const u8 sOption_ExpMultiplier[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}EXP RATE");
 static const u8 sOption_CatchRate[]     = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}CATCH RATE");
-static const u8 sOption_ShinyRate[]     = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}SHINIES");
+static const u8 sOption_ShinyRate[]     = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}STARTER SHINY");
 
 static const u8 sOption_PerfectIvs[]    = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}PERFECT IVS");
 static const u8 sOption_PreferNature[]  = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}PREFER NATURE");
@@ -194,7 +194,7 @@ static const u8 sTooltip_ModItems[]       = _("ON: Receive Porta Heal, EV Editor
 static const u8 sTooltip_EasyFishing[]    = _("EASY: Fast dots and 1-round bite hook.\n100%: Fast 1-round bites with 100% bite rate.\nVANILLA: Standard fishing mechanics.");
 static const u8 sTooltip_ExpMultiplier[]  = _("TRIPLE: 3x Experience points gained.\nVANILLA: Normal experience rate.");
 static const u8 sTooltip_CatchRate[]      = _("100%: All Poké Balls have guaranteed\ncatch rate.\nVANILLA: Standard catch calculation.");
-static const u8 sTooltip_ShinyRate[]      = _("ALL: All wild & starter Pokémon shiny.\nSTARTER: Starter Pokémon is shiny.\nVANILLA: 1/8192 shiny odds.");
+static const u8 sTooltip_ShinyRate[]      = _("ON: Starter Pokémon is guaranteed to be\nshiny.\nOFF: Standard 1/8192 shiny odds.\nUse SHINY CHARM to convert any Pokémon!");
 
 static const u8 sTooltip_PerfectIvs[]     = _("MAX 31: All caught and hatched Pokémon\nhave 31 IVs across all stats.\nRANDOM: Standard random IVs.");
 static const u8 sTooltip_PreferNature[]   = _("ON: Pokémon automatically receive optimal\nnature (Adamant/Modest/etc.)\nOFF: Standard random natures.");
@@ -232,7 +232,7 @@ static const u8 *const sChoices_ModItems[]      = { sText_On, sText_Off };
 static const u8 *const sChoices_EasyFishing[]   = { sText_Easy, sText_100Pct, sText_Vanilla };
 static const u8 *const sChoices_ExpMultiplier[] = { sText_Triple, sText_Vanilla };
 static const u8 *const sChoices_CatchRate[]     = { sText_100Pct, sText_Vanilla };
-static const u8 *const sChoices_ShinyRate[]     = { sText_All, sText_Starter, sText_Vanilla };
+static const u8 *const sChoices_ShinyRate[]     = { sText_On, sText_Off };
 
 static const u8 *const sChoices_PerfectIvs[]    = { sText_Max31, sText_Random };
 static const u8 *const sChoices_PreferNature[]  = { sText_On, sText_Off };
@@ -263,7 +263,7 @@ static const struct QolOptionData sQolOptions[CURRENT_QOL_OPTIONS_NUM + 1] =
     [QOL_EASY_FISHING]       = { sOption_EasyFishing,    sChoices_EasyFishing,   3, sTooltip_EasyFishing },
     [QOL_EXP_MULTIPLIER]     = { sOption_ExpMultiplier,  sChoices_ExpMultiplier, 2, sTooltip_ExpMultiplier },
     [QOL_CATCH_RATE]         = { sOption_CatchRate,      sChoices_CatchRate,     2, sTooltip_CatchRate },
-    [QOL_SHINY_RATE]         = { sOption_ShinyRate,      sChoices_ShinyRate,     3, sTooltip_ShinyRate },
+    [QOL_SHINY_RATE]         = { sOption_ShinyRate,      sChoices_ShinyRate,     2, sTooltip_ShinyRate },
 
     // Page 4
     [QOL_PERFECT_IVS]        = { sOption_PerfectIvs,     sChoices_PerfectIvs,    2, sTooltip_PerfectIvs },
@@ -294,7 +294,7 @@ static const u8 sPresetDefault[CURRENT_QOL_OPTIONS_NUM] =
     [QOL_EASY_FISHING]       = QOL_FISHING_EASY,
     [QOL_EXP_MULTIPLIER]     = QOL_EXP_TRIPLE,
     [QOL_CATCH_RATE]         = QOL_CATCH_100,
-    [QOL_SHINY_RATE]         = QOL_SHINY_ALL,
+    [QOL_SHINY_RATE]         = QOL_SHINY_STARTER,
     [QOL_PERFECT_IVS]        = QOL_IVS_MAX,
     [QOL_PREFER_NATURE]      = QOL_NATURE_ON,
     [QOL_FREE_HMS]           = QOL_FREE_HMS_ON,
@@ -540,7 +540,7 @@ static void SaveQolOptions(void)
 
         if (sLocalQolConfig.optionConfig[QOL_MOD_ITEMS] == QOL_MOD_ITEMS_OFF)
         {
-            if (gSaveBlock1Ptr->registeredItem >= ITEM_PORTA_HEAL && gSaveBlock1Ptr->registeredItem <= ITEM_PORTA_PC)
+            if (gSaveBlock1Ptr->registeredItem >= ITEM_PORTA_HEAL && gSaveBlock1Ptr->registeredItem <= ITEM_SHINY_CHARM)
                 gSaveBlock1Ptr->registeredItem = ITEM_NONE;
             ClearItemSlots(gSaveBlock1Ptr->bagPocket_Mods, BAG_MODS_COUNT);
         }
@@ -560,6 +560,8 @@ static void SaveQolOptions(void)
                 AddBagItem(ITEM_ABILITY_CAPSULE, 1);
             if (CheckBagHasItem(ITEM_MOVE_RELEARNER, 1) == FALSE)
                 AddBagItem(ITEM_MOVE_RELEARNER, 1);
+            if (CheckBagHasItem(ITEM_SHINY_CHARM, 1) == FALSE)
+                AddBagItem(ITEM_SHINY_CHARM, 1);
         }
     }
 }

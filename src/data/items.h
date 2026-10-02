@@ -4629,4 +4629,17 @@ const struct Item gItems[] =
         .type = ITEM_USE_FIELD,
         .fieldUseFunc = ItemUseOutOfBattle_PortaPC,
     },
+
+    [ITEM_SHINY_CHARM] =
+    {
+        .name = _("SHINY CHARM"),
+        .itemId = ITEM_SHINY_CHARM,
+        .price = 0,
+        .description = sShinyCharmDesc,
+        .importance = 1,
+        .registrability = TRUE,
+        .pocket = POCKET_MODS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_ShinyCharm,
+    },
 };
