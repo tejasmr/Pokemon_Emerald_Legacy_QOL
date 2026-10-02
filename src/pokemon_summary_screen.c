@@ -3398,6 +3398,8 @@ static void PrintHeldItemName(void)
     PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, PSS_DATA_WINDOW_SKILLS_HELD_ITEM), text, x, 1, 0, 0);
 }
 
+static const u8 sText_FriendshipSlashMax[] = _(" / 255");
+
 static void PrintFriendship(void)
 {
     const u8 *text;
@@ -3405,7 +3407,7 @@ static void PrintFriendship(void)
 
     ConvertIntToDecimalStringN(gStringVar1, sMonSummaryScreen->summary.friendship, STR_CONV_MODE_LEFT_ALIGN, 3);
     StringCopy(gStringVar4, gStringVar1);
-    StringAppend(gStringVar4, _(" / 255"));
+    StringAppend(gStringVar4, sText_FriendshipSlashMax);
     text = gStringVar4;
 
     x = GetStringCenterAlignXOffset(FONT_NORMAL, text, 70) + 6;
