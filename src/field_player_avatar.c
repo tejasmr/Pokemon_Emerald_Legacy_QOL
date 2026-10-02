@@ -1285,12 +1285,25 @@ bool8 PartyHasMonWithSurf(void)
 
     if (!TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING))
     {
-        for (i = 0; i < PARTY_SIZE; i++)
+        if (CheckQolOption(QOL_FREE_HMS, QOL_FREE_HMS_ON))
         {
-            if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) == SPECIES_NONE)
-                break;
-            if (MonKnowsMove(&gPlayerParty[i], MOVE_SURF))
-                return TRUE;
+            for (i = 0; i < PARTY_SIZE; i++)
+            {
+                if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) == SPECIES_NONE)
+                    break;
+                if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))
+                    return TRUE;
+            }
+        }
+        else
+        {
+            for (i = 0; i < PARTY_SIZE; i++)
+            {
+                if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) == SPECIES_NONE)
+                    break;
+                if (MonKnowsMove(&gPlayerParty[i], MOVE_SURF))
+                    return TRUE;
+            }
         }
     }
     return FALSE;
