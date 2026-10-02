@@ -1741,7 +1741,7 @@ bool8 ScrCmd_checkpartymove(struct ScriptContext *ctx)
 
     if (gSpecialVar_Result == PARTY_SIZE && CheckQolOption(QOL_FREE_HMS, QOL_FREE_HMS_ON))
     {
-        if (moveId == MOVE_CUT || moveId == MOVE_ROCK_SMASH || moveId == MOVE_STRENGTH || moveId == MOVE_SURF)
+        if (moveId == MOVE_CUT || moveId == MOVE_ROCK_SMASH || moveId == MOVE_STRENGTH || moveId == MOVE_SURF || moveId == MOVE_WATERFALL)
         {
             for (i = 0; i < PARTY_SIZE; i++)
             {

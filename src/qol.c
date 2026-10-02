@@ -197,7 +197,7 @@ static const u8 sTooltip_ShinyRate[]      = _("ALL: All wild & starter Pokémon 
 
 static const u8 sTooltip_PerfectIvs[]     = _("MAX 31: All caught and hatched Pokémon\nhave 31 IVs across all stats.\nRANDOM: Standard random IVs.");
 static const u8 sTooltip_PreferNature[]   = _("ON: Pokémon automatically receive optimal\nnature (Adamant/Modest/etc.)\nOFF: Standard random natures.");
-static const u8 sTooltip_FreeHms[]        = _("ON: Use overworld HMs (like Cut) without\nlearning the move if badge is obtained.\nOFF: Must know the HM move.");
+static const u8 sTooltip_FreeHms[]        = _("ON: Use overworld HMs without learning\nthe move if badge is obtained.\nOFF: Must know the HM move.");
 static const u8 sTooltip_AlwaysFlash[]    = _("ON: Dark caves are automatically lit up\nwith Flash without using the move.\nOFF: Must use Flash to light up caves.");
 static const u8 sTooltip_Page[]           = _("Switch between QOL configuration pages.\nPress LEFT/RIGHT or L/R triggers to flip\npages.");
 static const u8 sTooltip_StartGame[]      = _("Save configured Quality of Life options\nand proceed to begin your adventure!");
