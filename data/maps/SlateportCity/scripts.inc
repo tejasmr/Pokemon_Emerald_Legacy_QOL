@@ -81,6 +81,8 @@ SlateportCity_OnFrame:
 
 SlateportCity_EventScript_ScottScene::
 	lockall
+	specialvar VAR_RESULT, IsQolSkipScott
+	goto_if_eq VAR_RESULT, TRUE, SlateportCity_EventScript_SkipScottMuseum
 	addobject LOCALID_SCOTT
 	applymovement OBJ_EVENT_ID_PLAYER, SlateportCity_Movement_PlayerFaceScott
 	applymovement LOCALID_SCOTT, SlateportCity_Movement_ScottApproachPlayer
@@ -112,6 +114,16 @@ SlateportCity_EventScript_ScottScene::
 	clearflag FLAG_HIDE_MAP_NAME_POPUP
 	setvar VAR_SLATEPORT_OUTSIDE_MUSEUM_STATE, 2
 	addvar VAR_SCOTT_STATE, 1
+	releaseall
+	end
+
+SlateportCity_EventScript_SkipScottMuseum::
+	setobjectxyperm LOCALID_SCOTT, 10, 12
+	setobjectmovementtype LOCALID_SCOTT, MOVEMENT_TYPE_FACE_DOWN
+	setflag FLAG_ENABLE_SCOTT_MATCH_CALL
+	clearflag FLAG_HIDE_MAP_NAME_POPUP
+	setvar VAR_SLATEPORT_OUTSIDE_MUSEUM_STATE, 3
+	addvar VAR_SCOTT_STATE, 2
 	releaseall
 	end
 
@@ -921,6 +933,8 @@ SlateportCity_EventScript_NotEnoughBerryPowder::
 
 SlateportCity_EventScript_ScottBattleTentScene::
 	lockall
+	specialvar VAR_RESULT, IsQolSkipScott
+	goto_if_eq VAR_RESULT, TRUE, SlateportCity_EventScript_SkipScottBattleTent
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
 	waitmovement 0
 	opendoor 10, 12
@@ -937,6 +951,12 @@ SlateportCity_EventScript_ScottBattleTentScene::
 	applymovement LOCALID_SCOTT, SlateportCity_Movement_ScottExitAfterBattleTent
 	waitmovement 0
 	removeobject LOCALID_SCOTT
+	addvar VAR_SCOTT_STATE, 1
+	setvar VAR_SLATEPORT_OUTSIDE_MUSEUM_STATE, 3
+	releaseall
+	end
+
+SlateportCity_EventScript_SkipScottBattleTent::
 	addvar VAR_SCOTT_STATE, 1
 	setvar VAR_SLATEPORT_OUTSIDE_MUSEUM_STATE, 3
 	releaseall

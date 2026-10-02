@@ -545,4 +545,5 @@ gSpecials::
 	def_special UpdateGymLeaderRematch
 	def_special IsQolFastHealingEnabled
 	def_special IsQolWallyTutorialSkipped
+	def_special IsQolSkipScott
 

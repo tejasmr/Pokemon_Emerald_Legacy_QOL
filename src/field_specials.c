@@ -380,6 +380,13 @@ bool32 ShouldDoScottFortreeCall(void)
 {
     if (FlagGet(FLAG_SCOTT_CALL_FORTREE_GYM))
     {
+        if (IsQolSkipScott())
+        {
+            ClearFlag(FLAG_SCOTT_CALL_FORTREE_GYM);
+            *GetVarPointer(VAR_SCOTT_STATE) += 1;
+            return FALSE;
+        }
+
         switch (gMapHeader.mapType)
         {
         case MAP_TYPE_TOWN:
@@ -405,6 +412,12 @@ bool32 ShouldDoScottBattleFrontierCall(void)
 {
     if (FlagGet(FLAG_SCOTT_CALL_BATTLE_FRONTIER))
     {
+        if (IsQolSkipScott())
+        {
+            ClearFlag(FLAG_SCOTT_CALL_BATTLE_FRONTIER);
+            return FALSE;
+        }
+
         switch (gMapHeader.mapType)
         {
         case MAP_TYPE_TOWN:
@@ -4482,6 +4495,11 @@ bool8 IsQolFastHealingEnabled(void)
 bool8 IsQolWallyTutorialSkipped(void)
 {
     return CheckQolOption(QOL_WALLY_TUTORIAL, QOL_WALLY_SKIP);
+}
+
+bool8 IsQolSkipScott(void)
+{
+    return CheckQolOption(QOL_SKIP_SCOTT, QOL_SKIP_SCOTT_ON);
 }
 
 
