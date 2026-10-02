@@ -6081,6 +6081,13 @@ void AdjustFriendship(struct Pokemon *mon, u8 event)
          && (event != FRIENDSHIP_EVENT_LEAGUE_BATTLE || IS_LEAGUE_BATTLE))
         {
             s8 mod = sFriendshipEventModifiers[event][friendshipLevel];
+            
+            if (event == FRIENDSHIP_EVENT_GROW_LEVEL && CheckQolOption(QOL_EASY_FRIENDSHIP, QOL_FRIENDSHIP_EASY))
+            {
+                if (mod > 0 && mod < 10)
+                    mod = 10;
+            }
+
             if (mod > 0 && holdEffect == HOLD_EFFECT_FRIENDSHIP_UP)
                 mod = (150 * mod) / 100;
             friendship += mod;

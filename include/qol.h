@@ -1,9 +1,9 @@
 #ifndef GUARD_QOL_H
 #define GUARD_QOL_H
 
-#define CURRENT_QOL_OPTIONS_NUM 20
+#define CURRENT_QOL_OPTIONS_NUM 21
 #define QOL_OPTIONS_PER_PAGE 5
-#define QOL_MAX_PAGES 4
+#define QOL_MAX_PAGES 5
 #define ALL_QOL_OPTIONS_PER_PAGE (QOL_OPTIONS_PER_PAGE + 2)
 
 #define QOL_FONT_ID 1
@@ -37,6 +37,9 @@ enum QolOption
     QOL_FREE_HMS,
     QOL_ALWAYS_FLASH,
     QOL_SKIP_SCOTT,
+
+    // Page 5: Misc
+    QOL_EASY_FRIENDSHIP,
 
     // Navigation items
     QOL_PAGE,
@@ -192,6 +195,13 @@ enum
     QOL_SKIP_SCOTT_OFF
 };
 
+// Easy Friendship
+enum
+{
+    QOL_FRIENDSHIP_EASY,
+    QOL_FRIENDSHIP_VANILLA
+};
+
 struct QolSaveOptions
 {
     u8 preset:2;
@@ -214,6 +224,7 @@ struct QolSaveOptions
     u8 freeHms:1;
     u8 alwaysFlash:1;
     u8 skipScott:1;
+    u8 easyFriendship:1;
 };
 
 void CB2_InitQolMenu(void);
