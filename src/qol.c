@@ -162,6 +162,7 @@ static const u8 sOption_ShinyRate[]     = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}SH
 
 static const u8 sOption_PerfectIvs[]    = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}PERFECT IVS");
 static const u8 sOption_PreferNature[]  = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}PREFER NATURE");
+static const u8 sOption_FreeHms[]       = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}FREE HMS");
 
 static const u8 sOption_Page[]          = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}PAGE");
 static const u8 sOption_StartGame[]     = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}START GAME");
@@ -194,6 +195,7 @@ static const u8 sTooltip_ShinyRate[]      = _("ALL: All wild & starter Pokémon 
 
 static const u8 sTooltip_PerfectIvs[]     = _("MAX 31: All caught and hatched Pokémon\nhave 31 IVs across all stats.\nRANDOM: Standard random IVs.");
 static const u8 sTooltip_PreferNature[]   = _("ON: Pokémon automatically receive optimal\nnature (Adamant/Modest/etc.)\nOFF: Standard random natures.");
+static const u8 sTooltip_FreeHms[]        = _("ON: Use overworld HMs (like Cut) without\nlearning the move if badge is obtained.\nOFF: Must know the HM move.");
 static const u8 sTooltip_Page[]           = _("Switch between QOL configuration pages.\nPress LEFT/RIGHT or L/R triggers to flip\npages.");
 static const u8 sTooltip_StartGame[]      = _("Save configured Quality of Life options\nand proceed to begin your adventure!");
 static const u8 sTooltip_SaveExit[]       = _("Save configured Quality of Life options\nand return to the game.");
@@ -229,6 +231,7 @@ static const u8 *const sChoices_ShinyRate[]     = { sText_All, sText_Starter, sT
 
 static const u8 *const sChoices_PerfectIvs[]    = { sText_Max31, sText_Random };
 static const u8 *const sChoices_PreferNature[]  = { sText_On, sText_Off };
+static const u8 *const sChoices_FreeHms[]       = { sText_On, sText_Off };
 
 static const u8 *const sChoices_Page[]          = { sText_Page1, sText_Page2, sText_Page3, sText_Page4 };
 
@@ -258,6 +261,7 @@ static const struct QolOptionData sQolOptions[CURRENT_QOL_OPTIONS_NUM + 1] =
     // Page 4
     [QOL_PERFECT_IVS]        = { sOption_PerfectIvs,     sChoices_PerfectIvs,    2, sTooltip_PerfectIvs },
     [QOL_PREFER_NATURE]      = { sOption_PreferNature,   sChoices_PreferNature,  2, sTooltip_PreferNature },
+    [QOL_FREE_HMS]           = { sOption_FreeHms,        sChoices_FreeHms,       2, sTooltip_FreeHms },
 
     [QOL_PAGE]               = { sOption_Page,           sChoices_Page,          4, sTooltip_Page },
 };
@@ -284,6 +288,7 @@ static const u8 sPresetDefault[CURRENT_QOL_OPTIONS_NUM] =
     [QOL_SHINY_RATE]         = QOL_SHINY_ALL,
     [QOL_PERFECT_IVS]        = QOL_IVS_MAX,
     [QOL_PREFER_NATURE]      = QOL_NATURE_ON,
+    [QOL_FREE_HMS]           = QOL_FREE_HMS_ON,
 };
 
 static const u8 sPresetVanilla[CURRENT_QOL_OPTIONS_NUM] =
@@ -305,6 +310,7 @@ static const u8 sPresetVanilla[CURRENT_QOL_OPTIONS_NUM] =
     [QOL_SHINY_RATE]         = QOL_SHINY_VANILLA,
     [QOL_PERFECT_IVS]        = QOL_IVS_RANDOM,
     [QOL_PREFER_NATURE]      = QOL_NATURE_OFF,
+    [QOL_FREE_HMS]           = QOL_FREE_HMS_OFF,
 };
 
 /* ----------------------------------------------- */
@@ -502,6 +508,7 @@ static void SaveQolOptions(void)
     gSaveBlock2Ptr->qolConfig.shinyRate      = sLocalQolConfig.optionConfig[QOL_SHINY_RATE];
     gSaveBlock2Ptr->qolConfig.perfectIvs     = sLocalQolConfig.optionConfig[QOL_PERFECT_IVS];
     gSaveBlock2Ptr->qolConfig.preferNature   = sLocalQolConfig.optionConfig[QOL_PREFER_NATURE];
+    gSaveBlock2Ptr->qolConfig.freeHms        = sLocalQolConfig.optionConfig[QOL_FREE_HMS];
 
     if (gMain.savedCallback != NULL)
     {
@@ -849,6 +856,7 @@ static void LoadQolOptions(void)
     sLocalQolConfig.optionConfig[QOL_SHINY_RATE]         = gSaveBlock2Ptr->qolConfig.shinyRate;
     sLocalQolConfig.optionConfig[QOL_PERFECT_IVS]        = gSaveBlock2Ptr->qolConfig.perfectIvs;
     sLocalQolConfig.optionConfig[QOL_PREFER_NATURE]      = gSaveBlock2Ptr->qolConfig.preferNature;
+    sLocalQolConfig.optionConfig[QOL_FREE_HMS]           = gSaveBlock2Ptr->qolConfig.freeHms;
 }
 
 bool8 CheckQolOption(u8 option, u8 selection)
@@ -892,6 +900,8 @@ bool8 CheckQolOption(u8 option, u8 selection)
         return gSaveBlock2Ptr->qolConfig.perfectIvs == selection;
     case QOL_PREFER_NATURE:
         return gSaveBlock2Ptr->qolConfig.preferNature == selection;
+    case QOL_FREE_HMS:
+        return gSaveBlock2Ptr->qolConfig.freeHms == selection;
     default:
         return FALSE;
     }
@@ -938,6 +948,8 @@ u8 GetQolOption(u8 option)
         return gSaveBlock2Ptr->qolConfig.perfectIvs;
     case QOL_PREFER_NATURE:
         return gSaveBlock2Ptr->qolConfig.preferNature;
+    case QOL_FREE_HMS:
+        return gSaveBlock2Ptr->qolConfig.freeHms;
     default:
         return 0;
     }
