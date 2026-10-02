@@ -6888,6 +6888,13 @@ void ConvertMonToShiny(struct Pokemon *mon)
     u16 loHalf, hiHalf;
     u32 candidate;
     bool8 found = FALSE;
+    struct PokemonSubstruct0 sub0;
+    struct PokemonSubstruct1 sub1;
+    struct PokemonSubstruct2 sub2;
+    struct PokemonSubstruct3 sub3;
+
+    if (GetMonData(mon, MON_DATA_SANITY_IS_BAD_EGG))
+        return;
 
     if (!IsMonShiny(mon))
     {
@@ -6936,9 +6943,31 @@ void ConvertMonToShiny(struct Pokemon *mon)
         }
     }
 
-    if (found)
+    if (found && newPersonality != oldPersonality)
     {
-        SetMonData(mon, MON_DATA_PERSONALITY, &newPersonality);
+        DecryptBoxMon(&mon->box);
+
+        if (CalculateBoxMonChecksum(&mon->box) != mon->box.checksum)
+        {
+            EncryptBoxMon(&mon->box);
+            return;
+        }
+
+        sub0 = GetSubstruct(&mon->box, oldPersonality, 0)->type0;
+        sub1 = GetSubstruct(&mon->box, oldPersonality, 1)->type1;
+        sub2 = GetSubstruct(&mon->box, oldPersonality, 2)->type2;
+        sub3 = GetSubstruct(&mon->box, oldPersonality, 3)->type3;
+
+        mon->box.personality = newPersonality;
+
+        GetSubstruct(&mon->box, newPersonality, 0)->type0 = sub0;
+        GetSubstruct(&mon->box, newPersonality, 1)->type1 = sub1;
+        GetSubstruct(&mon->box, newPersonality, 2)->type2 = sub2;
+        GetSubstruct(&mon->box, newPersonality, 3)->type3 = sub3;
+
+        mon->box.checksum = CalculateBoxMonChecksum(&mon->box);
+        EncryptBoxMon(&mon->box);
+
         CalculateMonStats(mon);
     }
 }
