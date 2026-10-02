@@ -382,7 +382,7 @@ bool32 ShouldDoScottFortreeCall(void)
     {
         if (IsQolSkipScott())
         {
-            ClearFlag(FLAG_SCOTT_CALL_FORTREE_GYM);
+            FlagClear(FLAG_SCOTT_CALL_FORTREE_GYM);
             *GetVarPointer(VAR_SCOTT_STATE) += 1;
             return FALSE;
         }
@@ -414,7 +414,7 @@ bool32 ShouldDoScottBattleFrontierCall(void)
     {
         if (IsQolSkipScott())
         {
-            ClearFlag(FLAG_SCOTT_CALL_BATTLE_FRONTIER);
+            FlagClear(FLAG_SCOTT_CALL_BATTLE_FRONTIER);
             return FALSE;
         }
 
