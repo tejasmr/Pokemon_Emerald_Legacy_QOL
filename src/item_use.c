@@ -262,6 +262,12 @@ void ItemUseOutOfBattle_MoveRelearner(u8 taskId)
     SetUpItemUseCallback(taskId);
 }
 
+void ItemUseOutOfBattle_ShinyCharm(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_ShinyCharm;
+    SetUpItemUseCallback(taskId);
+}
+
 static void Task_OpenRegisteredFlyMap(u8 taskId)
 {
     if (!gPaletteFade.active)

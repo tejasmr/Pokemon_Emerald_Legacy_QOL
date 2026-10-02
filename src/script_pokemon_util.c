@@ -77,7 +77,7 @@ u8 ScriptGiveMon(u16 species, u8 level, u16 item, u32 unused1, u32 unused2, u8 u
     u8 heldItem[2];
     struct Pokemon mon;
 
-    if (CheckQolOption(QOL_SHINY_RATE, QOL_SHINY_ALL) || CheckQolOption(QOL_SHINY_RATE, QOL_SHINY_STARTER))
+    if (CheckQolOption(QOL_SHINY_RATE, QOL_SHINY_STARTER))
         FlagSet(FLAG_SHINY_CREATION);
     else
         FlagClear(FLAG_SHINY_CREATION);

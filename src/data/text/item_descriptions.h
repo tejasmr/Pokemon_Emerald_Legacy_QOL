@@ -1580,3 +1580,7 @@ static const u8 sPortaFlyDesc[] = _(
 static const u8 sPortaPcDesc[] = _(
     "Access the PC from\n"
     "anywhere.");
+
+static const u8 sShinyCharmDesc[] = _(
+    "A charm that converts\n"
+    "a POKéMON to shiny.");

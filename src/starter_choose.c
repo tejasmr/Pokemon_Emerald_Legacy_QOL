@@ -630,7 +630,7 @@ static void Task_CreateStarterLabel(u8 taskId)
 static u8 CreatePokemonFrontSprite(u16 species, u8 x, u8 y)
 {
     u8 spriteId;
-    u32 otId = (CheckQolOption(QOL_SHINY_RATE, QOL_SHINY_ALL) || CheckQolOption(QOL_SHINY_RATE, QOL_SHINY_STARTER)) ? 0 : SHINY_ODDS;
+    u32 otId = CheckQolOption(QOL_SHINY_RATE, QOL_SHINY_STARTER) ? 0 : SHINY_ODDS;
 
     spriteId = CreateMonPicSprite_Affine(species, otId, 0, MON_PIC_AFFINE_FRONT, x, y, 14, TAG_NONE);
     gSprites[spriteId].oam.priority = 0;

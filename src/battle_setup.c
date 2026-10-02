@@ -916,6 +916,7 @@ static void CB2_GiveStarter(void)
         AddBagItem(ITEM_EV_EDITOR, 1);
         AddBagItem(ITEM_ABILITY_CAPSULE, 1);
         AddBagItem(ITEM_MOVE_RELEARNER, 1);
+        AddBagItem(ITEM_SHINY_CHARM, 1);
     }
     ResetTasks();
     PlayBattleBGM();

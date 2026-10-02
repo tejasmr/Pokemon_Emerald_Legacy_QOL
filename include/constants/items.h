@@ -423,8 +423,9 @@
 #define ITEM_INF_REPEL 381
 #define ITEM_PORTA_FLY 382
 #define ITEM_PORTA_PC 383
+#define ITEM_SHINY_CHARM 384
 
-#define ITEMS_COUNT 384
+#define ITEMS_COUNT 385
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations
 // Its icon is defined at ITEMS_COUNT as the "return to field" arrow
