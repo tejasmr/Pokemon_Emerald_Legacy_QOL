@@ -1,7 +1,7 @@
 #ifndef GUARD_QOL_H
 #define GUARD_QOL_H
 
-#define CURRENT_QOL_OPTIONS_NUM 21
+#define CURRENT_QOL_OPTIONS_NUM 22
 #define QOL_OPTIONS_PER_PAGE 5
 #define QOL_MAX_PAGES 5
 #define ALL_QOL_OPTIONS_PER_PAGE (QOL_OPTIONS_PER_PAGE + 2)
@@ -40,6 +40,7 @@ enum QolOption
 
     // Page 5: Misc
     QOL_EASY_FRIENDSHIP,
+    QOL_INFINITE_MONEY,
 
     // Navigation items
     QOL_PAGE,
@@ -202,6 +203,13 @@ enum
     QOL_FRIENDSHIP_VANILLA
 };
 
+// Infinite Money
+enum
+{
+    QOL_INFINITE_MONEY_ON,
+    QOL_INFINITE_MONEY_OFF
+};
+
 struct QolSaveOptions
 {
     u8 preset:2;
@@ -225,6 +233,7 @@ struct QolSaveOptions
     u8 alwaysFlash:1;
     u8 skipScott:1;
     u8 easyFriendship:1;
+    u8 infiniteMoney:1;
 };
 
 void CB2_InitQolMenu(void);

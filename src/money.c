@@ -9,6 +9,7 @@
 #include "sprite.h"
 #include "strings.h"
 #include "decompress.h"
+#include "qol.h"
 
 #define MAX_MONEY 999999
 
@@ -81,6 +82,9 @@ void SetMoney(u32 *moneyPtr, u32 newValue)
 
 bool8 IsEnoughMoney(u32 *moneyPtr, u32 cost)
 {
+    if (CheckQolOption(QOL_INFINITE_MONEY, QOL_INFINITE_MONEY_ON))
+        return TRUE;
+
     if (GetMoney(moneyPtr) >= cost)
         return TRUE;
     else
@@ -91,17 +95,24 @@ void AddMoney(u32 *moneyPtr, u32 toAdd)
 {
     u32 toSet = GetMoney(moneyPtr);
 
-    // can't have more money than MAX
-    if (toSet + toAdd > MAX_MONEY)
+    if (CheckQolOption(QOL_INFINITE_MONEY, QOL_INFINITE_MONEY_ON))
     {
         toSet = MAX_MONEY;
     }
     else
     {
-        toSet += toAdd;
-        // check overflow, can't have less money after you receive more
-        if (toSet < GetMoney(moneyPtr))
+        // can't have more money than MAX
+        if (toSet + toAdd > MAX_MONEY)
+        {
             toSet = MAX_MONEY;
+        }
+        else
+        {
+            toSet += toAdd;
+            // check overflow, can't have less money after you receive more
+            if (toSet < GetMoney(moneyPtr))
+                toSet = MAX_MONEY;
+        }
     }
 
     SetMoney(moneyPtr, toSet);
@@ -110,6 +121,9 @@ void AddMoney(u32 *moneyPtr, u32 toAdd)
 void RemoveMoney(u32 *moneyPtr, u32 toSub)
 {
     u32 toSet = GetMoney(moneyPtr);
+
+    if (CheckQolOption(QOL_INFINITE_MONEY, QOL_INFINITE_MONEY_ON))
+        return;
 
     // can't subtract more than you already have
     if (toSet < toSub)
