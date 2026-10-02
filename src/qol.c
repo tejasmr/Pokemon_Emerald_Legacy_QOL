@@ -169,6 +169,7 @@ static const u8 sOption_AlwaysFlash[]   = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}AL
 static const u8 sOption_SkipScott[]     = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}SKIP SCOTT");
 static const u8 sOption_EasyFriendship[] = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}EASY FRNDSHIP");
 static const u8 sOption_InfiniteMoney[]  = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}INFINITE MONEY");
+static const u8 sOption_InfiniteCoins[]  = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}INFINITE COINS");
 
 static const u8 sOption_Page[]          = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}PAGE");
 static const u8 sOption_StartGame[]     = _("{COLOR GREEN}{SHADOW LIGHT_GREEN}START GAME");
@@ -206,6 +207,7 @@ static const u8 sTooltip_AlwaysFlash[]    = _("ON: Dark caves are automatically 
 static const u8 sTooltip_SkipScott[]      = _("ON: Skip Scott cutscenes and dialogue\nwhile preserving Match Call & BP rewards.\nOFF: Standard Scott encounters.");
 static const u8 sTooltip_EasyFriendship[] = _("EASY: Leveling up always gives at least\n10 friendship points.\nVANILLA: Standard friendship mechanics.");
 static const u8 sTooltip_InfiniteMoney[]  = _("ON: Purchases and services are free.\nMoney is never consumed.\nOFF: Standard money mechanics.");
+static const u8 sTooltip_InfiniteCoins[]  = _("ON: Game Corner games and prizes are\nfree. Coins are never consumed.\nOFF: Standard Game Corner mechanics.");
 static const u8 sTooltip_Page[]           = _("Switch between QOL configuration pages.\nPress LEFT/RIGHT or L/R triggers to flip\npages.");
 static const u8 sTooltip_StartGame[]      = _("Save configured Quality of Life options\nand proceed to begin your adventure!");
 static const u8 sTooltip_SaveExit[]       = _("Save configured Quality of Life options\nand return to the game.");
@@ -246,6 +248,7 @@ static const u8 *const sChoices_AlwaysFlash[]   = { sText_On, sText_Off };
 static const u8 *const sChoices_SkipScott[]     = { sText_On, sText_Off };
 static const u8 *const sChoices_EasyFriendship[] = { sText_Easy, sText_Vanilla };
 static const u8 *const sChoices_InfiniteMoney[]  = { sText_On, sText_Off };
+static const u8 *const sChoices_InfiniteCoins[]  = { sText_On, sText_Off };
 
 static const u8 *const sChoices_Page[]          = { sText_Page1, sText_Page2, sText_Page3, sText_Page4, sText_Page5 };
 
@@ -282,6 +285,7 @@ static const struct QolOptionData sQolOptions[CURRENT_QOL_OPTIONS_NUM + 1] =
     // Page 5
     [QOL_EASY_FRIENDSHIP]    = { sOption_EasyFriendship, sChoices_EasyFriendship,2, sTooltip_EasyFriendship },
     [QOL_INFINITE_MONEY]     = { sOption_InfiniteMoney,  sChoices_InfiniteMoney, 2, sTooltip_InfiniteMoney },
+    [QOL_INFINITE_COINS]     = { sOption_InfiniteCoins,  sChoices_InfiniteCoins, 2, sTooltip_InfiniteCoins },
 
     [QOL_PAGE]               = { sOption_Page,           sChoices_Page,          5, sTooltip_Page },
 };
@@ -313,6 +317,7 @@ static const u8 sPresetDefault[CURRENT_QOL_OPTIONS_NUM] =
     [QOL_SKIP_SCOTT]         = QOL_SKIP_SCOTT_ON,
     [QOL_EASY_FRIENDSHIP]    = QOL_FRIENDSHIP_EASY,
     [QOL_INFINITE_MONEY]     = QOL_INFINITE_MONEY_ON,
+    [QOL_INFINITE_COINS]     = QOL_INFINITE_COINS_ON,
 };
 
 static const u8 sPresetVanilla[CURRENT_QOL_OPTIONS_NUM] =
@@ -339,6 +344,7 @@ static const u8 sPresetVanilla[CURRENT_QOL_OPTIONS_NUM] =
     [QOL_SKIP_SCOTT]         = QOL_SKIP_SCOTT_OFF,
     [QOL_EASY_FRIENDSHIP]    = QOL_FRIENDSHIP_VANILLA,
     [QOL_INFINITE_MONEY]     = QOL_INFINITE_MONEY_OFF,
+    [QOL_INFINITE_COINS]     = QOL_INFINITE_COINS_OFF,
 };
 
 /* ----------------------------------------------- */
@@ -541,6 +547,7 @@ static void SaveQolOptions(void)
     gSaveBlock2Ptr->qolConfig.skipScott      = sLocalQolConfig.optionConfig[QOL_SKIP_SCOTT];
     gSaveBlock2Ptr->qolConfig.easyFriendship = sLocalQolConfig.optionConfig[QOL_EASY_FRIENDSHIP];
     gSaveBlock2Ptr->qolConfig.infiniteMoney  = sLocalQolConfig.optionConfig[QOL_INFINITE_MONEY];
+    gSaveBlock2Ptr->qolConfig.infiniteCoins  = sLocalQolConfig.optionConfig[QOL_INFINITE_COINS];
 
     if (gMain.savedCallback != NULL)
     {
@@ -897,6 +904,7 @@ static void LoadQolOptions(void)
     sLocalQolConfig.optionConfig[QOL_SKIP_SCOTT]         = gSaveBlock2Ptr->qolConfig.skipScott;
     sLocalQolConfig.optionConfig[QOL_EASY_FRIENDSHIP]    = gSaveBlock2Ptr->qolConfig.easyFriendship;
     sLocalQolConfig.optionConfig[QOL_INFINITE_MONEY]     = gSaveBlock2Ptr->qolConfig.infiniteMoney;
+    sLocalQolConfig.optionConfig[QOL_INFINITE_COINS]     = gSaveBlock2Ptr->qolConfig.infiniteCoins;
 }
 
 bool8 CheckQolOption(u8 option, u8 selection)
@@ -950,6 +958,8 @@ bool8 CheckQolOption(u8 option, u8 selection)
         return gSaveBlock2Ptr->qolConfig.easyFriendship == selection;
     case QOL_INFINITE_MONEY:
         return gSaveBlock2Ptr->qolConfig.infiniteMoney == selection;
+    case QOL_INFINITE_COINS:
+        return gSaveBlock2Ptr->qolConfig.infiniteCoins == selection;
     default:
         return FALSE;
     }
@@ -1006,6 +1016,8 @@ u8 GetQolOption(u8 option)
         return gSaveBlock2Ptr->qolConfig.easyFriendship;
     case QOL_INFINITE_MONEY:
         return gSaveBlock2Ptr->qolConfig.infiniteMoney;
+    case QOL_INFINITE_COINS:
+        return gSaveBlock2Ptr->qolConfig.infiniteCoins;
     default:
         return 0;
     }

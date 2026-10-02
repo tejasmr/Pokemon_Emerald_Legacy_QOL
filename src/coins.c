@@ -7,6 +7,7 @@
 #include "menu.h"
 #include "international_string_util.h"
 #include "constants/coins.h"
+#include "qol.h"
 
 static EWRAM_DATA u8 sCoinsWindowId = 0;
 
@@ -40,6 +41,8 @@ void HideCoinsWindow(void)
 
 u16 GetCoins(void)
 {
+    if (CheckQolOption(QOL_INFINITE_COINS, QOL_INFINITE_COINS_ON))
+        return MAX_COINS;
     return gSaveBlock1Ptr->coins ^ gSaveBlock2Ptr->encryptionKey;
 }
 
@@ -52,6 +55,12 @@ bool8 AddCoins(u16 toAdd)
 {
     u16 newAmount;
     u16 ownedCoins = GetCoins();
+
+    if (CheckQolOption(QOL_INFINITE_COINS, QOL_INFINITE_COINS_ON))
+    {
+        return TRUE;
+    }
+
     if (ownedCoins >= MAX_COINS)
         return FALSE;
     // check overflow, can't have less coins than previously
@@ -73,6 +82,10 @@ bool8 AddCoins(u16 toAdd)
 bool8 RemoveCoins(u16 toSub)
 {
     u16 ownedCoins = GetCoins();
+
+    if (CheckQolOption(QOL_INFINITE_COINS, QOL_INFINITE_COINS_ON))
+        return TRUE;
+
     if (ownedCoins >= toSub)
     {
         SetCoins(ownedCoins - toSub);
