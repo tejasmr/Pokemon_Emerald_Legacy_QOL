@@ -16,6 +16,7 @@
 #include "text_window.h"
 #include "main_menu.h"
 #include "item.h"
+#include "overworld.h"
 #include "event_data.h"
 #include "constants/items.h"
 
@@ -519,13 +520,7 @@ static void SaveQolOptions(void)
 
     if (gMain.savedCallback != NULL)
     {
-        if (gMapHeader.cave)
-        {
-            if (sLocalQolConfig.optionConfig[QOL_ALWAYS_FLASH] == QOL_ALWAYS_FLASH_ON || FlagGet(FLAG_SYS_USE_FLASH))
-                gSaveBlock1Ptr->flashLevel = 1;
-            else
-                gSaveBlock1Ptr->flashLevel = gMaxFlashLevel - 1;
-        }
+        SetDefaultFlashLevel();
 
         if (VarGet(VAR_LITTLEROOT_TOWN_STATE) < 4)
         {
