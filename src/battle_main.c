@@ -4147,6 +4147,26 @@ enum
     STATE_SELECTION_SCRIPT_MAY_RUN
 };
 
+static bool8 IsBattlerHuman(u8 battlerId)
+{
+    if (gBattleTypeFlags & BATTLE_TYPE_LINK)
+        return TRUE;
+
+    if (GetBattlerPosition(battlerId) == B_POSITION_PLAYER_LEFT)
+        return TRUE;
+
+    if (GetBattlerPosition(battlerId) == B_POSITION_PLAYER_RIGHT)
+    {
+        if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
+            return FALSE;
+        if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER)
+            return FALSE;
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
 static void HandleTurnActionSelectionState(void)
 {
     s32 i;
@@ -4162,6 +4182,21 @@ static void HandleTurnActionSelectionState(void)
             gBattleCommunication[gActiveBattler] = STATE_BEFORE_ACTION_CHOSEN;
             break;
         case STATE_BEFORE_ACTION_CHOSEN: // Choose an action.
+            if (!IsBattlerHuman(gActiveBattler))
+            {
+                bool8 humanIsChoosing = FALSE;
+                for (i = 0; i < gBattlersCount; i++)
+                {
+                    if (IsBattlerHuman(i) && (gBattleControllerExecFlags & gBitTable[i]))
+                    {
+                        humanIsChoosing = TRUE;
+                        break;
+                    }
+                }
+                if (humanIsChoosing)
+                    break;
+            }
+
             *(gBattleStruct->monToSwitchIntoId + gActiveBattler) = PARTY_SIZE;
             if (gBattleTypeFlags & BATTLE_TYPE_MULTI
                 || (position & BIT_FLANK) == B_FLANK_LEFT
@@ -4194,6 +4229,21 @@ static void HandleTurnActionSelectionState(void)
             }
             break;
         case STATE_WAIT_ACTION_CHOSEN: // Try to perform an action.
+            if (!IsBattlerHuman(gActiveBattler))
+            {
+                bool8 humanIsChoosing = FALSE;
+                for (i = 0; i < gBattlersCount; i++)
+                {
+                    if (IsBattlerHuman(i) && (gBattleControllerExecFlags & gBitTable[i]))
+                    {
+                        humanIsChoosing = TRUE;
+                        break;
+                    }
+                }
+                if (humanIsChoosing)
+                    break;
+            }
+
             if (!(gBattleControllerExecFlags & ((gBitTable[gActiveBattler]) | (0xF << 28) | (gBitTable[gActiveBattler] << 4) | (gBitTable[gActiveBattler] << 8) | (gBitTable[gActiveBattler] << 12))))
             {
                 RecordedBattle_SetBattlerAction(gActiveBattler, gBattleBufferB[gActiveBattler][1]);
